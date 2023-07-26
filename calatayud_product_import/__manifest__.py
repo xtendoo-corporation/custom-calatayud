@@ -6,11 +6,13 @@
     "version": "16.0",
     "author": "Camilo Prado (https://xtendoo.es)",
     "category": "Calatayud",
+    "license": "AGPL-3",
     "depends": [
         "product",
     ],
     "data": [
         "wizard/import_product_wizard_view.xml",
+        "views/calatayud_product_import_view.xml",
     ],
     'installable': True,
     'active': False,
