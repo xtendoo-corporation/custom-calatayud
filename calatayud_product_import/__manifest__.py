@@ -13,6 +13,7 @@
     "data": [
         "wizard/import_product_wizard_view.xml",
         "views/calatayud_product_import_view.xml",
+        "security/ir.model.access.csv",
     ],
     'installable': True,
     'active': False,

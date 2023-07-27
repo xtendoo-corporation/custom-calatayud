@@ -92,29 +92,24 @@ class CalatayudProductImport(models.TransientModel):
         )
         return lines
 
-    def _prepare_invoice(self, partner_id, invoice_data, ref):
+    def _prepare_invoice(self, partner_id, product_data, name):
         self.ensure_one()
-        journal = self.env['account.move'].with_context(default_move_type='out_invoice')._get_default_journal()
+        journal = self.env['product.template'].with_context(default_move_type='out_invoice')._get_default_journal()
         if not journal:
             raise ValidationError(
                 _('Please define an accounting sales journal for the company %s (%s).', self.company_id.name,
                   self.company_id.id)
             )
-        invoice_lines = self._prepare_invoice_lines(invoice_data)
-        if not invoice_lines:
+        product_lines = self._prepare_invoice_lines(product_data)
+        if not product_lines:
             raise ValidationError(
                 _('No lines to import in this invoice.')
             )
-        invoice_vals = {
+        product_vals = {
             'move_type': 'out_invoice',
-            'ref': ref,
-            'partner_id': partner_id.id,
-            'journal_id': journal.id,  # company comes from the journal
-            "date": fields.Date.today(),
-            "invoice_date": fields.Date.today(),
-            'invoice_line_ids': invoice_lines,
+            'name': name,
         }
-        return invoice_vals
+        return product_vals
 
     @api.model
     def create_invoice(self, partner_id, book, index_sheet, ref):
