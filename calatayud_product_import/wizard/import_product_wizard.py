@@ -65,24 +65,24 @@ class CalatayudProductImport(models.TransientModel):
         name = sheet.cell_value(row, 0)
         description_sale = sheet.cell_value(row, 2)
         product_tag = sheet.cell_value(row, 3)
-        if name:
-            product_template = {
-                'detailed_type': 'product',
-                'invoice_policy': 'delivery',
-                'name': name,
-                'description_sale': description_sale,
-            }
-            if product_tag:
-                product_tag_ids = self._find_or_create_product_tag(product_tag)
+        if not name:
+            return
+        result = self.env["product.template"].search([("name", "=", name)])
+        if result:
+            return result
+        product_template = {
+            'detailed_type': 'product',
+            'invoice_policy': 'delivery',
+            'name': name,
+            'description_sale': description_sale,
+        }
+        if product_tag:
+            product_tag_ids = self._find_or_create_product_tag(product_tag)
 
-                if product_tag_ids:
-                    product_template['product_tag_ids'] = [(6, 0, product_tag_ids.ids)]
+            if product_tag_ids:
+                product_template['product_tag_ids'] = [(6, 0, product_tag_ids.ids)]
 
-            self.env["product.template"].create(product_template)
-
-    def _create_attribute(self, sheet, row):
-        print("debo de crear el atributo", row)
-        return
+        self.env["product.template"].create(product_template)
 
     def _find_or_create_product_tag(self, product_tag):
         result = self.env["product.tag"].search([("name", "=", product_tag)])
@@ -93,3 +93,36 @@ class CalatayudProductImport(models.TransientModel):
         )
         return result
 
+    def _create_attribute(self, sheet, row):
+        product_attribute_value = sheet.cell_value(row, 1)
+        product_attribute = self._find_or_create_product_attribute('Color')
+        if not product_attribute:
+            return
+        self._find_or_create_product_attribute_value(product_attribute, product_attribute_value)
+
+    def _find_or_create_product_attribute(self, product_attribute):
+        result = self.env["product.attribute"].search([("name", "=", product_attribute)])
+        if result:
+            return result
+        result = self.env["product.attribute"].create(
+            {"name": product_attribute}
+        )
+        return result
+
+    def _find_or_create_product_attribute_value(self, product_attribute, product_attribute_value):
+        product_attribute_id = product_attribute[0].id
+        result = self.env["product.attribute.value"].search(
+            [
+                ("name", "=", product_attribute_value),
+                ("attribute_id", "=", product_attribute_id)
+            ]
+        )
+        if result:
+            return result
+        result = self.env["product.attribute.value"].create(
+            {
+                "attribute_id": product_attribute_id,
+                "name": product_attribute_value,
+            }
+        )
+        return result
