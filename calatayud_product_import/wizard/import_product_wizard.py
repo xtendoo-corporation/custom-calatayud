@@ -44,15 +44,10 @@ class CalatayudProductImport(models.TransientModel):
             book = xlrd.open_workbook(file_contents=decoded_data)
             sheet = book.sheet_by_index(0)
             for row in range(1, sheet.nrows):
-
-                print("sheet.cell_value(row, 1)", sheet.cell_value(row, 1))
-
                 if sheet.cell_value(row, 1):
-                    self._create_attribute(sheet, row)
+                    self._search_or_create_attribute(sheet, row)
                 else:
-                    print("create_product_template")
-                    self._create_product_template(sheet, row)
-                print(row)
+                    self._search_or_create_product_template(sheet, row)
 
         except xlrd.XLRDError:
             raise ValidationError(
@@ -61,46 +56,56 @@ class CalatayudProductImport(models.TransientModel):
         except Exception as e:
             raise e
 
-    def _create_product_template(self, sheet, row):
+    def _search_or_create_product_template(self, sheet, row):
         name = sheet.cell_value(row, 0)
-        description_sale = sheet.cell_value(row, 2)
-        product_tag = sheet.cell_value(row, 3)
         if not name:
             return
         result = self.env["product.template"].search([("name", "=", name)])
         if result:
             return result
+        description_sale = sheet.cell_value(row, 2)
         product_template = {
             'detailed_type': 'product',
             'invoice_policy': 'delivery',
             'name': name,
             'description_sale': description_sale,
         }
-        if product_tag:
-            product_tag_ids = self._find_or_create_product_tag(product_tag)
 
-            if product_tag_ids:
-                product_template['product_tag_ids'] = [(6, 0, product_tag_ids.ids)]
+        category_id = self._search_or_create_category(sheet, row)
+        if category_id:
+            product_template['categ_id'] = category_id.id
+
+        product_tag_ids = self._search_or_create_product_tag(sheet, row)
+        if product_tag_ids:
+            product_template['product_tag_ids'] = [(6, 0, product_tag_ids.ids)]
 
         self.env["product.template"].create(product_template)
 
-    def _find_or_create_product_tag(self, product_tag):
+    def _search_or_create_category(self, sheet, row):
+        category = sheet.cell_value(row, 4)
+        if not category:
+            return
+        result = self.env["product.category"].search([("name", "=", category)])
+        if result:
+            return result
+        return self.env["product.category"].create({"name": category})
+
+    def _search_or_create_attribute(self, sheet, row):
+        product_attribute = self._search_or_create_product_attribute('Color')
+        if not product_attribute:
+            return
+        product_attribute_value = sheet.cell_value(row, 1)
+        self._search_or_create_product_attribute_value(product_attribute, product_attribute_value)
+    def _search_or_create_product_tag(self, sheet, row):
+        product_tag = sheet.cell_value(row, 3)
+        if not product_tag:
+            return
         result = self.env["product.tag"].search([("name", "=", product_tag)])
         if result:
             return result
-        result = self.env["product.tag"].create(
-            {"name": product_tag}
-        )
-        return result
+        return self.env["product.tag"].create({"name": product_tag})
 
-    def _create_attribute(self, sheet, row):
-        product_attribute_value = sheet.cell_value(row, 1)
-        product_attribute = self._find_or_create_product_attribute('Color')
-        if not product_attribute:
-            return
-        self._find_or_create_product_attribute_value(product_attribute, product_attribute_value)
-
-    def _find_or_create_product_attribute(self, product_attribute):
+    def _search_or_create_product_attribute(self, product_attribute):
         result = self.env["product.attribute"].search([("name", "=", product_attribute)])
         if result:
             return result
@@ -109,20 +114,19 @@ class CalatayudProductImport(models.TransientModel):
         )
         return result
 
-    def _find_or_create_product_attribute_value(self, product_attribute, product_attribute_value):
+    def _search_or_create_product_attribute_value(self, product_attribute, product_attribute_value):
         product_attribute_id = product_attribute[0].id
         result = self.env["product.attribute.value"].search(
             [
+                ("attribute_id", "=", product_attribute_id),
                 ("name", "=", product_attribute_value),
-                ("attribute_id", "=", product_attribute_id)
             ]
         )
         if result:
             return result
-        result = self.env["product.attribute.value"].create(
+        return self.env["product.attribute.value"].create(
             {
                 "attribute_id": product_attribute_id,
                 "name": product_attribute_value,
             }
         )
-        return result
