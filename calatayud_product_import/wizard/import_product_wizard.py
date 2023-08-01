@@ -50,6 +50,7 @@ class CalatayudProductImport(models.TransientModel):
                 description_sale = sheet.cell_value(row, 2)
                 product_tag = sheet.cell_value(row, 3)
                 category = sheet.cell_value(row, 4)
+                standard_price = sheet.cell_value(row, 5)
                 if not name:
                     return
 
