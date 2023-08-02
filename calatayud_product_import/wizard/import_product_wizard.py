@@ -68,7 +68,7 @@ class CalatayudProductImport(models.TransientModel):
                     product_attribute_color, product_attribute_value
                 )
 
-                print("*"*80)
+                print("*" * 80)
                 print("product_attribute_color_value", product_attribute_color_value)
 
                 if product_attribute_color_value:
@@ -160,7 +160,8 @@ class CalatayudProductImport(models.TransientModel):
             }
         )
 
-    def _search_or_create_product_attribute_line(self, product_template, product_attribute_color, ):
+    def _search_or_create_product_attribute_line(self, product_template, product_attribute_color,
+                                                 product_attribute_color_value):
         result = self.env["product.template.attribute.line"].search(
             [
                 ("product_tmpl_id", "=", product_template.id),
@@ -193,7 +194,7 @@ class CalatayudProductImport(models.TransientModel):
         return result
 
     def _search_or_create_product_product(self, product_template, product_attribute_value, standard_price, image):
-        print("*"*80)
+        print("*" * 80)
         print(product_template.product_variant_ids)
 
         for product in product_template:
@@ -219,8 +220,4 @@ class CalatayudProductImport(models.TransientModel):
 
             print("product_variant", product_variant)
 
-        print("*"*80)
-
-
-
-
+        print("*" * 80)
