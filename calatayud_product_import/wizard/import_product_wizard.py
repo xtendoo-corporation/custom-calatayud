@@ -2,6 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
 import base64
+import requests
+
 import uuid
 from ast import literal_eval
 from datetime import date, datetime as dt
@@ -48,14 +50,16 @@ class CalatayudProductImport(models.TransientModel):
                 name = sheet.cell_value(row, 0)
                 product_attribute_value = sheet.cell_value(row, 1)
                 description_sale = sheet.cell_value(row, 2)
-                product_tag = sheet.cell_value(row, 3)
-                category = sheet.cell_value(row, 4)
-                standard_price = sheet.cell_value(row, 5)
+                seller = sheet.cell_value(row, 3)
+                product_tags = sheet.cell_value(row, 4)
+                category = sheet.cell_value(row, 5)
+                standard_price = sheet.cell_value(row, 6)
+                image = sheet.cell_value(row, 7)
                 if not name:
                     return
 
                 product_template = self._search_or_create_product_template(
-                    name, description_sale, category, product_tag
+                    name, description_sale, category, product_tags
                 )
                 if not product_template:
                     return
@@ -63,10 +67,18 @@ class CalatayudProductImport(models.TransientModel):
                 product_attribute_color_value = self._search_or_create_product_attribute_value(
                     product_attribute_color, product_attribute_value
                 )
-                if not product_attribute_color_value:
+
+                print("*"*80)
+                print("product_attribute_color_value", product_attribute_color_value)
+
+                if product_attribute_color_value:
                     self._search_or_create_product_attribute_line(
                         product_template, product_attribute_color, product_attribute_color_value
                     )
+
+                product_product = self._search_or_create_product_product(
+                    product_template, product_attribute_value, standard_price, image
+                )
 
         except xlrd.XLRDError:
             raise ValidationError(
@@ -75,7 +87,7 @@ class CalatayudProductImport(models.TransientModel):
         except Exception as e:
             raise e
 
-    def _search_or_create_product_template(self, name, description_sale, category, product_tag):
+    def _search_or_create_product_template(self, name, description_sale, category, product_tags):
         if not name:
             return
         result = self.env["product.template"].search([("name", "=", name)])
@@ -92,9 +104,17 @@ class CalatayudProductImport(models.TransientModel):
         if category_id:
             product_template['categ_id'] = category_id.id
 
-        product_tag_ids = self._search_or_create_product_tag(product_tag)
-        if product_tag_ids:
-            product_template['product_tag_ids'] = [(6, 0, product_tag_ids.ids)]
+        print("product_tags", product_tags.split('; '))
+
+        product_template['product_tag_ids'] = []
+
+        for product_tag in product_tags.split('; '):
+
+            print("product_tag", product_tag)
+
+            product_tag_ids = self._search_or_create_product_tag(product_tag)
+            if product_tag_ids:
+                product_template['product_tag_ids'] += product_tag_ids.ids
 
         return self.env["product.template"].create(product_template)
 
@@ -140,7 +160,7 @@ class CalatayudProductImport(models.TransientModel):
             }
         )
 
-    def _search_or_create_product_attribute_line(self, product_template, product_attribute_color, product_attribute_color_value):
+    def _search_or_create_product_attribute_line(self, product_template, product_attribute_color, ):
         result = self.env["product.template.attribute.line"].search(
             [
                 ("product_tmpl_id", "=", product_template.id),
@@ -150,10 +170,57 @@ class CalatayudProductImport(models.TransientModel):
         )
         if result:
             return result
-        return self.env["product.template.attribute.line"].create(
+
+        result = self.env["product.template.attribute.line"].search(
+            [
+                ("product_tmpl_id", "=", product_template.id),
+                ("attribute_id", "=", product_attribute_color.id),
+            ]
+        )
+        if result and product_attribute_color_value not in result.value_ids:
+            result.write({
+                "value_ids": [(4, product_attribute_color_value.id)]
+            })
+            return result
+
+        result = self.env["product.template.attribute.line"].create(
             {
                 "product_tmpl_id": product_template.id,
                 "attribute_id": product_attribute_color.id,
                 "value_ids": [(6, 0, [product_attribute_color_value.id])],
             }
         )
+        return result
+
+    def _search_or_create_product_product(self, product_template, product_attribute_value, standard_price, image):
+        print("*"*80)
+        print(product_template.product_variant_ids)
+
+        for product in product_template:
+            product_variant = product.product_variant_ids.search(
+                [
+                    ("product_template_variant_value_ids.name", "=", product_attribute_value)
+                ]
+            )
+            if product_variant:
+
+                print("product_variant", product_variant)
+                print("standard_price", standard_price)
+                print("image", image)
+
+                product_variant.write({
+                    "standard_price": standard_price,
+                })
+                if image:
+                    product_variant.write({
+                        'image_1920': base64.b64encode(
+                            requests.get(image.strip()).content).replace(b'\n', b''),
+                    })
+
+            print("product_variant", product_variant)
+
+        print("*"*80)
+
+
+
+
