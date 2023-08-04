@@ -3,6 +3,9 @@
 import logging
 import base64
 import requests
+import certifi
+import urllib3
+
 
 import uuid
 from ast import literal_eval
@@ -58,25 +61,28 @@ class CalatayudProductImport(models.TransientModel):
                 if not name:
                     return
 
+                print("*"*80)
+                print("procesado: ", name)
+
                 product_template = self._search_or_create_product_template(
-                    name, description_sale, category, product_tags
+                    name, description_sale, seller, category, product_tags
                 )
                 if not product_template:
                     return
 
+                if seller:
+                    self._search_or_create_seller_in_product_template(product_template, seller)
+
                 product_attribute_color_value = self._search_or_create_product_attribute_value(
                     product_attribute_color, product_attribute_value
                 )
-
-                print("*" * 80)
-                print("product_attribute_color_value", product_attribute_color_value)
 
                 if product_attribute_color_value:
                     self._search_or_create_product_attribute_line(
                         product_template, product_attribute_color, product_attribute_color_value
                     )
 
-                product_product = self._search_or_create_product_product(
+                self._update_product_product(
                     product_template, product_attribute_value, standard_price, image
                 )
 
@@ -87,7 +93,7 @@ class CalatayudProductImport(models.TransientModel):
         except Exception as e:
             raise e
 
-    def _search_or_create_product_template(self, name, description_sale, category, product_tags):
+    def _search_or_create_product_template(self, name, description_sale, seller, category, product_tags):
         if not name:
             return
         result = self.env["product.template"].search([("name", "=", name)])
@@ -104,14 +110,9 @@ class CalatayudProductImport(models.TransientModel):
         if category_id:
             product_template['categ_id'] = category_id.id
 
-        print("product_tags", product_tags.split('; '))
-
         product_template['product_tag_ids'] = []
 
         for product_tag in product_tags.split('; '):
-
-            print("product_tag", product_tag)
-
             product_tag_ids = self._search_or_create_product_tag(product_tag)
             if product_tag_ids:
                 product_template['product_tag_ids'] += product_tag_ids.ids
@@ -193,31 +194,45 @@ class CalatayudProductImport(models.TransientModel):
         )
         return result
 
-    def _search_or_create_product_product(self, product_template, product_attribute_value, standard_price, image):
-        print("*" * 80)
-        print(product_template.product_variant_ids)
-
+    def _update_product_product(self, product_template, product_attribute_value, standard_price, image):
         for product in product_template:
-            product_variant = product.product_variant_ids.search(
+            product_variant = self.env["product.product"].search(
                 [
-                    ("product_template_variant_value_ids.name", "=", product_attribute_value)
+                    ("product_tmpl_id", "=", product.id),
+                    ("product_template_variant_value_ids.name", "=", product_attribute_value),
                 ]
             )
             if product_variant:
-
-                print("product_variant", product_variant)
-                print("standard_price", standard_price)
-                print("image", image)
-
                 product_variant.write({
                     "standard_price": standard_price,
                 })
                 if image:
+                    print("*"*80)
+                    print("image: ", image)
                     product_variant.write({
-                        'image_1920': base64.b64encode(
-                            requests.get(image.strip()).content).replace(b'\n', b''),
+                        'image_1920': base64.b64encode(requests.get(image.strip()).content)
+                            .replace(b'\n', b''),
                     })
 
-            print("product_variant", product_variant)
-
-        print("*" * 80)
+    def _search_or_create_seller_in_product_template(self, product_template, seller):
+        res_partner = self.env["res.partner"].search([("name", "=", seller)])
+        if not res_partner:
+            res_partner = self.env["res.partner"].create(
+                {
+                    "name": seller,
+                    "supplier_rank": 1,
+                }
+            )
+        product_supplierinfo = self.env["product.supplierinfo"].search(
+            [
+                ("partner_id", "=", res_partner.id),
+                ("product_tmpl_id", "=", product_template.id),
+            ]
+        )
+        if not product_supplierinfo:
+            self.env["product.supplierinfo"].create(
+                {
+                    "partner_id": res_partner.id,
+                    "product_tmpl_id": product_template.id,
+                }
+            )

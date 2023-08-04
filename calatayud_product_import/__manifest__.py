@@ -10,6 +10,8 @@
     "depends": [
         "product",
         "stock",
+        "sale",
+        "purchase",
     ],
     "data": [
         "wizard/import_product_wizard_view.xml",
