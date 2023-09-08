@@ -25,6 +25,6 @@ class ProductTemplate(models.Model):
             pricelist_item = product.pricelist_item_ids.filtered(
                 lambda x: x.pricelist_id.name == 'Tarifa mayorista')
             if pricelist_item:
-                product.wholesale_price = product.list_price * (1 - pricelist_item.product_id.discount / 100)
+                product.wholesale_price = product.list_price * (1 - pricelist_item.discount / 100)
             else:
                 product.wholesale_price = 0.0
