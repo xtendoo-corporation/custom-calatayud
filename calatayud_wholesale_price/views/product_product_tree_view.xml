@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+
+        <record id="product_list_price_custom_column" model="ir.ui.view">
+            <field name="name">product.template.list</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='list_price']" position="after">
+                    <field name="wholesale_price" string="Tarifa mayorista" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
