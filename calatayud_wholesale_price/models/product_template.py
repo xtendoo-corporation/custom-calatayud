@@ -20,9 +20,7 @@ class ProductTemplate(models.Model):
         pricelist_item = pricelist.item_ids[0]
         if not pricelist_item:
             return
+        order_date = fields.Date.today()
+        qty = 1.0
         for product in self:
-            order_date = fields.Date.today()
-            qty = 1.0
-            uom = product.uom_id
-            product.wholesale_price = pricelist_item._compute_price(product, qty, uom, order_date)
-
+            product.wholesale_price = pricelist_item._compute_price(product, qty, product.uom_id, order_date)
