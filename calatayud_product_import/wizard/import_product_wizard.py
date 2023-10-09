@@ -44,56 +44,66 @@ class CalatayudProductImport(models.TransientModel):
 
     @api.model
     def _import_record_data(self, import_file):
-        try:
-            decoded_data = base64.decodebytes(import_file)
-            book = xlrd.open_workbook(file_contents=decoded_data)
-            sheet = book.sheet_by_index(0)
-            product_attribute_color = self._search_or_create_product_attribute('Color')
-            for row in range(1, sheet.nrows):
-                name = sheet.cell_value(row, 0)
-                product_attribute_value = sheet.cell_value(row, 1)
-                description_sale = sheet.cell_value(row, 2)
-                seller = sheet.cell_value(row, 3)
-                product_tags = sheet.cell_value(row, 4)
-                category = sheet.cell_value(row, 5)
-                standard_price = sheet.cell_value(row, 6)
-                image = sheet.cell_value(row, 7)
-                if not name:
-                    return
+        # try:
+        decoded_data = base64.decodebytes(import_file)
+        book = xlrd.open_workbook(file_contents=decoded_data)
+        sheet = book.sheet_by_index(0)
+        product_attribute_color = self._search_or_create_product_attribute('Color')
+        for row in range(1, sheet.nrows):
+            name = sheet.cell_value(row, 0)
+            product_attribute_value = sheet.cell_value(row, 1)
+            description_sale = sheet.cell_value(row, 2)
+            seller = sheet.cell_value(row, 3)
+            product_tags = sheet.cell_value(row, 4)
+            category = sheet.cell_value(row, 5)
+            category_webs = sheet.cell_value(row, 6)
+            standard_price = sheet.cell_value(row, 7)
+            image = sheet.cell_value(row, 8)
+            if not name:
+                return
 
-                print("*"*80)
-                print("procesado: ", name)
+            print("*"*80)
+            print("procesado: ", name)
+            print("product_attribute_value",product_attribute_value)
+            print("description_sale",description_sale)
+            print("seller", seller)
+            print("product_tags", product_tags)
+            print("category", category)
+            print("category_webs", category_webs)
+            print("standard_price", standard_price)
+            print("image", image)
+            print("*"*80)
 
-                product_template = self._search_or_create_product_template(
-                    name, description_sale, seller, category, product_tags
-                )
-                if not product_template:
-                    return
-
-                if seller:
-                    self._search_or_create_seller_in_product_template(product_template, seller)
-
-                product_attribute_color_value = self._search_or_create_product_attribute_value(
-                    product_attribute_color, product_attribute_value
-                )
-
-                if product_attribute_color_value:
-                    self._search_or_create_product_attribute_line(
-                        product_template, product_attribute_color, product_attribute_color_value
-                    )
-
-                self._update_product_product(
-                    product_template, product_attribute_value, standard_price, image
-                )
-
-        except xlrd.XLRDError:
-            raise ValidationError(
-                _("Invalid file style, only .xls or .xlsx file allowed")
+            product_template = self._search_or_create_product_template(
+                name, description_sale, seller, category, product_tags, category_webs
             )
-        except Exception as e:
-            raise e
+            if not product_template:
+                return
 
-    def _search_or_create_product_template(self, name, description_sale, seller, category, product_tags):
+            if seller:
+                self._search_or_create_seller_in_product_template(product_template, seller)
+
+            product_attribute_color_value = self._search_or_create_product_attribute_value(
+                product_attribute_color, product_attribute_value
+            )
+
+            if product_attribute_color_value:
+                self._search_or_create_product_attribute_line(
+                    product_template, product_attribute_color, product_attribute_color_value
+                )
+
+            self._update_product_product(
+                product_template, product_attribute_value, standard_price, image
+            )
+
+        # except xlrd.XLRDError:
+        #     raise ValidationError(
+        #         _("Invalid file style, only .xls or .xlsx file allowed")
+        #     )
+        # except Exception as e:
+        #     raise e
+
+    def _search_or_create_product_template(self, name, description_sale, seller, category, product_tags, category_webs):
         if not name:
             return
         result = self.env["product.template"].search([("name", "=", name)])
@@ -117,6 +127,17 @@ class CalatayudProductImport(models.TransientModel):
             if product_tag_ids:
                 product_template['product_tag_ids'] += product_tag_ids.ids
 
+        product_template['public_categ_ids'] = []
+
+        for category_web in category_webs.split('; '):
+            category_web_ids = self._search_or_create_public_categ(category_web)
+            if category_web_ids:
+                product_template['public_categ_ids'] += category_web_ids.ids
+
+        print("*"*80)
+        print("product_template", product_template)
+        print("*"*80)
+
         return self.env["product.template"].create(product_template)
 
     def _search_or_create_category(self, category):
@@ -134,6 +155,14 @@ class CalatayudProductImport(models.TransientModel):
         if result:
             return result
         return self.env["product.tag"].create({"name": product_tag})
+
+    def _search_or_create_public_categ(self, category_web):
+        if not category_web:
+            return
+        result = self.env["product.public.category"].search([("name", "=", category_web)])
+        if result:
+            return result
+        return self.env["product.public.category"].create({"name": category_web})
 
     def _search_or_create_product_attribute(self, product_attribute):
         result = self.env["product.attribute"].search([("name", "=", product_attribute)])

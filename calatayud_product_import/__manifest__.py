@@ -12,6 +12,7 @@
         "stock",
         "sale",
         "purchase",
+        "website_sale",
     ],
     "data": [
         "wizard/import_product_wizard_view.xml",
