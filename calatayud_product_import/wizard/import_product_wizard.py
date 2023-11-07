@@ -55,10 +55,12 @@ class CalatayudProductImport(models.TransientModel):
             description_sale = sheet.cell_value(row, 2)
             seller = sheet.cell_value(row, 3)
             product_tags = sheet.cell_value(row, 4)
-            category = sheet.cell_value(row, 5)
-            category_webs = sheet.cell_value(row, 6)
-            standard_price = sheet.cell_value(row, 7)
-            image = sheet.cell_value(row, 8)
+            category_ecommerce = sheet.cell_value(row, 5)
+            category = sheet.cell_value(row, 6)
+            category_webs = sheet.cell_value(row, 7)
+            standard_price = sheet.cell_value(row, 8)
+            description_ecommerce = sheet.cell_value(row, 9)
+            image = sheet.cell_value(row, 10)
             if not name:
                 return
 
@@ -75,13 +77,15 @@ class CalatayudProductImport(models.TransientModel):
             print("*"*80)
 
             product_template = self._search_or_create_product_template(
-                name, description_sale, seller, category, product_tags, category_webs
+                name, description_sale, seller, category, product_tags, category_webs, category_ecommerce, description_ecommerce
             )
             if not product_template:
                 return
 
             if seller:
-                self._search_or_create_seller_in_product_template(product_template, seller)
+                self._search_or_create_seller_in_product_template(
+                    product_template, seller
+                )
 
             product_attribute_color_value = self._search_or_create_product_attribute_value(
                 product_attribute_color, product_attribute_value
@@ -103,22 +107,21 @@ class CalatayudProductImport(models.TransientModel):
         # except Exception as e:
         #     raise e
 
-    def _search_or_create_product_template(self, name, description_sale, seller, category, product_tags, category_webs):
+    def _search_or_create_product_template(self, name, description_sale, seller, category, product_tags, category_webs, category_ecommerce, description_ecommerce):
         if not name:
             return
-        result = self.env["product.template"].search([("name", "=", name)])
-        if result:
-            return result
+
         product_template = {
             'detailed_type': 'product',
             'invoice_policy': 'delivery',
             'name': name,
             'description_sale': description_sale,
+            'public_description': description_ecommerce,
         }
 
-        category_id = self._search_or_create_category(category)
-        if category_id:
-            product_template['categ_id'] = category_id.id
+        # category_id = self._search_or_create_category(category)
+        # if category_id:
+        #     product_template['categ_id'] = category_id.id
 
         product_template['product_tag_ids'] = []
 
@@ -130,7 +133,7 @@ class CalatayudProductImport(models.TransientModel):
         product_template['public_categ_ids'] = []
 
         for category_web in category_webs.split('; '):
-            category_web_ids = self._search_or_create_public_categ(category_web)
+            category_web_ids = self._search_or_create_public_categ(category_web, category_ecommerce)
             if category_web_ids:
                 product_template['public_categ_ids'] += category_web_ids.ids
 
@@ -138,15 +141,12 @@ class CalatayudProductImport(models.TransientModel):
         print("product_template", product_template)
         print("*"*80)
 
-        return self.env["product.template"].create(product_template)
-
-    def _search_or_create_category(self, category):
-        if not category:
-            return
-        result = self.env["product.category"].search([("name", "=", category)])
+        result = self.env["product.template"].search([("name", "=", name)])
         if result:
+            result.write(product_template)
             return result
-        return self.env["product.category"].create({"name": category})
+
+        return self.env["product.template"].create(product_template)
 
     def _search_or_create_product_tag(self, product_tag):
         if not product_tag:
@@ -156,13 +156,29 @@ class CalatayudProductImport(models.TransientModel):
             return result
         return self.env["product.tag"].create({"name": product_tag})
 
-    def _search_or_create_public_categ(self, category_web):
+    def _search_or_create_public_categ(self, category_web, category_ecommerce):
         if not category_web:
             return
-        result = self.env["product.public.category"].search([("name", "=", category_web)])
-        if result:
-            return result
-        return self.env["product.public.category"].create({"name": category_web})
+        result_web = self.env["product.public.category"].search([("name", "=", category_web)])
+        if not result_web:
+            result_web = self.env["product.public.category"].create({"name": category_web})
+        if not category_ecommerce:
+            return result_web
+
+        result_ecommerce = self.env["product.public.category"].search(
+            [
+                ("name", "=", category_ecommerce),
+                ("parent_id", "=", result_web.id),
+            ]
+        )
+        if not result_ecommerce:
+            result_ecommerce = self.env["product.public.category"].create(
+                {
+                    "name": category_ecommerce,
+                    "parent_id": result_web.id,
+                }
+            )
+        return result_ecommerce
 
     def _search_or_create_product_attribute(self, product_attribute):
         result = self.env["product.attribute"].search([("name", "=", product_attribute)])
