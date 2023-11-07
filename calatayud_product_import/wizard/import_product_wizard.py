@@ -65,14 +65,16 @@ class CalatayudProductImport(models.TransientModel):
                 return
 
             print("*"*80)
-            print("procesado: ", name)
-            print("product_attribute_value",product_attribute_value)
-            print("description_sale",description_sale)
-            print("seller", seller)
-            print("product_tags", product_tags)
+            print("procesado:", name)
+            print("product_attribute_value:", product_attribute_value)
+            print("description_sale:", description_sale)
+            print("seller:", seller)
+            print("product_tags:", product_tags)
             print("category", category)
+            print("category_ecommerce", category_ecommerce)
             print("category_webs", category_webs)
             print("standard_price", standard_price)
+            print("description_ecommerce", description_ecommerce)
             print("image", image)
             print("*"*80)
 
@@ -137,14 +139,14 @@ class CalatayudProductImport(models.TransientModel):
             if category_web_ids:
                 product_template['public_categ_ids'] += category_web_ids.ids
 
-        print("*"*80)
-        print("product_template", product_template)
-        print("*"*80)
-
         result = self.env["product.template"].search([("name", "=", name)])
         if result:
             result.write(product_template)
             return result
+
+        print("*"*80)
+        print("product_template", product_template)
+        print("*"*80)
 
         return self.env["product.template"].create(product_template)
 
@@ -206,8 +208,9 @@ class CalatayudProductImport(models.TransientModel):
             }
         )
 
-    def _search_or_create_product_attribute_line(self, product_template, product_attribute_color,
-                                                 product_attribute_color_value):
+    def _search_or_create_product_attribute_line(
+        self, product_template, product_attribute_color, product_attribute_color_value
+    ):
         result = self.env["product.template.attribute.line"].search(
             [
                 ("product_tmpl_id", "=", product_template.id),
