@@ -55,7 +55,7 @@ class CalatayudProductImport(models.TransientModel):
             description_sale = sheet.cell_value(row, 2)
             seller = sheet.cell_value(row, 3)
             product_tags = sheet.cell_value(row, 4)
-            category_ecommerce = sheet.cell_value(row, 5)
+            categories_ecommerce = sheet.cell_value(row, 5)
             category = sheet.cell_value(row, 6)
             category_webs = sheet.cell_value(row, 7)
             standard_price = sheet.cell_value(row, 8)
@@ -71,7 +71,7 @@ class CalatayudProductImport(models.TransientModel):
             print("seller:", seller)
             print("product_tags:", product_tags)
             print("category", category)
-            print("category_ecommerce", category_ecommerce)
+            print("categories_ecommerce", categories_ecommerce)
             print("category_webs", category_webs)
             print("standard_price", standard_price)
             print("description_ecommerce", description_ecommerce)
@@ -79,7 +79,7 @@ class CalatayudProductImport(models.TransientModel):
             print("*"*80)
 
             product_template = self._search_or_create_product_template(
-                name, description_sale, seller, category, product_tags, category_webs, category_ecommerce, description_ecommerce
+                name, description_sale, product_tags, category_webs, categories_ecommerce, description_ecommerce
             )
             if not product_template:
                 return
@@ -109,7 +109,8 @@ class CalatayudProductImport(models.TransientModel):
         # except Exception as e:
         #     raise e
 
-    def _search_or_create_product_template(self, name, description_sale, seller, category, product_tags, category_webs, category_ecommerce, description_ecommerce):
+    def _search_or_create_product_template(
+            self, name, description_sale, product_tags, category_webs, categories_ecommerce, description_ecommerce):
         if not name:
             return
 
@@ -121,10 +122,6 @@ class CalatayudProductImport(models.TransientModel):
             'public_description': description_ecommerce,
         }
 
-        # category_id = self._search_or_create_category(category)
-        # if category_id:
-        #     product_template['categ_id'] = category_id.id
-
         product_template['product_tag_ids'] = []
 
         for product_tag in product_tags.split('; '):
@@ -134,10 +131,14 @@ class CalatayudProductImport(models.TransientModel):
 
         product_template['public_categ_ids'] = []
 
-        for category_web in category_webs.split('; '):
-            category_web_ids = self._search_or_create_public_categ(category_web, category_ecommerce)
+        for category_ecommerce in categories_ecommerce.split('; '):
+            category_web_ids = self._search_or_create_public_categ(category_webs, category_ecommerce)
             if category_web_ids:
                 product_template['public_categ_ids'] += category_web_ids.ids
+
+        category_id = self._search_or_create_category(category_webs)
+        if category_id:
+            product_template['categ_id'] = category_id.id
 
         result = self.env["product.template"].search([("name", "=", name)])
         if result:
@@ -149,6 +150,19 @@ class CalatayudProductImport(models.TransientModel):
         print("*"*80)
 
         return self.env["product.template"].create(product_template)
+
+    def _search_or_create_category(self, category):
+        if not category:
+            return
+        result = self.env["product.category"].search([("name", "=", category)])
+        if result:
+            return result
+        return self.env["product.category"].create(
+            {
+                "name": category,
+                "parent_id": self.env.ref('product.product_category_all').id,
+            }
+        )
 
     def _search_or_create_product_tag(self, product_tag):
         if not product_tag:
