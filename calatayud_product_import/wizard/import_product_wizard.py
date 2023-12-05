@@ -117,6 +117,7 @@ class CalatayudProductImport(models.TransientModel):
         product_template = {
             'detailed_type': 'product',
             'invoice_policy': 'delivery',
+            'available_in_pos': True,
             'name': name,
             'description_sale': description_sale,
             'public_description': description_ecommerce,
@@ -267,6 +268,7 @@ class CalatayudProductImport(models.TransientModel):
             if product_variant:
                 product_variant.write({
                     "standard_price": standard_price,
+                    "ref": product.name + " " + product_attribute_value,
                 })
                 if image:
                     print("*"*80)
