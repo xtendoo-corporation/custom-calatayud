@@ -61,46 +61,45 @@ class CalatayudProductImport(models.TransientModel):
             standard_price = sheet.cell_value(row, 8)
             description_ecommerce = sheet.cell_value(row, 9)
             image = sheet.cell_value(row, 10)
-            if not name:
-                return
 
-            print("*"*80)
-            print("procesado:", name)
-            print("product_attribute_value:", product_attribute_value)
-            print("description_sale:", description_sale)
-            print("seller:", seller)
-            print("product_tags:", product_tags)
-            print("category", category)
-            print("categories_ecommerce", categories_ecommerce)
-            print("category_webs", category_webs)
-            print("standard_price", standard_price)
-            print("description_ecommerce", description_ecommerce)
-            print("image", image)
-            print("*"*80)
+            if name:
+                print("*"*80)
+                print("procesado:", name)
+                print("product_attribute_value:", product_attribute_value)
+                print("description_sale:", description_sale)
+                print("seller:", seller)
+                print("product_tags:", product_tags)
+                print("category", category)
+                print("categories_ecommerce", categories_ecommerce)
+                print("category_webs", category_webs)
+                print("standard_price", standard_price)
+                print("description_ecommerce", description_ecommerce)
+                print("image", image)
+                print("*"*80)
 
-            product_template = self._search_or_create_product_template(
-                name, description_sale, product_tags, category_webs, categories_ecommerce, description_ecommerce
-            )
-            if not product_template:
-                return
+                product_template = self._search_or_create_product_template(
+                    name, description_sale, product_tags, category_webs, categories_ecommerce, description_ecommerce
+                )
+                if not product_template:
+                    return
 
-            if seller:
-                self._search_or_create_seller_in_product_template(
-                    product_template, seller
+                if seller:
+                    self._search_or_create_seller_in_product_template(
+                        product_template, seller
+                    )
+
+                product_attribute_color_value = self._search_or_create_product_attribute_value(
+                    product_attribute_color, product_attribute_value
                 )
 
-            product_attribute_color_value = self._search_or_create_product_attribute_value(
-                product_attribute_color, product_attribute_value
-            )
+                if product_attribute_color_value:
+                    self._search_or_create_product_attribute_line(
+                        product_template, product_attribute_color, product_attribute_color_value
+                    )
 
-            if product_attribute_color_value:
-                self._search_or_create_product_attribute_line(
-                    product_template, product_attribute_color, product_attribute_color_value
+                self._update_product_product(
+                    product_template, product_attribute_value, standard_price, image
                 )
-
-            self._update_product_product(
-                product_template, product_attribute_value, standard_price, image
-            )
 
         # except xlrd.XLRDError:
         #     raise ValidationError(
@@ -265,10 +264,16 @@ class CalatayudProductImport(models.TransientModel):
                     ("product_template_variant_value_ids.name", "=", product_attribute_value),
                 ]
             )
+
+            print("*"*80)
+            print("product.name: ", product.name)
+            print("product_attribute_value: ", product_attribute_value)
+            print("*"*80)
+
             if product_variant:
                 product_variant.write({
                     "standard_price": standard_price,
-                    "ref": product.name + " " + product_attribute_value,
+                    "default_code": product.name + " " + str(product_attribute_value),
                 })
                 if image:
                     print("*"*80)

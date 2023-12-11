@@ -16,8 +16,8 @@
         "website_sale_product_description",
     ],
     "data": [
-        "wizard/idealfruit_import_wizard_view.xml",
-        "views/idealfruit_import_view.xml",
+        "wizard/import_product_wizard_view.xml",
+        "views/calatayud_product_import_view.xml",
         "security/ir.model.access.csv",
     ],
     'installable': True,
