@@ -140,7 +140,7 @@ class CalatayudProductImport(models.TransientModel):
         if category_id:
             product_template['categ_id'] = category_id.id
 
-        result = self.env["product.template"].search([("name", "=", name)])
+        result = self.env["product.template"].search([("name", "=", name.strip())])
         if result:
             result.write(product_template)
             return result
@@ -154,7 +154,7 @@ class CalatayudProductImport(models.TransientModel):
     def _search_or_create_category(self, category):
         if not category:
             return
-        result = self.env["product.category"].search([("name", "=", category)])
+        result = self.env["product.category"].search([("name", "=", category.strip())])
         if result:
             return result
         return self.env["product.category"].create(
@@ -167,7 +167,7 @@ class CalatayudProductImport(models.TransientModel):
     def _search_or_create_product_tag(self, product_tag):
         if not product_tag:
             return
-        result = self.env["product.tag"].search([("name", "=", product_tag)])
+        result = self.env["product.tag"].search([("name", "=", product_tag.strip())])
         if result:
             return result
         return self.env["product.tag"].create({"name": product_tag})
@@ -175,7 +175,7 @@ class CalatayudProductImport(models.TransientModel):
     def _search_or_create_public_categ(self, category_web, category_ecommerce):
         if not category_web:
             return
-        result_web = self.env["product.public.category"].search([("name", "=", category_web)])
+        result_web = self.env["product.public.category"].search([("name", "=", category_web.strip())])
         if not result_web:
             result_web = self.env["product.public.category"].create({"name": category_web})
         if not category_ecommerce:
@@ -197,7 +197,7 @@ class CalatayudProductImport(models.TransientModel):
         return result_ecommerce
 
     def _search_or_create_product_attribute(self, product_attribute):
-        result = self.env["product.attribute"].search([("name", "=", product_attribute)])
+        result = self.env["product.attribute"].search([("name", "=", product_attribute.strip())])
         if result:
             return result
         result = self.env["product.attribute"].create(
@@ -284,7 +284,7 @@ class CalatayudProductImport(models.TransientModel):
                     })
 
     def _search_or_create_seller_in_product_template(self, product_template, seller):
-        res_partner = self.env["res.partner"].search([("name", "=", seller)])
+        res_partner = self.env["res.partner"].search([("name", "=", seller.strip())])
         if not res_partner:
             res_partner = self.env["res.partner"].create(
                 {
