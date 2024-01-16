@@ -12,5 +12,16 @@
             </field>
         </record>
 
+        <record id="product_product_tree_view_custom_column" model="ir.ui.view">
+            <field name="name">product.product.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lst_price']" position="after">
+                    <field name="wholesale_price" string="Tarifa mayorista" />
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>
