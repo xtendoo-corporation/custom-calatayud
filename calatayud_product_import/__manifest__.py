@@ -11,6 +11,7 @@
         "product",
         "stock",
         "sale",
+        "pos_sale",
         "purchase",
         "website_sale",
         "website_sale_product_description",

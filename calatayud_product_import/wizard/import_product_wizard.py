@@ -132,7 +132,7 @@ class CalatayudProductImport(models.TransientModel):
         product_template['public_categ_ids'] = []
 
         for category_ecommerce in categories_ecommerce.split('; '):
-            category_web_ids = self._search_or_create_public_categ(category_webs, category_ecommerce)
+            category_web_ids = self._search_or_create_ecommerce_category(category_ecommerce)
             if category_web_ids:
                 product_template['public_categ_ids'] += category_web_ids.ids
 
@@ -171,6 +171,39 @@ class CalatayudProductImport(models.TransientModel):
         if result:
             return result
         return self.env["product.tag"].create({"name": product_tag})
+
+    def _search_or_create_ecommerce_category(self, category_ecommerce):
+        if not category_ecommerce:
+            return
+
+        if not ' / ' in category_ecommerce:
+            result = self.env["product.public.category"].search([("name", "=", category_ecommerce.strip())])
+            if not result:
+                result = self.env["product.public.category"].create({"name": category_ecommerce.strip()})
+            return result
+
+        index = 0
+        for category in category_ecommerce.split(' / '):
+            if index == 0:
+                result_web = self.env["product.public.category"].search([("name", "=", category.strip())])
+                if not result_web:
+                    result_web = self.env["product.public.category"].create({"name": category.strip()})
+            else:
+                result_ecommerce = self.env["product.public.category"].search(
+                    [
+                        ("name", "=", category),
+                        ("parent_id", "=", result_web.id),
+                    ]
+                )
+                if not result_ecommerce:
+                    result_ecommerce = self.env["product.public.category"].create(
+                        {
+                            "name": category,
+                            "parent_id": result_web.id,
+                        }
+                    )
+                return result_ecommerce
+            index += 1
 
     def _search_or_create_public_categ(self, category_web, category_ecommerce):
         if not category_web:
