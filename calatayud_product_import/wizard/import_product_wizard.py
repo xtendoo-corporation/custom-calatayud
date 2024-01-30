@@ -42,6 +42,13 @@ class CalatayudProductImport(models.TransientModel):
         else:
             raise ValidationError(_("Please select Excel file to import"))
 
+    def convert_to_float(self, value):
+        value = str(value).replace(',', '.')
+        try:
+            return float(value)
+        except ValueError:
+            return 0.0
+
     @api.model
     def _import_record_data(self, import_file):
         # try:
@@ -58,7 +65,7 @@ class CalatayudProductImport(models.TransientModel):
             categories_ecommerce = sheet.cell_value(row, 5)
             category = sheet.cell_value(row, 6)
             category_webs = sheet.cell_value(row, 7)
-            standard_price = sheet.cell_value(row, 8)
+            standard_price = self.convert_to_float(sheet.cell_value(row, 8))
             description_ecommerce = sheet.cell_value(row, 9)
             image = sheet.cell_value(row, 10)
 
