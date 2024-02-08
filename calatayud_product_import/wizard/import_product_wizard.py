@@ -173,7 +173,7 @@ class CalatayudProductImport(models.TransientModel):
                 return result
             return self.env["product.category"].create(
                 {
-                    "name": category,
+                    "name": category.strip(),
                     "parent_id": self.env.ref('product.product_category_all').id,
                 }
             )
@@ -191,21 +191,21 @@ class CalatayudProductImport(models.TransientModel):
                     if not result_web:
                         result_web = self.env["product.category"].create(
                             {
-                                "name": category,
+                                "name": category.strip(),
                                 "parent_id": self.env.ref('product.product_category_all').id,
                             }
                         )
                 else:
                     result_ecommerce = self.env["product.category"].search(
                         [
-                            ("name", "=", category),
+                            ("name", "=", category.strip()),
                             ("parent_id", "=", result_web.id),
                         ]
                     )
                     if not result_ecommerce:
                         result_ecommerce = self.env["product.category"].create(
                             {
-                                "name": category,
+                                "name": category.strip(),
                                 "parent_id": result_web.id,
                             }
                         )
@@ -246,7 +246,7 @@ class CalatayudProductImport(models.TransientModel):
                 if not result_ecommerce:
                     result_ecommerce = self.env["product.public.category"].create(
                         {
-                            "name": category,
+                            "name": category.strip(),
                             "parent_id": result_web.id,
                         }
                     )
@@ -258,7 +258,7 @@ class CalatayudProductImport(models.TransientModel):
             return
         result_web = self.env["product.public.category"].search([("name", "=", category_web.strip())])
         if not result_web:
-            result_web = self.env["product.public.category"].create({"name": category_web})
+            result_web = self.env["product.public.category"].create({"name": category_web.strip()})
         if not category_ecommerce:
             return result_web
 
@@ -282,7 +282,7 @@ class CalatayudProductImport(models.TransientModel):
         if result:
             return result
         result = self.env["product.attribute"].create(
-            {"name": product_attribute}
+            {"name": product_attribute.strip()}
         )
         return result
 
@@ -369,7 +369,7 @@ class CalatayudProductImport(models.TransientModel):
         if not res_partner:
             res_partner = self.env["res.partner"].create(
                 {
-                    "name": seller,
+                    "name": seller.strip(),
                     "supplier_rank": 1,
                 }
             )
