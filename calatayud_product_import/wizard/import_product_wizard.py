@@ -218,7 +218,7 @@ class CalatayudProductImport(models.TransientModel):
         result = self.env["product.tag"].search([("name", "=", product_tag.strip())])
         if result:
             return result
-        return self.env["product.tag"].create({"name": product_tag})
+        return self.env["product.tag"].create({"name": product_tag.strip()})
 
     def _search_or_create_ecommerce_category(self, category_ecommerce):
         if not category_ecommerce:
