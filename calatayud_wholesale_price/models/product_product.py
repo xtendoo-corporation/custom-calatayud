@@ -14,13 +14,11 @@ class ProductProduct(models.Model):
 
     def _compute_wholesale_price(self):
         self.wholesale_price = 0.0
-        pricelist = self.env['product.pricelist'].search([('name', '=', 'Tarifa mayorista')])
-        if not pricelist:
+        pricelist_id = self.env['product.pricelist'].search([('name', '=', 'Tarifa mayorista')], limit=1)
+        if not pricelist_id:
             return
-        pricelist_item = pricelist.item_ids[0]
-        if not pricelist_item:
-            return
-        order_date = fields.Date.today()
-        qty = 1.0
-        for product in self:
-            product.wholesale_price = pricelist_item._compute_price(product, qty, product.uom_id, order_date)
+        for product_id in self:
+            wholesale_price = pricelist_id._get_product_price(
+                product_id, 1.0, uom=product_id.uom_id, date=fields.Date.today(),
+            )
+            product_id.wholesale_price = wholesale_price
