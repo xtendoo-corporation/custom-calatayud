@@ -158,38 +158,35 @@ class CalatayudProductImport(models.TransientModel):
 
         return self.env["product.template"].create(product_template)
 
-    def _search_or_create_category(self, category):
-        if not category:
+    def _search_or_create_category(self, category_web):
+        if not category_web:
             return
 
-        if not ' / ' in category:
-            result = self.env["product.category"].search(
+        if not ' / ' in category_web:
+            result_ecommerce = self.env["product.category"].search(
                 [
-                    ("name", "=", category.strip()),
+                    ("name", "=", category_web.strip()),
                     ("parent_id", "=", self.env.ref('product.product_category_all').id),
                 ]
             )
-            if result:
-                return result
-            return self.env["product.category"].create(
-                {
-                    "name": category.strip(),
-                    "parent_id": self.env.ref('product.product_category_all').id,
-                }
-            )
+            return result_ecommerce
 
         else:
             index = 0
-            for category in category.split(' / '):
+            result_ecommerce = None
+            for category in category_web.split(' / '):
+                print("*"*80)
+                print("category", category)
+
                 if index == 0:
-                    result_web = self.env["product.category"].search(
+                    parent_id = self.env["product.category"].search(
                         [
                             ("name", "=", category.strip()),
                             ("parent_id", "=", self.env.ref('product.product_category_all').id),
                         ]
                     )
-                    if not result_web:
-                        result_web = self.env["product.category"].create(
+                    if not parent_id:
+                        parent_id = self.env["product.category"].create(
                             {
                                 "name": category.strip(),
                                 "parent_id": self.env.ref('product.product_category_all').id,
@@ -199,18 +196,19 @@ class CalatayudProductImport(models.TransientModel):
                     result_ecommerce = self.env["product.category"].search(
                         [
                             ("name", "=", category.strip()),
-                            ("parent_id", "=", result_web.id),
+                            ("parent_id", "=", parent_id.id),
                         ]
                     )
                     if not result_ecommerce:
                         result_ecommerce = self.env["product.category"].create(
                             {
                                 "name": category.strip(),
-                                "parent_id": result_web.id,
+                                "parent_id": parent_id.id,
                             }
                         )
-                    return result_ecommerce
+                    parent_id = result_ecommerce
                 index += 1
+            return result_ecommerce
 
     def _search_or_create_product_tag(self, product_tag):
         if not product_tag:
