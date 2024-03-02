@@ -122,7 +122,7 @@ class CalatayudProductImport(models.TransientModel):
 
         product_template = {
             'detailed_type': 'product',
-            'invoice_policy': 'delivery',
+            'invoice_policy': 'order',
             'available_in_pos': True,
             'name': name,
             'description_sale': description_sale,
