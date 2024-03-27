@@ -7,7 +7,8 @@
             <field name="inherit_id" ref="product.product_template_tree_view" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='list_price']" position="after">
-                    <field name="wholesale_price" string="Tarifa mayorista" />
+                    <field name="wholesale_price" string="Tarifa mayorista" optional="show" />
+                    <field name="retail_price" string="PVP" optional="show" />
                 </xpath>
             </field>
         </record>
@@ -18,7 +19,8 @@
             <field name="inherit_id" ref="product.product_product_tree_view" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='lst_price']" position="after">
-                    <field name="wholesale_price" string="Tarifa mayorista" />
+                    <field name="wholesale_price" string="Tarifa mayorista" optional="show"/>
+                    <field name="retail_price" string="PVP" optional="show"/>
                 </xpath>
             </field>
         </record>
