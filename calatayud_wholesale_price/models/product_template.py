@@ -16,6 +16,8 @@ class ProductTemplate(models.Model):
         compute='_compute_retail_price',
     )
 
+
+
     def _compute_wholesale_price(self):
         self.wholesale_price = 0.0
         pricelist_id = self.env['product.pricelist'].search([('name', '=', 'Tarifa mayorista')], limit=1)
