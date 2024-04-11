@@ -3,6 +3,59 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
 <odoo>
     <template id="calatayud_report_product_pricelist_document"
-              inherit_id="report_product_pricelist_document">
+              inherit_id="product_pricelist_direct_print.report_product_pricelist_document">
+        <xpath
+            expr="//div[@class='page']/h2[1]"
+            position="replace">
+            <strong>
+                <h2 style="text-align: center; color: black; border: 1pt solid black">Tarifa 2024
+                    <t t-if="o.show_pricelist_name">
+                        <span t-field="pricelist.name"/>
+                    </t>
+                </h2>
+            </strong>
+        </xpath>
+
+        <xpath
+            expr="//div[@class='page']/div[1]/div[1]"
+            position="replace">
+        </xpath>
+        <xpath
+            expr="//div[@class='page']/div[1]/div[1]"
+            position="replace">
+        </xpath>
+
+        <xpath
+            expr="//div[@class='page']/table[1]/thead[1]/tr[3]"
+            position="replace">
+            <tr>
+                <th>
+                    <strong>REFERENCIA</strong>
+                </th>
+            </tr>
+        </xpath>
+
+        <xpath
+            expr="//div[@class='page']/table[1]/thead[1]/tr[3]/th[1]"
+            position="after">
+            <th>
+                <strong>DESCRIPCION</strong>
+            </th>
+            <th>
+                <strong>METRO</strong>
+            </th>
+            <th>
+                <strong>PIEZA</strong>
+            </th>
+        </xpath>
+
+        <xpath
+            expr="//div[@class='page']/table[1]/tbody[1]/t[1]/tr[1]/td[1]"
+            position="after">
+            <td>
+                <span>160x80cm</span>
+            </td>
+        </xpath>
+
     </template>
 </odoo>

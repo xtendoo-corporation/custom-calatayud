@@ -8,5 +8,6 @@ class ProductPricelistPrint(models.TransientModel):
     _inherit = "product.pricelist.print"
 
     description_product = fields.Boolean(
+        default="True",
         string="Description product",
     )
