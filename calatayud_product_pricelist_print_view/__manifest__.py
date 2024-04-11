@@ -10,13 +10,13 @@
     "depends":
         [
             "product",
-            "product_pricelist_direct_print",
             "sale",
+            "product_pricelist_direct_print",
         ],
     "data":
         [
             "wizards/product_pricelist_print_view.xml",
-            'security/ir.model.access.csv',
+            "reports/report_product_pricelist.xml",
         ],
     'installable': True,
     'active': False,

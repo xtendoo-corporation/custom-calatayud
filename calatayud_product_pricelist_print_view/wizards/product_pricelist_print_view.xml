@@ -1,10 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Xtendoo - Abraham Carrasco, Manuel Calero
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
 <odoo>
-    <record id="view_product_pricelist_print_calatayud" model="ir.ui.view">
-        <field name="name">Product pricelist print Calatayud</field>
-        <field name="model">product.pricelist.print.custom</field>
-        <field name="inherit_id" ref="product_pricelist_direct_print.view_product_pricelist_print"/>
+
+    <record id="view_product_pricelist_print" model="ir.ui.view">
+        <field name="model">product.pricelist.print</field>
+        <field
+            name="inherit_id"
+            ref="product_pricelist_direct_print.view_product_pricelist_print"
+        />
         <field name="arch" type="xml">
             <xpath
                 expr="//field[@name='show_product_uom']"
@@ -13,4 +17,6 @@
             </xpath>
         </field>
     </record>
+
 </odoo>
+

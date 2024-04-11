@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Xtendoo
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
+<odoo>
+    <template id="calatayud_report_product_pricelist_document"
+              inherit_id="report_product_pricelist_document">
+    </template>
+</odoo>

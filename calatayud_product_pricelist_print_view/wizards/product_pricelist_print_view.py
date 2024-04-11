@@ -4,8 +4,9 @@
 from odoo import fields, models, api
 
 
-class Productpricelistprint(models.Model):
-    _name = 'product.pricelist.print.custom'
-    _inherit = 'product.pricelist.print'
+class ProductPricelistPrint(models.TransientModel):
+    _inherit = "product.pricelist.print"
 
-    description_product = fields.Boolean(string="Description product")
+    description_product = fields.Boolean(
+        string="Description product",
+    )
