@@ -5,7 +5,7 @@
     <template id="calatayud_report_product_pricelist_document"
               inherit_id="product_pricelist_direct_print.report_product_pricelist_document">
         <xpath
-            expr="//div[@class='page']/h2[1]"
+            expr="//div[hasclass('page')]/h2[1]"
             position="replace">
             <strong>
                 <h2 style="text-align: center; color: black; border: 1pt solid black">Tarifa 2024
@@ -17,16 +17,16 @@
         </xpath>
 
         <xpath
-            expr="//div[@class='page']/div[1]/div[1]"
+            expr="//div[hasclass('page')]/div[1]/div[1]"
             position="replace">
         </xpath>
         <xpath
-            expr="//div[@class='page']/div[1]/div[1]"
+            expr="//div[hasclass('page')]/div[1]/div[1]"
             position="replace">
         </xpath>
 
         <xpath
-            expr="//div[@class='page']/table[1]/thead[1]/tr[3]"
+            expr="//div[hasclass('page')]/table[1]/thead[1]/tr[3]"
             position="replace">
             <tr>
                 <th>
@@ -36,10 +36,10 @@
         </xpath>
 
         <xpath
-            expr="//div[@class='page']/table[1]/thead[1]/tr[3]/th[1]"
+            expr="//div[hasclass('page')]/table[1]/thead[1]/tr[3]/th[1]"
             position="after">
             <th>
-                <strong>DESCRIPCION</strong>
+                <strong>DESCRIPCIÓN</strong>
             </th>
             <th>
                 <strong>METRO</strong>
@@ -50,18 +50,20 @@
         </xpath>
 
         <xpath
-            expr="//div[@class='page']/table[1]/tbody[1]/t[1]/tr[1]/td[1]"
+            expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[1]"
             position="after">
             <td>
-                <span t-field="product.description_sale"></span>
+                <span t-field="product.description_sale"/>
             </td>
         </xpath>
 
         <xpath
-            expr="//div[@class='page']/table[1]/tbody[1]/t[1]/tr[1]/td[5]"
+            expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[5]"
             position="after">
-            <td>
-                <span>11111.11</span>
+            <td t-if="pricelist" class="text-right">
+                <strong
+                    t-field="o.with_context(product=product).product_price_piece"
+                />
             </td>
         </xpath>
 

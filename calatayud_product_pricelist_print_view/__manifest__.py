@@ -11,6 +11,7 @@
         [
             "product",
             "sale",
+            "calatayud_wholesale_price",
             "product_pricelist_direct_print",
         ],
     "data":
