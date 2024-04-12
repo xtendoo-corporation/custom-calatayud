@@ -38,9 +38,10 @@
         <xpath
             expr="//div[hasclass('page')]/table[1]/thead[1]/tr[3]/th[1]"
             position="after">
-            <th>
+            <th t-if="o.description_product">
                 <strong>DESCRIPCIÓN</strong>
             </th>
+
             <th>
                 <strong>METRO</strong>
             </th>
@@ -52,7 +53,7 @@
         <xpath
             expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[1]"
             position="after">
-            <td>
+            <td t-if="o.description_product">
                 <span t-field="product.description_sale"/>
             </td>
         </xpath>
@@ -60,10 +61,36 @@
         <xpath
             expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[5]"
             position="after">
-            <td t-if="pricelist" class="text-right">
+            <td t-if="pricelist" class="text-right" style="text-align:right;">
                 <strong
-                    t-field="o.with_context(product=product).product_price_piece"
+                    t-field="o.with_context(product=product).product_price_piece" t-options='{"widget": "monetary"}'
                 />
+            </td>
+        </xpath>
+
+<!--        <xpath-->
+<!--            expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[5]"-->
+<!--            position="replace">-->
+<!--            <td style="text-align:right;">-->
+<!--                <strong t-if="product.sale_only_piece"-->
+<!--                    t-field="product.list_price"-->
+<!--                />-->
+<!--                <strong t-if="not product.sale_only_piece" style="text-align:center;"-->
+<!--                    >-</strong>-->
+<!--            </td>-->
+<!--        </xpath>-->
+
+        <xpath
+            expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[5]"
+            position="replace">
+            <td style="text-align:right;" t-if="product.sale_only_piece">
+<!--                t-options='{"widget": "monetary", "display_currency": }'-->
+                <strong
+                    t-field="product.list_price"
+                />
+            </td>
+            <td style="text-align:center;" t-if="not product.sale_only_piece">
+                   <strong style="text-align:center;">-</strong>
             </td>
         </xpath>
 

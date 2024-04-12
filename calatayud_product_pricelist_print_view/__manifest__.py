@@ -17,6 +17,7 @@
     "data":
         [
             "wizards/product_pricelist_print_view.xml",
+            "wizards/product_product_view.xml",
             "reports/report_product_pricelist.xml",
         ],
     'installable': True,
