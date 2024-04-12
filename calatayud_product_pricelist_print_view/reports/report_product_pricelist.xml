@@ -53,7 +53,15 @@
             expr="//div[@class='page']/table[1]/tbody[1]/t[1]/tr[1]/td[1]"
             position="after">
             <td>
-                <span>160x80cm</span>
+                <span t-field="product.description_sale"></span>
+            </td>
+        </xpath>
+
+        <xpath
+            expr="//div[@class='page']/table[1]/tbody[1]/t[1]/tr[1]/td[5]"
+            position="after">
+            <td>
+                <span>11111.11</span>
             </td>
         </xpath>
 
