@@ -17,11 +17,16 @@ class ProductTemplate(models.Model):
         for product in products_template:
             almacenes_product = product.with_company(almacenes_company_id)
             tienda_product = product.with_company(tienda_company_id)
+
             if almacenes_product.standard_price != tienda_product.standard_price:
                 tienda_product.standard_price = almacenes_product.standard_price
+            if almacenes_product.taxes_id != tienda_product.taxes_id:
+                tienda_product.taxes_id = almacenes_product.taxes_id
+            if almacenes_product.supplier_taxes_id != tienda_product.supplier_taxes_id:
+                tienda_product.supplier_taxes_id = almacenes_product.supplier_taxes_id
+
             for variant in product.product_variant_ids:
                 almacenes_variant = variant.with_company(almacenes_company_id)
                 tienda_variant = variant.with_company(tienda_company_id)
                 if almacenes_variant.standard_price != tienda_variant.standard_price:
                     tienda_variant.standard_price = almacenes_variant.standard_price
-
