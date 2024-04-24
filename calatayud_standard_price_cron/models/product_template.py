@@ -10,11 +10,11 @@ class ProductTemplate(models.Model):
     @api.model
     def cron_action_update_standard_price(self):
         print("Cron action run********************************************")
-        # almacenes_company_id = self.env['res.company'].search([('vat', '=', 'ESB41271206')], limit=1)
-        # tienda_company_id = self.env['res.company'].search([('vat', '=', 'ESB91823187')], limit=1)
+        almacenes_company_id = self.env['res.company'].search([('vat', '=', 'ESB41271206')], limit=1)
+        tienda_company_id = self.env['res.company'].search([('vat', '=', 'ESB91823187')], limit=1)
 
-        almacenes_company_id = self.env['res.company'].search([('name', '=', 'MyCompany')], limit=1)
-        tienda_company_id = self.env['res.company'].search([('name', '=', 'YourCompany')], limit=1)
+        # almacenes_company_id = self.env['res.company'].search([('name', '=', 'MyCompany')], limit=1)
+        # tienda_company_id = self.env['res.company'].search([('name', '=', 'YourCompany')], limit=1)
 
         print("almacenes_company_id: ", almacenes_company_id)
         print("tienda_company_id: ", tienda_company_id)
