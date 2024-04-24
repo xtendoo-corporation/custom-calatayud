@@ -52,24 +52,24 @@ class ProductTemplate(models.Model):
             print("almacenes_sale_tax_id: ", almacenes_sale_tax_id)
 
             if almacenes_product.taxes_id != almacenes_sale_tax_id:
-                print("*** cambio almacenes_product.taxes_id: ", almacenes_product.taxes_id)
-                almacenes_product.taxes_id = almacenes_sale_tax_id
+                print("*** cambio almacenes_product.taxes_id: ", almacenes_sale_tax_id)
+                almacenes_product.taxes_id = [(6, 0, almacenes_sale_tax_id.id)]
 
             print("almacenes_product.supplier_taxes_id: ", almacenes_product.supplier_taxes_id)
             print("almacenes_purchase_tax_id: ", almacenes_purchase_tax_id)
 
             if almacenes_product.supplier_taxes_id != almacenes_purchase_tax_id:
-                print("*** cambio almacenes_product.supplier_taxes_id: ", almacenes_product.supplier_taxes_id)
-                almacenes_product.supplier_taxes_id = almacenes_purchase_tax_id
+                print("*** cambio almacenes_product.supplier_taxes_id: ", almacenes_purchase_tax_id)
+                almacenes_product.supplier_taxes_id = [(6, 0, almacenes_purchase_tax_id.id)]
 
             print("tienda_product.taxes_id: ", tienda_product.taxes_id)
             print("tienda_sale_tax_id: ", tienda_sale_tax_id)
             if tienda_product.taxes_id != tienda_sale_tax_id:
-                print("*** cambio tienda_product.taxes_id: ", tienda_product.taxes_id)
-                tienda_product.taxes_id = tienda_sale_tax_id
+                print("*** cambio tienda_product.taxes_id: ", tienda_sale_tax_id)
+                tienda_product.taxes_id = [(6, 0, tienda_sale_tax_id.id)]
 
             print("tienda_product.supplier_taxes_id: ", tienda_product.supplier_taxes_id)
             print("tienda_purchase_tax_id: ", tienda_purchase_tax_id)
             if tienda_product.supplier_taxes_id != tienda_purchase_tax_id:
-                print("*** cambio tienda_product.supplier_taxes_id: ", tienda_product.supplier_taxes_id)
-                tienda_product.supplier_taxes_id = tienda_purchase_tax_id
+                print("*** cambio tienda_product.supplier_taxes_id: ", tienda_purchase_tax_id)
+                tienda_product.supplier_taxes_id = [(6, 0, tienda_purchase_tax_id.id)]
