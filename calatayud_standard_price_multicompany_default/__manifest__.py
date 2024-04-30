@@ -9,14 +9,9 @@
     "license": "AGPL-3",
     "depends": [
         "product",
-        "stock",
-        "sale",
-        "pos_sale",
-        "purchase",
-        "website_sale",
-        "website_sale_product_description",
     ],
     "data": [
+        "views/product_template_view.xml",
     ],
     'installable': True,
     'active': False,
