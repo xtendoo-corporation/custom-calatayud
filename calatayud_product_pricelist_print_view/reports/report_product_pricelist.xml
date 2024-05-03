@@ -29,7 +29,7 @@
             expr="//div[hasclass('page')]/table[1]/thead[1]/tr[3]"
             position="replace">
             <tr>
-                <th>
+                <th style="font-size:14px">
                     <strong>REFERENCIA</strong>
                 </th>
             </tr>
@@ -38,14 +38,14 @@
         <xpath
             expr="//div[hasclass('page')]/table[1]/thead[1]/tr[3]/th[1]"
             position="after">
-            <th t-if="o.description_product">
+            <th t-if="o.description_product" style="font-size:14px">
                 <strong>DESCRIPCIÓN</strong>
             </th>
 
-            <th>
+            <th style="font-size:14px">
                 <strong>METRO</strong>
             </th>
-            <th>
+            <th style="font-size:14px">
                 <strong>PIEZA</strong>
             </th>
         </xpath>
@@ -54,7 +54,7 @@
             expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[1]"
             position="replace">
             <td style="width:275px;">
-                <span t-field="product.name"/>
+                <span t-field="product.name" style="font-size:12px"/>
             </td>
         </xpath>
 
@@ -62,7 +62,7 @@
             expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[1]"
             position="after">
             <td t-if="o.description_product" style="width:275px;">
-                <span t-field="product.description_sale"/>
+                <span t-field="product.description_sale" style="font-size:12px"/>
             </td>
         </xpath>
 
@@ -73,8 +73,9 @@
                 <strong
                     t-field="o.with_context(product=product).product_price_piece"
                     t-options='{"widget": "float", "precision": 2}'
+                    style="font-size:12px"
                 />
-                <span t-field="pricelist.currency_id.symbol" />
+                <span t-field="pricelist.currency_id.symbol" style="font-size:12px"/>
             </td>
         </xpath>
 
@@ -85,8 +86,9 @@
                 <strong
                      t-field="o.with_context(product=product).product_price"
                      t-options='{"widget": "float", "precision": 2}'
+                     style="font-size:12px"
                 />
-                <span t-field="pricelist.currency_id.symbol" />
+                <span t-field="pricelist.currency_id.symbol" style="font-size:12px"/>
             </td>
             <td style="text-align:center;" t-if="not product.sale_only_piece">
                    <strong style="text-align:center;">-</strong>
