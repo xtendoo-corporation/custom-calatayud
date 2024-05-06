@@ -29,7 +29,7 @@
             expr="//div[hasclass('page')]/table[1]/thead[1]/tr[3]"
             position="replace">
             <tr>
-                <th style="font-size:14px">
+                <th style="font-size:14px; text-align:left">
                     <strong>REFERENCIA</strong>
                 </th>
             </tr>
@@ -38,14 +38,14 @@
         <xpath
             expr="//div[hasclass('page')]/table[1]/thead[1]/tr[3]/th[1]"
             position="after">
-            <th t-if="o.description_product" style="font-size:14px">
+            <th t-if="o.description_product" style="font-size:14px; text-align:left">
                 <strong>DESCRIPCIÓN</strong>
             </th>
 
-            <th style="font-size:14px">
+            <th style="font-size:14px; text-align:right">
                 <strong>METRO</strong>
             </th>
-            <th style="font-size:14px">
+            <th style="font-size:14px; text-align:right">
                 <strong>PIEZA</strong>
             </th>
         </xpath>
