@@ -9,6 +9,7 @@
     "license": "AGPL-3",
     "depends": [
         "product",
+        "account",
     ],
     "data": [
         "views/product_template_view.xml",
