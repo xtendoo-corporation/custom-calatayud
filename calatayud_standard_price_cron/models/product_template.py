@@ -45,7 +45,9 @@ class ProductTemplate(models.Model):
                 print("*"*50)
                 print("No taxes for sales in product")
                 print("account_sale_tax_id", almacenes_company_id.account_sale_tax_id.name)
-                almacenes_product.taxes_id = almacenes_company_id.account_sale_tax_id
+                almacenes_product.write(
+                    {"taxes_id": [(6, 0, almacenes_company_id.account_sale_tax_id.ids)]}
+                )
 
             print("PRODUCTC EN COMPRAS", almacenes_product.name)
             print("almacenes_product.supplier_taxes_id", almacenes_product.supplier_taxes_id)
@@ -54,7 +56,9 @@ class ProductTemplate(models.Model):
                 print("*" * 50)
                 print("No taxes for buy in product")
                 print(almacenes_company_id.account_purchase_tax_id)
-                almacenes_product.supplier_taxes_id = almacenes_company_id.account_purchase_tax_id
+                almacenes_product.write(
+                    {"supplier_taxes_id": [(6, 0, almacenes_company_id.account_purchase_tax_id.ids)]}
+                )
 
             if not tienda_product.taxes_id.filtered(lambda x: x.company_id == tienda_company_id):
                 tienda_product.taxes_id = tienda_company_id.account_sale_tax_id
