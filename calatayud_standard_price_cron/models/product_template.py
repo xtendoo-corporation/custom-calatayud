@@ -34,6 +34,7 @@ class ProductTemplate(models.Model):
             print("*" * 50)
             for tax in almacenes_product.supplier_taxes_id:
                 print("IVAS de compra en almacenes")
+                print("almacenes_product", almacenes_product)
                 print("supplier_taxes_id", tax)
                 print("supplier_taxes_id", tax.company_id)
                 print("supplier_taxes_id", tax.name)
@@ -44,12 +45,14 @@ class ProductTemplate(models.Model):
             if not almacenes_product.taxes_id.filtered(lambda x: x.company_id == almacenes_company_id):
                 print("*"*50)
                 print("No taxes for sales in product")
+                print("almacenes_product", almacenes_product)
                 print("account_sale_tax_id", almacenes_company_id.account_sale_tax_id.name)
+                print("account_sale_tax_ids", almacenes_company_id.account_sale_tax_id.ids)
                 almacenes_product.write(
                     {"taxes_id": [(6, 0, almacenes_company_id.account_sale_tax_id.ids)]}
                 )
 
-            print("PRODUCTC EN COMPRAS", almacenes_product.name)
+            print("PRODUCT EN COMPRAS", almacenes_product.name)
             print("almacenes_product.supplier_taxes_id", almacenes_product.supplier_taxes_id)
 
             if not almacenes_product.supplier_taxes_id.filtered(lambda x: x.company_id == almacenes_company_id):
