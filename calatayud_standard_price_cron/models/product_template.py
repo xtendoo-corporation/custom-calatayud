@@ -3,15 +3,13 @@
 
 from odoo import api, models, fields
 
-from typing import List
-
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     @api.model
     def cron_action_update_standard_price(self):
-        print("Cron action run********************************************")
+        print("Cron action update standard price run********************************************")
         almacenes_company_id = self.env['res.company'].search([('vat', '=', 'ESB41271206')], limit=1)
         tienda_company_id = self.env['res.company'].search([('vat', '=', 'ESB91823187')], limit=1)
 
@@ -28,44 +26,3 @@ class ProductTemplate(models.Model):
                 tienda_variant = variant.with_company(tienda_company_id)
                 if almacenes_variant.standard_price != tienda_variant.standard_price:
                     tienda_variant.standard_price = almacenes_variant.standard_price
-
-            # Propagate taxes---------------------------------------------------
-
-            print("*" * 50)
-            for tax in almacenes_product.supplier_taxes_id:
-                print("IVAS de compra en almacenes")
-                print("almacenes_product", almacenes_product)
-                print("supplier_taxes_id", tax)
-                print("supplier_taxes_id", tax.company_id)
-                print("supplier_taxes_id", tax.name)
-
-            print("PRODUCT EN VENTAS", almacenes_product.name)
-            print("almacenes_product.taxes_id", almacenes_product.taxes_id)
-
-            if not almacenes_product.taxes_id.filtered(lambda x: x.company_id == almacenes_company_id):
-                print("*"*50)
-                print("No taxes for sales in product")
-                print("almacenes_product", almacenes_product)
-                print("account_sale_tax_id", almacenes_company_id.account_sale_tax_id.name)
-                print("account_sale_tax_ids", almacenes_company_id.account_sale_tax_id.ids)
-                almacenes_product.write(
-                    {"taxes_id": [(6, 0, almacenes_company_id.account_sale_tax_id.ids)]}
-                )
-
-            print("PRODUCT EN COMPRAS", almacenes_product.name)
-            print("almacenes_product.supplier_taxes_id", almacenes_product.supplier_taxes_id)
-
-            if not almacenes_product.supplier_taxes_id.filtered(lambda x: x.company_id == almacenes_company_id):
-                print("*" * 50)
-                print("No taxes for buy in product")
-                print(almacenes_company_id.account_purchase_tax_id)
-                almacenes_product.write(
-                    {"supplier_taxes_id": [(6, 0, almacenes_company_id.account_purchase_tax_id.ids)]}
-                )
-
-            if not tienda_product.taxes_id.filtered(lambda x: x.company_id == tienda_company_id):
-                tienda_product.taxes_id = tienda_company_id.account_sale_tax_id
-
-            if not tienda_product.supplier_taxes_id.filtered(lambda x: x.company_id == tienda_company_id):
-                tienda_product.supplier_taxes_id = tienda_company_id.account_purchase_tax_id
-
