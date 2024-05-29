@@ -3,6 +3,8 @@
 
 from odoo import api, models, fields
 
+from typing import List
+
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
@@ -21,9 +23,31 @@ class ProductTemplate(models.Model):
             if almacenes_product.standard_price != tienda_product.standard_price:
                 tienda_product.standard_price = almacenes_product.standard_price
 
+            # Propagate taxes
+            if not almacenes_product.taxes_id:
+                print("*"*50)
+                print("PRODUCT", almacenes_product.name)
+                print("No taxes for sales in product")
+                print("account_sale_tax_id", almacenes_company_id.account_sale_tax_id.name)
+                print("*" * 50)
+                for tax in almacenes_product.supplier_taxes_id:
+                    print("supplier_taxes_id", tax.name)
+                almacenes_product.taxes_id = almacenes_company_id.account_sale_tax_id
+
+            if not almacenes_product.supplier_taxes_id:
+                print("*" * 50)
+                print("PRODUCT", almacenes_product.name)
+                print("No taxes for buy in product")
+                print(almacenes_company_id.account_purchase_tax_id)
+                almacenes_product.supplier_taxes_id = almacenes_company_id.account_purchase_tax_id
+
+            if not tienda_product.taxes_id:
+                tienda_product.taxes_id = tienda_product.account_sale_tax_id
+            if not tienda_product.supplier_taxes_id:
+                tienda_product.supplier_taxes_id = tienda_product.account_purchase_tax_id
+
             for variant in product.product_variant_ids:
                 almacenes_variant = variant.with_company(almacenes_company_id)
                 tienda_variant = variant.with_company(tienda_company_id)
                 if almacenes_variant.standard_price != tienda_variant.standard_price:
                     tienda_variant.standard_price = almacenes_variant.standard_price
-
