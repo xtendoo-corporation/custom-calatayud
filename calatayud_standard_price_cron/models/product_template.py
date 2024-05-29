@@ -36,16 +36,20 @@ class ProductTemplate(models.Model):
                 print("IVAS de compra en almacenes")
                 print("supplier_taxes_id", tax.name)
 
+            print("PRODUCT EN VENTAS", almacenes_product.name)
+            print("almacenes_product.taxes_id", almacenes_product.taxes_id)
+
             if not almacenes_product.taxes_id:
                 print("*"*50)
-                print("PRODUCT", almacenes_product.name)
                 print("No taxes for sales in product")
                 print("account_sale_tax_id", almacenes_company_id.account_sale_tax_id.name)
                 almacenes_product.taxes_id = almacenes_company_id.account_sale_tax_id
 
+            print("PRODUCTC EN COMPRAS", almacenes_product.name)
+            print("almacenes_product.supplier_taxes_id", almacenes_product.supplier_taxes_id)
+
             if not almacenes_product.supplier_taxes_id:
                 print("*" * 50)
-                print("PRODUCT", almacenes_product.name)
                 print("No taxes for buy in product")
                 print(almacenes_company_id.account_purchase_tax_id)
                 almacenes_product.supplier_taxes_id = almacenes_company_id.account_purchase_tax_id
