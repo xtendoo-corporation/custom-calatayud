@@ -34,6 +34,7 @@ class ProductTemplate(models.Model):
             print("*" * 50)
             for tax in almacenes_product.supplier_taxes_id:
                 print("IVAS de compra en almacenes")
+                print("supplier_taxes_id", tax)
                 print("supplier_taxes_id", tax.name)
 
             print("PRODUCT EN VENTAS", almacenes_product.name)
