@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <template id="calatayud_document_format.report_invoice_document_inherit"
+                  inherit_id="account.report_invoice_document">
+            <!--ADD PAYMENT MODE-->
+            <!--payment mode-->
+            <xpath expr="//p[@name='payment_communication']" position="inside">
+                <p t-if="o.payment_mode_id" name="payment_mode" class="mt-4">
+                    Forma de pago:
+                    <b>
+                        <span t-field="o.payment_mode_id.name"/>
+                    </b>
+                </p>
+            </xpath>
+            <!--CHANGE THE FONT SIZES-->
+            <!--product name and description-->
+            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[1]/span[1]" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--product quantity-->
+            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[2]/span[1]" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--product uom id-->
+            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[2]/span[2]" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--product unit price-->
+            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[3]/span" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--product discount-->
+            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[4]/span" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--product tax-->
+            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[5]/span[1]" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--price subtotal-->
+            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[6]/span[1]" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--price total-->
+            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[6]/span[2]" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>

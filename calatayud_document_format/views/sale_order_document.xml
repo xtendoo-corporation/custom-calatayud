@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!--ADD PAYMENT MODE-->
+        <template id="calatayud_document_format.report_saleorder_document_inherit"
+                  inherit_id="sale.report_saleorder_document">
+            <!--payment mode-->
+            <xpath expr="//p[@name='order_note']" position="after">
+                <p t-if="doc.payment_mode_id" name="payment_mode" class="mt-4">
+                    Forma de pago:
+                    <b>
+                        <span t-field="doc.payment_mode_id.name"/>
+                    </b>
+                </p>
+            </xpath>
+            <!--CHANGE THE FONT SIZES-->
+            <!--product name and description-->
+            <xpath expr="//td[@name='td_name']" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--product quantity-->
+            <xpath expr="//td[@name='td_quantity']" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--product priceunit-->
+            <xpath expr="//td[@name='td_priceunit']" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--product discount-->
+            <xpath expr="//tbody[@class='sale_tbody']/t[2]/tr[1]/t[1]/td[4]" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--product tax-->
+            <xpath expr="//td[@name='td_taxes']" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+            <!--price subtotal-->
+            <xpath expr="//td[@name='td_subtotal']" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>
