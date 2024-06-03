@@ -54,7 +54,7 @@
             expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[1]"
             position="replace">
             <td style="width:275px;">
-                <span t-field="product.name" style="font-size:12px"/>
+                <span t-field="product.default_code" style="font-size:12px"/>
             </td>
         </xpath>
 
