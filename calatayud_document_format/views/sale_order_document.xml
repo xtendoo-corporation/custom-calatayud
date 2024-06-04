@@ -5,40 +5,30 @@
         <template id="calatayud_document_format.report_saleorder_document_inherit"
                   inherit_id="sale.report_saleorder_document">
             <!--payment mode-->
-<!--            <xpath expr="//p[@name='order_note']" position="after">-->
-<!--                <p t-if="doc.payment_mode_id" name="payment_mode" class="mt-4">-->
-<!--                    Forma de pago:-->
-<!--                    <b>-->
-<!--                        <span t-field="doc.payment_mode_id.name"/>-->
-<!--                    </b>-->
-<!--                </p>-->
-<!--            </xpath>-->
+            <!--            <xpath expr="//p[@name='order_note']" position="after">-->
+            <!--                <p t-if="doc.payment_mode_id" name="payment_mode" class="mt-4">-->
+            <!--                    Forma de pago:-->
+            <!--                    <b>-->
+            <!--                        <span t-field="doc.payment_mode_id.name"/>-->
+            <!--                    </b>-->
+            <!--                </p>-->
+            <!--            </xpath>-->
             <!--HEADER-->
             <!--reference-->
-            <xpath expr="//th[@name='th_description']" position="replace">
-                <th name="th_reference" class="text-start">Referencia</th>
-            </xpath>
-            <!--description-->
-            <xpath expr="//th[@name='th_reference']" position="after">
-                <th name="th_product_descripton" class="text-start">Descripción</th>
-            </xpath>
+            <!--            <xpath expr="//th[@name='th_description']" position="replace">-->
+            <!--                <th name="th_reference" class="text-start">Referencia</th>-->
+            <!--            </xpath>-->
             <!--taxes-->
             <xpath expr="//th[@name='th_taxes']" position="replace">
                 <th name="th_taxes"/>
             </xpath>
+
+
+            <xpath expr="//th[@name='th_priceunit']" position="replace">
+                <th name="th_priceunit" class="text-end">Precio</th>
+            </xpath>
+
             <!--TABLE BODY-->
-            <!--product reference-->
-            <xpath expr="//td[@name='td_name']/span[1]" position="replace">
-                <span
-                    t-esc="line.name[line.name.find('[')+1:line.name.find(']')] if '[' in line.name and ']' in line.name else line.name"/>
-            </xpath>
-            <!--product description-->
-            <xpath expr="//td[@name='td_name']" position="after">
-                <td name="td_product_descripton" class="text-start">
-                    <span
-                        t-esc="((line.name[line.name.find(']')+1:] if ']' in line.name else line.name).split('\n')[0] if '\n' in (line.name[line.name.find(']')+1:] if ']' in line.name else line.name) else (line.name[line.name.find(']')+1:] if ']' in line.name else line.name))"/>
-                </td>
-            </xpath>
             <!--taxes-->
             <xpath expr="//td[@name='td_taxes']/span[1]" position="replace"/>
             <!--product uom_id-->
