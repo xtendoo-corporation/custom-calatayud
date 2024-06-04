@@ -3,18 +3,6 @@
     <data>
         <template id="calatayud_document_format.report_delivery_document_inherit"
                   inherit_id="stock.report_delivery_document">
-            <!--product description on completed albaran-->
-            <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[1]/span" position="after">
-                <p>
-                    <span t-field="move.product_id.description_sale" style="font-size:12px"/>
-                </p>
-            </xpath>
-            <!--product description on remaining quantities not yet delivered on partial delivery document-->
-            <xpath expr="//table[@name='stock_backorder_table']/tbody/t/tr/td[1]/span" position="after">
-                <p>
-                    <span t-field="bo_line.product_id.description_sale" style="font-size:12px"/>
-                </p>
-            </xpath>
             <!--CHANGE THE FONT SIZES-->
             <xpath expr="//table[@name='stock_move_table']/tbody" position="attributes">
                 <attribute name="style">font-size:12px</attribute>
@@ -25,21 +13,75 @@
             <xpath expr="//table[@name='stock_backorder_table']/tbody" position="attributes">
                 <attribute name="style">font-size:12px</attribute>
             </xpath>
+            <!--*****************************************stock_move_table********************************************-->
+            <!--HEADER-->
+            <!--reference-->
+<!--            <xpath expr="//table[@name='stock_move_table']/thead/tr/th[@name='th_sm_product']/strong"-->
+<!--                   position="replace">-->
+<!--                <strong>Referencia</strong>-->
+<!--            </xpath>-->
+            <!--description-->
+<!--            <xpath expr="//table[@name='stock_move_table']/thead/tr/th[@name='th_sm_product']" position="after">-->
+<!--                <th name="th_sm_description">-->
+<!--                    <strong>Descripción</strong>-->
+<!--                </th>-->
+<!--            </xpath>-->
+            <!--TABLE BODY-->
+            <!--product reference-->
+<!--            <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[1]/span" position="replace">-->
+<!--                <span t-field="move.product_id.default_code"/>-->
+<!--            </xpath>-->
+            <!--product description-->
+<!--            <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[1]" position="after">-->
+<!--                <td>-->
+<!--                    <span t-field="move.product_id.name"/>-->
+<!--                </td>-->
+<!--            </xpath>-->
+            <!--************************************stock_move_line_table********************************************-->
+            <!--HEADER-->
+            <!--reference-->
+<!--            <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[@name='th_sml_product']/strong"-->
+<!--                   position="replace">-->
+<!--                <strong>Referencia</strong>-->
+<!--            </xpath>-->
+            <!--description-->
+<!--            <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[@name='th_sml_product']" position="after">-->
+<!--                <th name="th_sml_description">-->
+<!--                    <strong>Descripción</strong>-->
+<!--                </th>-->
+<!--            </xpath>-->
         </template>
-        <!--product description on remaining quantities delivered on partial delivery document-->
+        <!--TABLE BODY-->
         <template id="calatayud_document_format.stock_report_delivery_has_serial_move_line_inherit"
                   inherit_id="stock.stock_report_delivery_has_serial_move_line">
-            <xpath expr="//td[1]/span" position="after">
-                <p>
-                    <span t-field="move_line.product_id.description_sale" style="font-size:12px"/>
-                </p>
-            </xpath>
+            <!--product reference-->
+<!--            <xpath expr="//td[1]" position="replace">-->
+<!--                <td>-->
+<!--                    <span t-field="move_line.product_id.default_code"/>-->
+<!--                </td>-->
+<!--            </xpath>-->
+            <!--product description-->
+<!--            <xpath expr="//td[2]" position="replace">-->
+<!--                <td>-->
+<!--                    <span t-field="move_line.product_id.name"/>-->
+<!--                </td>-->
+<!--            </xpath>-->
             <!--CHANGE THE FONT SIZES-->
             <xpath expr="//td[1]" position="attributes">
                 <attribute name="style">font-size:12px</attribute>
             </xpath>
             <xpath expr="//td[2]" position="attributes">
                 <attribute name="style">font-size:12px</attribute>
+            </xpath>
+        </template>
+        <!--************************************stock_backorder_table********************************************-->
+        <template id="calatayud_document_format.valued_report_picking_inherit"
+                  inherit_id="stock_picking_report_valued.valued_report_picking">
+            <xpath expr="//th[@name='th_sml_taxes']" position="replace">
+            </xpath>
+            <xpath expr="//table[@class='table table-sm mt32']/thead/tr/th[2]" position="replace">
+            </xpath>
+            <xpath expr="//table[@class='table table-sm mt32']/tbody/tr/td[2]" position="replace">
             </xpath>
         </template>
     </data>

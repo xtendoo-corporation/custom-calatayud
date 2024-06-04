@@ -5,37 +5,47 @@
         <template id="calatayud_document_format.report_saleorder_document_inherit"
                   inherit_id="sale.report_saleorder_document">
             <!--payment mode-->
-            <xpath expr="//p[@name='order_note']" position="after">
-                <p t-if="doc.payment_mode_id" name="payment_mode" class="mt-4">
-                    Forma de pago:
-                    <b>
-                        <span t-field="doc.payment_mode_id.name"/>
-                    </b>
-                </p>
+<!--            <xpath expr="//p[@name='order_note']" position="after">-->
+<!--                <p t-if="doc.payment_mode_id" name="payment_mode" class="mt-4">-->
+<!--                    Forma de pago:-->
+<!--                    <b>-->
+<!--                        <span t-field="doc.payment_mode_id.name"/>-->
+<!--                    </b>-->
+<!--                </p>-->
+<!--            </xpath>-->
+            <!--HEADER-->
+            <!--reference-->
+            <xpath expr="//th[@name='th_description']" position="replace">
+                <th name="th_reference" class="text-start">Referencia</th>
             </xpath>
+            <!--description-->
+            <xpath expr="//th[@name='th_reference']" position="after">
+                <th name="th_product_descripton" class="text-start">Descripción</th>
+            </xpath>
+            <!--taxes-->
+            <xpath expr="//th[@name='th_taxes']" position="replace">
+                <th name="th_taxes"/>
+            </xpath>
+            <!--TABLE BODY-->
+            <!--product reference-->
+            <xpath expr="//td[@name='td_name']/span[1]" position="replace">
+                <span
+                    t-esc="line.name[line.name.find('[')+1:line.name.find(']')] if '[' in line.name and ']' in line.name else line.name"/>
+            </xpath>
+            <!--product description-->
+            <xpath expr="//td[@name='td_name']" position="after">
+                <td name="td_product_descripton" class="text-start">
+                    <span
+                        t-esc="((line.name[line.name.find(']')+1:] if ']' in line.name else line.name).split('\n')[0] if '\n' in (line.name[line.name.find(']')+1:] if ']' in line.name else line.name) else (line.name[line.name.find(']')+1:] if ']' in line.name else line.name))"/>
+                </td>
+            </xpath>
+            <!--taxes-->
+            <xpath expr="//td[@name='td_taxes']/span[1]" position="replace"/>
+            <!--product uom_id-->
+            <xpath expr="//td[@name='td_quantity']/span[2]" position="replace"/>
             <!--CHANGE THE FONT SIZES-->
-            <!--product name and description-->
-            <xpath expr="//td[@name='td_name']" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--product quantity-->
-            <xpath expr="//td[@name='td_quantity']" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--product priceunit-->
-            <xpath expr="//td[@name='td_priceunit']" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--product discount-->
-            <xpath expr="//tbody[@class='sale_tbody']/t[2]/tr[1]/t[1]/td[4]" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--product tax-->
-            <xpath expr="//td[@name='td_taxes']" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--price subtotal-->
-            <xpath expr="//td[@name='td_subtotal']" position="attributes">
+            <!--content in the table-->
+            <xpath expr="//tbody[@class='sale_tbody']" position="attributes">
                 <attribute name="style">font-size:12px</attribute>
             </xpath>
         </template>

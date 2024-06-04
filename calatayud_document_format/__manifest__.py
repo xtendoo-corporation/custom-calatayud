@@ -9,6 +9,7 @@
         "views/invoice_document.xml",
         "views/sale_order_document.xml",
         "views/report_deliveryslip.xml",
+        "views/report_purchaseorder_document_calatayud.xml",
     ],
     "installable": True,
     "auto_install": False,

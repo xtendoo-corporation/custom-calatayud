@@ -5,47 +5,46 @@
                   inherit_id="account.report_invoice_document">
             <!--ADD PAYMENT MODE-->
             <!--payment mode-->
-            <xpath expr="//p[@name='payment_communication']" position="inside">
-                <p t-if="o.payment_mode_id" name="payment_mode" class="mt-4">
-                    Forma de pago:
-                    <b>
-                        <span t-field="o.payment_mode_id.name"/>
-                    </b>
-                </p>
-            </xpath>
-            <!--CHANGE THE FONT SIZES-->
-            <!--product name and description-->
-            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[1]/span[1]" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--product quantity-->
-            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[2]/span[1]" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--product uom id-->
-            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[2]/span[2]" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--product unit price-->
-            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[3]/span" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--product discount-->
-            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[4]/span" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--product tax-->
-            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[5]/span[1]" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--price subtotal-->
-            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[6]/span[1]" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
-            <!--price total-->
-            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[6]/span[2]" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
-            </xpath>
+<!--            <xpath expr="//p[@name='payment_communication']" position="inside">-->
+<!--                <p t-if="o.payment_mode_id" name="payment_mode" class="mt-4">-->
+<!--                    Forma de pago:-->
+<!--                    <b>-->
+<!--                        <span t-field="o.payment_mode_id.name"/>-->
+<!--                    </b>-->
+<!--                </p>-->
+<!--            </xpath>-->
+
+            <!--HEADER-->
+            <!--reference-->
+<!--            <xpath expr="//table[@name='invoice_line_table']/thead[1]/tr[1]/th[1]/span[1]" position="replace">-->
+<!--                <span>-->
+<!--                    Referencia-->
+<!--                </span>-->
+<!--            </xpath>-->
+            <!--description-->
+<!--            <xpath expr="//table[@name='invoice_line_table']/thead[1]/tr[1]/th[1]" position="after">-->
+<!--                <th name="th_description_product" class="text-start">-->
+<!--                    <span>Descripción</span>-->
+<!--                </th>-->
+<!--            </xpath>-->
+            <!--TABLE BODY-->
+            <!--product reference-->
+<!--            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[1]" position="replace">-->
+<!--                <td name="account_invoice_line_article">-->
+<!--                    <span-->
+<!--                        t-esc="line.name[line.name.find('[')+1:line.name.find(']')] if '[' in line.name and ']' in line.name else line.name"/>-->
+<!--                </td>-->
+<!--            </xpath>-->
+            <!--product description-->
+<!--            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[1]" position="after">-->
+<!--                <td name="account_invoice_line_descripcion">-->
+<!--                    <span-->
+<!--                        t-esc="line.name[line.name.find(']')+1:].split('\n')[0] if ']' in line.name and '\n' in line.name else line.name"/>-->
+<!--                </td>-->
+<!--            </xpath>-->
+            <!--product uom_id-->
+<!--            <xpath expr="//th[@class='th_taxes']" position="replace"/>-->
+            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[2]/span[2]" position="replace"/>
         </template>
     </data>
 </odoo>

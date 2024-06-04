@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <template id="calatayud_document_format.report_purchaseorder_document_calatayud"
+                  inherit_id="purchase.report_purchaseorder_document">
+            <xpath expr="//div[@id='informations']" position="replace"/>
+            <xpath expr="//th[@name='th_taxes']" position="replace"/>
+            <xpath expr="//th[@name='th_date_req']" position="replace"/>
+            <xpath expr="//th[@name='th_price_unit']" position="replace">
+                <th name="th_price_unit" class="text-end"><strong>Price</strong></th>
+            </xpath>
+             <xpath expr="//th[@name='th_amount']" position="replace">
+                <th name="th_amount" class="text-end"><strong>Total</strong></th>
+            </xpath>
+            <xpath expr="//t[@t-set='taxes']" position="replace"/>
+            <xpath expr="//td[@name='td_taxes']" position="replace"/>
+            <xpath expr="//td[@class='text-center']" position="replace"/>
+        </template>
+    </data>
+</odoo>
