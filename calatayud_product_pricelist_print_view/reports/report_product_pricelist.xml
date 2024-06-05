@@ -50,11 +50,14 @@
             </th>
         </xpath>
 
-        <xpath
-            expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[1]"
-            position="replace">
+        <xpath expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[1]" position="replace">
             <td style="width:275px;">
-                <span t-field="product.default_code" style="font-size:12px"/>
+                <t t-if="o.show_variants">
+                    <span t-field="product.default_code" style="font-size:12px"/>
+                </t>
+                <t t-else="">
+                    <span t-field="product.name" style="font-size:12px"/>
+                </t>
             </td>
         </xpath>
 
@@ -84,14 +87,14 @@
             position="replace">
             <td style="text-align:right;" t-if="product.sale_only_piece">
                 <strong
-                     t-field="o.with_context(product=product).product_price"
-                     t-options='{"widget": "float", "precision": 2}'
-                     style="font-size:12px"
+                    t-field="o.with_context(product=product).product_price"
+                    t-options='{"widget": "float", "precision": 2}'
+                    style="font-size:12px"
                 />
                 <span t-field="pricelist.currency_id.symbol" style="font-size:12px"/>
             </td>
             <td style="text-align:center;" t-if="not product.sale_only_piece">
-                   <strong style="text-align:center;">-</strong>
+                <strong style="text-align:center;">-</strong>
             </td>
         </xpath>
 
