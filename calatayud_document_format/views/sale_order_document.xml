@@ -40,11 +40,11 @@
                 </td>
             </xpath>
             <xpath expr="//table[1]/tbody/t/tr/t[1]/td[2]" position="replace">
-            <td name="td_description_product">
-                <span
-                    t-esc="line.name.split(line.product_id.name)[1] if line.product_id.name in line.name else line.name"
-                    style="font-size:12px"/>
-            </td>
+                <td name="td_description_product">
+                    <span
+                        t-esc="line.name.split(')')[1] if ')' in line.name else line.name"
+                        style="font-size:12px"/>
+                </td>
             </xpath>
             <xpath expr="//table[1]/tbody/t/tr/t[1]/td[2]" position="after">
                 <td name="td_quantity_product" style="text-align:right;">
@@ -61,7 +61,7 @@
             <!--taxes-->
             <xpath expr="//td[@name='td_taxes']/span[1]" position="replace"/>
             <!--product uom_id-->
-<!--            <xpath expr="//td[@name='td_quantity']/span[2]" position="replace"/>-->
+            <!--            <xpath expr="//td[@name='td_quantity']/span[2]" position="replace"/>-->
             <!--CHANGE THE FONT SIZES-->
             <!--content in the table-->
             <xpath expr="//tbody[@class='sale_tbody']" position="attributes">
