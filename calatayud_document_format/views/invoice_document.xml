@@ -29,14 +29,71 @@
             <!--            </xpath>-->
             <!--TABLE BODY-->
             <!--product reference-->
-            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[1]" position="replace">
-                <td name="account_invoice_line_article">
-<!--                    <span-->
-<!--                        t-esc="line.name[line.name.find('[')+1:line.name.find(']')] if '[' in line.name and ']' in line.name else line.name"/>-->
-                    <span
-                        t-esc="line.name[line.name.find(']')+1:] if ']' in line.name else line.name"/>
+
+            <!--            CODIGO MODIFICADO POR ABRAHAM 18/06 DEBAJO-->
+            <!--HEADER-->
+            <!--product name-->
+            <xpath expr="//table[@name='invoice_line_table']/thead[1]/tr[1]/th[1]" position="replace">
+                <th name="th_description_product" class="text-start">
+                    <span>Descripción</span>
+                </th>
+            </xpath>
+            <!--description-->
+            <xpath expr="//table[@name='invoice_line_table']/thead[1]/tr[1]/th[1]" position="before">
+                <th name="th_product_name" class="text-start">
+                    <span>Nombre</span>
+                </th>
+            </xpath>
+
+            <!--TABLE BODY-->
+            <!--product name-->
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[1]" position="replace">
+                <td name="td_product_name">
+                    <span t-field="line.product_id.name" style="font-size:12px"/>
                 </td>
             </xpath>
+            <!--description-->
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[2]" position="replace">
+                <td name="td_description_product">
+<!--                    <span t-field="line.name" style="font-size:12px"/>-->
+                    <span t-esc="line.name.split(line.product_id.name)[1] if line.product_id.name in line.name else line.name"
+                          style="font-size:12px"/>
+                </td>
+            </xpath>
+
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[2]" position="after">
+                <td name="td_quantity_product" style="text-align:right;">
+                    <span t-field="line.quantity" style="font-size:12px"/>
+                </td>
+            </xpath>
+
+             <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[5]" position="replace">
+            </xpath>
+
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[4]" position="replace">
+                <td name="td_price_unit_product" style="text-align:right;">
+                    <span t-field="line.price_unit" style="font-size:12px"/>
+                </td>
+            </xpath>
+
+            <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[6]" position="replace">
+                <td name="td_price_subtotal_product" style="text-align:right;">
+                    <span t-field="line.price_subtotal" style="font-size:12px"/>
+                </td>
+            </xpath>
+
+
+
+            <!--            HASTA AQUÍ 18/06-->
+
+            <!--            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[1]" position="replace">-->
+            <!--                <td name="account_invoice_line_article">-->
+            <!--                    &lt;!&ndash;                    <span&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                        t-esc="line.name[line.name.find('[')+1:line.name.find(']')] if '[' in line.name and ']' in line.name else line.name"/>&ndash;&gt;-->
+            <!--                    <span-->
+            <!--                        t-esc="line.name[line.name.find(']')+1:] if ']' in line.name else line.name"/>-->
+            <!--                </td>-->
+            <!--            </xpath>-->
 
             <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='th_priceunit']" position="replace">
                 <th name="th_priceunit"
@@ -58,7 +115,8 @@
             <!--product uom_id-->
             <!--            da error -->
             <!--            <xpath expr="//th[@class='th_taxes']" position="replace"/>-->
-            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[2]/span[2]" position="replace"/>
+
+<!--            <xpath expr="//tbody[@class='invoice_tbody']/t[3]/tr/t[1]/td[2]/span[2]" position="replace"/>-->
         </template>
     </data>
 </odoo>

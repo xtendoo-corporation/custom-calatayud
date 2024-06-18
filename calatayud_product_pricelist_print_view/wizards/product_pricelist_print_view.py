@@ -35,3 +35,29 @@ class ProductPricelistPrint(models.TransientModel):
             self.product_price_piece = product.taxes_id.compute_all(price)["total_included"]
         else:
             self.product_price_piece = price
+
+    def force_pricelist_send(self):
+        template_id = self.env.ref(
+            "product_pricelist_direct_print.email_template_edi_pricelist"
+        ).id
+        composer = (
+            self.env["mail.compose.message"]
+            .with_context(
+                default_composition_mode="mass_mail",
+                default_notify=True,
+                default_res_id=self.id,
+                default_model="product.pricelist.print",
+                default_template_id=template_id,
+                active_ids=self.ids,
+            )
+            .create({})
+        )
+        values = composer._onchange_template_id(
+            template_id, "mass_mail", "product.pricelist.print", self.id
+        )["value"]
+        composer.write(values)
+        composer.action_send_mail()
+
+        # Registrar en el chatter
+        message = "The pricelist has been sent to the customers via email."
+        self.message_post(body=message, subject="Pricelist Sent")
