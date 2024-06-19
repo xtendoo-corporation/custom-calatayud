@@ -36,17 +36,21 @@
             </xpath>
             <xpath expr="//table[1]/tbody/t/tr/t[1]/td[1]" position="replace">
                 <td name="td_product_name">
-<!--                    <span t-field="line.product_id.name" style="font-size:12px"/>-->
-<!--                    <span t-esc="line.name.rsplit(']', 1)[-1].rsplit(')', 1)[0] + ')' if ']' in line.name else line.name.rsplit(')', 1)[0] + ')'"-->
-<!--                          style="font-size:12px"/>-->
-                    <span t-esc="line.name.rsplit(']', 1)[-1].rsplit(')', 1)[0] + ')' if ']' in line.name and ')' in line.name.rsplit(']', 1)[-1] else (line.name.rsplit(')', 1)[0] + ')' if ')' in line.name else line.name)"
-                          style="font-size:12px"/>
+                    <!--                    <span t-field="line.product_id.name" style="font-size:12px"/>-->
+                    <!--                    <span t-esc="line.name.rsplit(']', 1)[-1].rsplit(')', 1)[0] + ')' if ']' in line.name else line.name.rsplit(')', 1)[0] + ')'"-->
+                    <!--                          style="font-size:12px"/>-->
+                    <span
+                        t-esc="line.name.rsplit(']', 1)[-1].rsplit(')', 1)[0] + ')' if ']' in line.name and ')' in line.name.rsplit(']', 1)[-1] else (line.name.rsplit(')', 1)[0] + ')' if ')' in line.name else line.name)"
+                        style="font-size:12px"/>
                 </td>
             </xpath>
             <xpath expr="//table[1]/tbody/t/tr/t[1]/td[2]" position="replace">
                 <td name="td_description_product">
+                    <!--                    <span-->
+                    <!--                        t-esc="line.name.split(')')[1] if ')' in line.name else line.name"-->
+                    <!--                        style="font-size:12px"/>-->
                     <span
-                        t-esc="line.name.split(')')[1] if ')' in line.name else line.name"
+                        t-esc="line.name.split(')')[1].strip() if ')' in line.name and line.name.split(')')[1].strip() != '' else line.name"
                         style="font-size:12px"/>
                 </td>
             </xpath>
