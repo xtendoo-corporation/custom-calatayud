@@ -4,26 +4,9 @@
         <!--ADD PAYMENT MODE-->
         <template id="calatayud_document_format.report_saleorder_document_inherit"
                   inherit_id="sale.report_saleorder_document">
-            <!--payment mode-->
-            <!--            <xpath expr="//p[@name='order_note']" position="after">-->
-            <!--                <p t-if="doc.payment_mode_id" name="payment_mode" class="mt-4">-->
-            <!--                    Forma de pago:-->
-            <!--                    <b>-->
-            <!--                        <span t-field="doc.payment_mode_id.name"/>-->
-            <!--                    </b>-->
-            <!--                </p>-->
-            <!--            </xpath>-->
-            <!--HEADER-->
-            <!--reference-->
-            <!--            <xpath expr="//th[@name='th_description']" position="replace">-->
-            <!--                <th name="th_reference" class="text-start">Referencia</th>-->
-            <!--            </xpath>-->
-            <!--taxes-->
             <xpath expr="//th[@name='th_taxes']" position="replace">
                 <th name="th_taxes"/>
             </xpath>
-
-            <!--            Codigo nuevo 18/06 -->
             <xpath expr="//table[1]/thead[1]/tr[1]/th[1]" position="replace">
                 <th name="th_description_product" class="text-start">
                     <span>Descripción</span>
@@ -36,9 +19,6 @@
             </xpath>
             <xpath expr="//table[1]/tbody/t/tr/t[1]/td[1]" position="replace">
                 <td name="td_product_name">
-                    <!--                    <span t-field="line.product_id.name" style="font-size:12px"/>-->
-                    <!--                    <span t-esc="line.name.rsplit(']', 1)[-1].rsplit(')', 1)[0] + ')' if ']' in line.name else line.name.rsplit(')', 1)[0] + ')'"-->
-                    <!--                          style="font-size:12px"/>-->
                     <span
                         t-esc="line.name.rsplit(']', 1)[-1].rsplit(')', 1)[0] + ')' if ']' in line.name and ')' in line.name.rsplit(']', 1)[-1] else (line.name.rsplit(')', 1)[0] + ')' if ')' in line.name else line.name)"
                         style="font-size:12px"/>
@@ -46,9 +26,6 @@
             </xpath>
             <xpath expr="//table[1]/tbody/t/tr/t[1]/td[2]" position="replace">
                 <td name="td_description_product">
-                    <!--                    <span-->
-                    <!--                        t-esc="line.name.split(')')[1] if ')' in line.name else line.name"-->
-                    <!--                        style="font-size:12px"/>-->
                     <span
                         t-esc="line.name.split(')')[1].strip() if ')' in line.name and line.name.split(')')[1].strip() != '' else line.name"
                         style="font-size:12px"/>
@@ -59,19 +36,10 @@
                     <span t-field="line.product_uom_qty" style="font-size:12px"/>
                 </td>
             </xpath>
-            <!--            HASTA AQUI 18/06 -->
-
             <xpath expr="//th[@name='th_priceunit']" position="replace">
                 <th name="th_priceunit" class="text-end">Precio</th>
             </xpath>
-
-            <!--TABLE BODY-->
-            <!--taxes-->
             <xpath expr="//td[@name='td_taxes']/span[1]" position="replace"/>
-            <!--product uom_id-->
-            <!--            <xpath expr="//td[@name='td_quantity']/span[2]" position="replace"/>-->
-            <!--CHANGE THE FONT SIZES-->
-            <!--content in the table-->
             <xpath expr="//tbody[@class='sale_tbody']" position="attributes">
                 <attribute name="style">font-size:12px</attribute>
             </xpath>

@@ -25,19 +25,6 @@
                 <attribute name="class">text-end</attribute>
             </xpath>
         </template>
-        <!--****************************************-->
-<!--        <template id="calatayud_document_format.stock_report_delivery_aggregated_move_lines_inherit"-->
-<!--                  inherit_id="stock.stock_report_delivery_aggregated_move_lines">-->
-<!--            <xpath expr="//td[@name='move_line_aggregated_qty_ordered']" position="replace">-->
-<!--            </xpath>-->
-<!--            <xpath expr="//td[@name='move_line_aggregated_qty_done']/t/span[1]" position="attributes">-->
-<!--                <attribute name="class">text-end</attribute>-->
-<!--            </xpath>-->
-<!--            <xpath expr="//td[@name='move_line_aggregated_qty_done']/t/span[2]" position="attributes">-->
-<!--                <attribute name="class">text-end</attribute>-->
-<!--            </xpath>-->
-<!--        </template>-->
-        <!--****************************************-->
         <template id="calatayud_document_format.stock_report_delivery_has_serial_move_line_inherit"
                   inherit_id="stock.stock_report_delivery_has_serial_move_line">
             <xpath expr="//td[1]" position="attributes">
