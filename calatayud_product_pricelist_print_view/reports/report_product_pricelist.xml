@@ -45,7 +45,7 @@
             <th style="font-size:14px; text-align:right">
                 <strong>METRO</strong>
             </th>
-            <th style="font-size:14px; text-align:right">
+            <th t-if="o.show_pieces" style="font-size:14px; text-align:right">
                 <strong>PIEZA</strong>
             </th>
         </xpath>
@@ -85,7 +85,7 @@
         <xpath
             expr="//div[hasclass('page')]/table[1]/tbody[1]/t[1]/tr[1]/td[5]"
             position="replace">
-            <td style="text-align:right;" t-if="product.sale_only_piece">
+            <td style="text-align:right;" t-if="o.show_pieces and product.sale_only_piece">
                 <strong
                     t-field="o.with_context(product=product).product_price"
                     t-options='{"widget": "float", "precision": 2}'

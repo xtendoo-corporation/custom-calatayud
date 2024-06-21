@@ -14,6 +14,10 @@ class ProductPricelistPrint(models.TransientModel):
     product_price_piece = fields.Float(
         compute="_compute_product_price_piece",
     )
+    show_pieces = fields.Boolean(
+        default="True",
+        string="Print pieces",
+    )
 
     def get_pricelist_min_quantity(self, pricelist):
         self.ensure_one()
@@ -57,7 +61,3 @@ class ProductPricelistPrint(models.TransientModel):
         )["value"]
         composer.write(values)
         composer.action_send_mail()
-
-        # Registrar en el chatter
-        message = "The pricelist has been sent to the customers via email."
-        self.message_post(body=message, subject="Pricelist Sent")
