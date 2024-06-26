@@ -43,6 +43,11 @@
             <xpath expr="//tbody[@class='sale_tbody']" position="attributes">
                 <attribute name="style">font-size:12px</attribute>
             </xpath>
+
+            <xpath expr="//div[@name='so_total_summary']" position="after">
+                <span t-if="env.context.get('proforma', False) or is_pro_forma">Banco Santader : ES76 0049 5907 4423 1608 6239</span>
+            </xpath>
+
         </template>
     </data>
 </odoo>
