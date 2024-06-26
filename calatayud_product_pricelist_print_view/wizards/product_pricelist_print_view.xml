@@ -12,6 +12,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='show_product_uom']" position="after">
                 <field name="description_product"/>
+            </xpath>
+            <xpath expr="//field[@name='show_pricelist_name']" position="after">
                 <field name="show_pieces"/>
             </xpath>
         </field>

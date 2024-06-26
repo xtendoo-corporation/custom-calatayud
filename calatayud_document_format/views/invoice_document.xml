@@ -18,7 +18,7 @@
             <!--product name-->
             <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[1]" position="replace">
                 <td name="td_product_name">
-                    <span t-field="line.product_id.name" style="font-size:12px"/>
+                    <span t-field="line.name" style="font-size:12px"/>
                 </td>
             </xpath>
             <!--description-->

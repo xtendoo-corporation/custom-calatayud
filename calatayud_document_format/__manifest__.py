@@ -20,6 +20,7 @@
         "views/sale_order_document.xml",
         "views/report_deliveryslip.xml",
         "views/purchase_order_document.xml",
+        "views/report_payment_receipt_templates.xml",
     ],
     "installable": True,
     "auto_install": False,

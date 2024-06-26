@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="calatayud_document_format.report_payment_receipt_document"
+              inherit_id="account.report_payment_receipt_document">
+
+<!--        <xpath expr="//table" position="before">-->
+        <xpath expr="//div[@class='row'][3]" position="after">
+            <div class="row">
+                <div class="col-6" t-if="o.amount">
+                    Journal: <span t-field="o.journal_id"/>
+                 </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//table" position="replace"/>
+
+    </template>
+</odoo>
