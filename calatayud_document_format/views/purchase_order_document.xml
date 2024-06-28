@@ -23,16 +23,14 @@ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
         <xpath expr="//td[@class='text-center']" position="replace"/>
 
         <xpath expr="//table[1]/thead/tr//th[1]" position="replace">
-            <th name="th_product_name" class="text-start">
+            <th name="th_product_line_name" class="text-start">
                 <span>Nombre</span>
             </th>
         </xpath>
 
         <xpath expr="//table[1]/tbody/t/tr/t[1]/td[1]" position="replace">
-            <td name="td_name_product">
-                <span
-                    t-esc="line.name.rsplit(']', 1)[-1] if ']' in line.name else line.name"
-                />
+            <td name="td_product_line_name">
+                <span t-field="line.product_line_name"/>
             </td>
         </xpath>
     </template>
