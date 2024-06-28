@@ -21,8 +21,3 @@ class SaleOrderLine(models.Model):
         for record in self.filtered('name'):
             record.product_line_name = record.name.split(']', 1)[-1].split('\n', 1)[0] if ']' in record.name else record.name
             record.product_line_description = record.name.split('\n', 1)[-1] if '\n' in record.name else ''
-
-            print("*"*50)
-            print("record.product_line_name", record.product_line_name)
-            print("record.product_line_description", record.product_line_description)
-            print("*"*50)
