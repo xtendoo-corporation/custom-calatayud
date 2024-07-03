@@ -50,7 +50,15 @@
             </xpath>
 
             <xpath expr="//div[@name='so_total_summary']" position="after">
-                <span t-if="env.context.get('proforma', False) or is_pro_forma">Banco Santander : ES76 0049 5907 4423 1608 6239</span>
+                <span t-if="env.context.get('proforma', False) or is_pro_forma">
+                    <strong>Forma de pago:</strong>
+                    <t t-if="doc.company_id.name == 'La Tienda de Calatayud S.L.'">
+                        Banco Santander : ES76 0049 5907 4423 1608 6239
+                    </t>
+                    <t t-else="">
+                        Banco Santander : ES30 0049 5907 4324 1608 5968
+                    </t>
+                </span>
             </xpath>
 
         </template>
