@@ -24,6 +24,17 @@
                    position="attributes">
                 <attribute name="class">text-end</attribute>
             </xpath>
+
+            <xpath expr="//th[@name='th_sm_product']" position="attributes">
+                <attribute name="style">text-align: left;</attribute>
+            </xpath>
+            <xpath expr="//th[@name='th_sml_product']" position="attributes">
+                <attribute name="style">text-align: left;</attribute>
+            </xpath>
+            <xpath expr="//th[@name='th_sb_product']" position="attributes">
+                <attribute name="style">text-align: left;</attribute>
+            </xpath>
+
         </template>
         <template id="calatayud_document_format.stock_report_delivery_has_serial_move_line_inherit"
                   inherit_id="stock.stock_report_delivery_has_serial_move_line">
@@ -41,6 +52,12 @@
             <xpath expr="//table[@class='table table-sm mt32']/thead/tr/th[2]" position="replace">
             </xpath>
             <xpath expr="//table[@class='table table-sm mt32']/tbody/tr/td[2]" position="replace">
+            </xpath>
+        </template>
+
+        <template id="calatayud_document_format.valued_report_picking_has_serial_move_line_inherit"
+                  inherit_id="stock_picking_report_valued.valued_report_picking_has_serial_move_line">
+            <xpath expr="//td[@name='td_sml_taxes']" position="replace">
             </xpath>
         </template>
     </data>

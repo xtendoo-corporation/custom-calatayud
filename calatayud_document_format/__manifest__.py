@@ -16,6 +16,7 @@
         'stock_picking_report_valued',
     ],
     "data": [
+        "views/report_picking.xml",
         "views/invoice_document.xml",
         "views/sale_order_document.xml",
         "views/report_deliveryslip.xml",
