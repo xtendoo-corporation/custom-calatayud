@@ -63,5 +63,9 @@
         <xpath expr="//td[position()=2]" position="attributes">
             <attribute name="style">text-align: right;</attribute>
         </xpath>
+
+         <xpath expr="//table/tbody" position="attributes">
+            <attribute name="style">font-size:12px</attribute>
+        </xpath>
     </template>
 </odoo>

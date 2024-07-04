@@ -28,23 +28,79 @@
             <xpath expr="//th[@name='th_sm_product']" position="attributes">
                 <attribute name="style">text-align: left;</attribute>
             </xpath>
-            <xpath expr="//th[@name='th_sml_product']" position="attributes">
-                <attribute name="style">text-align: left;</attribute>
-            </xpath>
             <xpath expr="//th[@name='th_sb_product']" position="attributes">
                 <attribute name="style">text-align: left;</attribute>
             </xpath>
 
+            <!--            añadir direccion del cliente -->
+            <xpath expr="//div[@name='div_incoming_address']" position="replace">
+                <div class="col-8" name="div_incoming_address">
+                    <t t-set="show_partner" t-value="False"/>
+                    <div name="vendor_address" t-if="o.picking_type_id.code=='incoming' and partner">
+                        <span>
+                            <strong>Dirección del proveedor:</strong>
+                        </span>
+                        <t t-set="show_partner" t-value="True"/>
+                    </div>
+                    <div name="customer_address"
+                         t-if="o.picking_type_id.code=='outgoing' and partner ">
+                        <span>
+                            <strong>Dirección del cliente:</strong>
+                        </span>
+                        <t t-set="show_partner" t-value="True"/>
+                    </div>
+                    <div t-if="show_partner" name="partner_header">
+                        <div t-field="partner.commercial_partner_id"
+                             t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True, "phone_icons": True}'/>
+                    </div>
+                </div>
+            </xpath>
+
+            <!--            Cambiar titulo visualmente para que tenga sincronía con otros albaranes-->
+            <xpath expr="//div[@class='page']/h2" position="replace">
+                <br/>
+                <h1 t-field="o.name" class="mt0"/>
+            </xpath>
+
+            <!--            si el estado es diferente de done, adecuamos el formato de la tabla-->
+            <xpath expr="//table[@name='stock_move_table']/thead/tr/th[2]" position="attributes">
+                <attribute name="style">text-align: right;</attribute>
+            </xpath>
+            <xpath expr="//table[@name='stock_move_table']/thead/tr//th[3]" position="attributes">
+                <attribute name="style">text-align: right;</attribute>
+            </xpath>
+            <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[2]" position="attributes">
+                <attribute name="style">text-align: right;</attribute>
+            </xpath>
+            <xpath expr="//table[@name='stock_move_table']/tbody/tr//td[3]" position="attributes">
+                <attribute name="style">text-align: right;</attribute>
+            </xpath>
+
+            <!--            si el estado es done y tiene move_lines -->
+            <xpath expr="//th[@name='th_sml_product']" position="attributes">
+                <attribute name="style">text-align: left;</attribute>
+            </xpath>
+            <xpath expr="//th[@name='th_sml_qty_ordered']" position="attributes">
+                <attribute name="style">text-align: right;</attribute>
+            </xpath>
+            <xpath expr="//th[@name='th_sml_quantity']" position="attributes">
+                <attribute name="style">text-align: right;</attribute>
+            </xpath>
         </template>
+
         <template id="calatayud_document_format.stock_report_delivery_has_serial_move_line_inherit"
                   inherit_id="stock.stock_report_delivery_has_serial_move_line">
             <xpath expr="//td[1]" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
+                <attribute name="style">font-size:12px; text-align: left;</attribute>
             </xpath>
             <xpath expr="//td[2]" position="attributes">
-                <attribute name="style">font-size:12px</attribute>
+                <attribute name="style">font-size:12px; text-align: left;</attribute>
+            </xpath>
+            <xpath expr="//td[3]" position="attributes">
+                <attribute name="style">font-size:12px; text-align: right;</attribute>
             </xpath>
         </template>
+
         <template id="calatayud_document_format.valued_report_picking_inherit"
                   inherit_id="stock_picking_report_valued.valued_report_picking">
             <xpath expr="//th[@name='th_sml_taxes']" position="replace">
