@@ -75,6 +75,25 @@
             <xpath
                 expr="//table[@name='invoice_line_table']/tbody/t/tr/t[@name='account_invoice_line_accountable']/td[5]"
                 position="replace"/>
+
+            <xpath expr="//div[@class='clearfix mb-4']" position="after">
+                <t t-if="o.payment_mode_id">
+                    <div class="row mt32">
+                        <div class="col-8">
+                            <strong>Método de Pago:</strong>
+                            <span t-field="o.payment_mode_id" style="font-size:12px"/>
+                        </div>
+
+                    </div>
+                </t>
+            </xpath>
         </template>
+
+<!--        INTENTO DE MODIFICAR LA DIRECCIÓN -->
+<!--        <template id="contact_inherit" inherit_id="base.contact">-->
+<!--            <xpath expr="//span[@itemprop='addressCountry']" position="replace">-->
+<!--                <span t-if="object.state_id" itemprop="addressRegion" t-esc="object.state_id.name"/>-->
+<!--            </xpath>-->
+<!--        </template>-->
     </data>
 </odoo>
