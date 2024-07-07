@@ -8,6 +8,7 @@
         'base_setup',
         'product',
         'analytic',
+        'account_payment_partner',
         'portal',
         'purchase',
         'sale',
@@ -16,7 +17,6 @@
         'stock_picking_report_valued',
     ],
     "data": [
-        "views/base_contact.xml",
         "views/report_picking.xml",
         "views/invoice_document.xml",
         "views/sale_order_document.xml",
