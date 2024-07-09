@@ -65,15 +65,26 @@
                 expr="//table[@name='invoice_line_table']/tbody/t/tr/t[@name='account_invoice_line_accountable']/td[5]"
                 position="replace"/>
 
-            <xpath expr="//div[@class='clearfix mb-4']" position="after">
-                <t t-if="o.payment_mode_id">
-                    <div class="row mt32">
-                        <div class="col-8">
-                            <strong>Método de Pago:</strong>
-                            <span t-field="o.payment_mode_id" style="font-size:12px"/>
-                        </div>
+            <xpath expr="//p[@name='payment_communication']" position="attributes">
+                <attribute name="t-if">o.move_type in ('out_invoice', 'in_refund') and o.payment_reference and
+                    o.payment_mode_id.name != 'Remesa bancaria'
+                </attribute>
+            </xpath>
+
+            <xpath expr="//div[@id='informations']" position="after">
+                <div id="paymentmode_and_reference" class="row mt-4 mb-4">
+                    <div class="col-auto col-3 mw-100 mb-2">
+                        <strong>Método de Pago:</strong>
+                        <p class="m-0" t-field="o.payment_mode_id"/>
                     </div>
-                </t>
+                    <div class="col-auto col-3 mw-100 mb-2">
+                        <strong>Origen:</strong>
+                        <p class="m-0" t-field="o.invoice_origin"/>
+                    </div>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@name='origin']" position="replace">
             </xpath>
 
             <xpath expr="//div[@name='address_same_as_shipping']" position="replace">
@@ -85,11 +96,22 @@
                         <t t-if="o.company_id.account_fiscal_country_id.vat_label"
                            t-esc="o.company_id.account_fiscal_country_id.vat_label"
                            id="inv_tax_id_label"/>
-                        <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/>
+                        <t t-else="">Tax ID</t>:
+                        <span t-field="o.partner_id.vat"/>
                     </div>
                 </t>
             </xpath>
-
+            <xpath expr="//div[@class='clearfix mb-4']" position="after">
+                <span t-if="env.context.get('proforma', False) or is_pro_forma or o.payment_mode_id.name != 'Remesa bancaria'">
+                    <strong>Forma de pago:</strong>
+                    <t t-if="o.company_id.name == 'La Tienda de Calatayud S.L.'">
+                        Banco Santander : ES76 0049 5907 4423 1608 6239
+                    </t>
+                    <t t-else="">
+                        Banco Santander : ES30 0049 5907 4324 1608 5968
+                    </t>
+                </span>
+            </xpath>
         </template>
     </data>
 </odoo>
