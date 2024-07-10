@@ -113,13 +113,5 @@
                 </span>
             </xpath>
         </template>
-
-<!--         <template id="calatayud_document_format.external_layout_boxed_inherit" inherit_id="web.external_layout_boxed">-->
-<!--            <xpath expr="//div[@t-field='company.report_footer']" position="after">-->
-<!--                 <t t-if="o.company_id.name == 'Almacenes Calatayud S.L.'">-->
-<!--                <img src="/calatayud_document_format/static/src/img/sello_calatayud_almacen.png" alt="Sello de Calatayud" width="100"/>-->
-<!--                 </t>-->
-<!--            </xpath>-->
-<!--        </template>-->
     </data>
 </odoo>
