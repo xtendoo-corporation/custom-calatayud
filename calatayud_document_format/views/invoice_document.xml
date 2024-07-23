@@ -8,6 +8,7 @@
                     <span>Descripción</span>
                 </th>
             </xpath>
+
             <!--description-->
             <xpath expr="//table[@name='invoice_line_table']/thead[1]/tr[1]/th[1]" position="before">
                 <th name="th_product_name" class="text-start">
@@ -15,40 +16,44 @@
                 </th>
             </xpath>
             <!--TABLE BODY-->
+            <xpath expr="//tbody" position="attributes">
+                <attribute name="style">font-size:12px</attribute>
+            </xpath>
+
             <!--product name-->
             <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[1]" position="replace">
                 <td name="td_product_name">
-                    <span t-esc="line.product_line_name" style="font-size:12px"/>
+                    <span t-esc="line.product_line_name"/>
                 </td>
             </xpath>
             <!--description-->
             <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[2]" position="replace">
                 <td name="td_product_description">
-                    <span t-esc="line.product_line_description" style="font-size:12px"/>
+                    <span t-esc="line.product_line_description"/>
                 </td>
             </xpath>
 
             <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[2]" position="after">
                 <td name="td_quantity_product" style="text-align:right;">
-                    <span t-field="line.quantity" style="font-size:12px"/>
+                    <span t-field="line.quantity"/>
                 </td>
             </xpath>
 
             <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[4]" position="replace">
                 <td name="td_price_unit_product" style="text-align:right;">
-                    <span t-field="line.price_unit" style="font-size:12px"/>
+                    <span t-field="line.price_unit"/>
                 </td>
             </xpath>
 
             <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[6]" position="replace">
                 <td t-if="display_discount" name="td_discount" style="text-align:right;">
-                    <span class="text-nowrap" t-field="line.discount" style="font-size:12px"/>
+                    <span class="text-nowrap" t-field="line.discount"/>
                 </td>
             </xpath>
 
             <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[7]" position="replace">
                 <td name="td_price_subtotal_product" style="text-align:right;">
-                    <span t-field="line.price_subtotal" style="font-size:12px"/>
+                    <span t-field="line.price_subtotal"/>
                 </td>
             </xpath>
 
@@ -101,17 +106,17 @@
                     </div>
                 </t>
             </xpath>
-            <xpath expr="//div[@class='clearfix mb-4']" position="after">
-                <span t-if="env.context.get('proforma', False) or is_pro_forma or o.payment_mode_id.name != 'Remesa bancaria'">
-                    <strong>Forma de pago:</strong>
-                    <t t-if="o.company_id.name == 'La Tienda de Calatayud S.L.'">
-                        Banco Santander : ES76 0049 5907 4423 1608 6239
-                    </t>
-                    <t t-else="">
-                        Banco Santander : ES30 0049 5907 4324 1608 5968
-                    </t>
-                </span>
-            </xpath>
+            <!--            <xpath expr="//div[@class='clearfix mb-4']" position="after">-->
+            <!--                <span t-if="env.context.get('proforma', False) or is_pro_forma or o.payment_mode_id.name != 'Remesa bancaria'">-->
+            <!--                    <strong>Forma de pago:</strong>-->
+            <!--                    <t t-if="o.company_id.name == 'La Tienda de Calatayud S.L.'">-->
+            <!--                        Banco Santander : ES76 0049 5907 4423 1608 6239-->
+            <!--                    </t>-->
+            <!--                    <t t-else="">-->
+            <!--                        Banco Santander : ES30 0049 5907 4324 1608 5968-->
+            <!--                    </t>-->
+            <!--                </span>-->
+            <!--            </xpath>-->
         </template>
     </data>
 </odoo>
