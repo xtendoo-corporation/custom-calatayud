@@ -106,17 +106,29 @@
                     </div>
                 </t>
             </xpath>
-            <!--            <xpath expr="//div[@class='clearfix mb-4']" position="after">-->
-            <!--                <span t-if="env.context.get('proforma', False) or is_pro_forma or o.payment_mode_id.name != 'Remesa bancaria'">-->
-            <!--                    <strong>Forma de pago:</strong>-->
-            <!--                    <t t-if="o.company_id.name == 'La Tienda de Calatayud S.L.'">-->
-            <!--                        Banco Santander : ES76 0049 5907 4423 1608 6239-->
-            <!--                    </t>-->
-            <!--                    <t t-else="">-->
-            <!--                        Banco Santander : ES30 0049 5907 4324 1608 5968-->
-            <!--                    </t>-->
-            <!--                </span>-->
-            <!--            </xpath>-->
+            <!--TABLA DE VENCIMIENTOS-->
+            <xpath expr="//div[@id='total_payment_term_details_table']" position="replace">
+            </xpath>
+
+            <xpath expr="//div[@name='due_date']/p" position="replace">
+                <t t-set="payment_term_details" t-value="o.payment_term_details"/>
+                <div t-field="o.invoice_payment_term_id.note" name="payment_term"/>
+                <t t-if="o.invoice_payment_term_id.display_on_invoice and payment_term_details">
+                    <div t-if='o.show_payment_term_details' id="total_payment_term_details_table" class="row">
+                        <div t-attf-class="#{'col-7' if report_type != 'html' else 'col-sm-7 col-md-6'} mt-2 mb-2">
+                            <t t-foreach="payment_term_details" t-as="term">
+                                <span t-esc="term.get('date')" class="text-start"/>
+                                <span>(</span>
+                                <span t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                      t-esc="term.get('amount')" class="text-end"/>
+                                <span>)</span>
+                                <br/>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+            <!--FIN TABLA DE VENCIMIENTOS-->
         </template>
     </data>
 </odoo>
