@@ -110,23 +110,27 @@
             <xpath expr="//div[@id='total_payment_term_details_table']" position="replace">
             </xpath>
 
-            <xpath expr="//div[@name='due_date']/p" position="replace">
-                <t t-set="payment_term_details" t-value="o.payment_term_details"/>
-                <div t-field="o.invoice_payment_term_id.note" name="payment_term"/>
-                <t t-if="o.invoice_payment_term_id.display_on_invoice and payment_term_details">
-                    <div t-if='o.show_payment_term_details' id="total_payment_term_details_table" class="row">
-                        <div t-attf-class="#{'col-7' if report_type != 'html' else 'col-sm-7 col-md-6'} mt-2 mb-2">
-                            <t t-foreach="payment_term_details" t-as="term">
-                                <span t-esc="term.get('date')" class="text-start"/>
-                                <span>(</span>
-                                <span t-options='{"widget": "monetary", "display_currency": o.currency_id}'
-                                      t-esc="term.get('amount')" class="text-end"/>
-                                <span>)</span>
-                                <br/>
-                            </t>
+            <xpath expr="//div[@name='due_date']" position="replace">
+                <div class="col-auto col-3 mw-100 mb-2"
+                     t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state == 'posted'" name="due_date">
+                    <strong>Vencimiento:</strong>
+                    <t t-set="payment_term_details" t-value="o.payment_term_details"/>
+                    <div t-field="o.invoice_payment_term_id.note" name="payment_term"/>
+                    <t t-if="o.invoice_payment_term_id.display_on_invoice and payment_term_details">
+                        <div t-if='o.show_payment_term_details' id="total_payment_term_details_table" class="row">
+                            <div t-attf-class="#{'col-7' if report_type != 'html' else 'col-sm-7 col-md-6'} mt-2 mb-2">
+                                <t t-foreach="payment_term_details" t-as="term">
+                                    <span t-esc="term.get('date')" class="text-start"/>
+                                    <span>(</span>
+                                    <span t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                          t-esc="term.get('amount')" class="text-end"/>
+                                    <span>)</span>
+                                    <br/>
+                                </t>
+                            </div>
                         </div>
-                    </div>
-                </t>
+                    </t>
+                </div>
             </xpath>
             <!--FIN TABLA DE VENCIMIENTOS-->
         </template>
