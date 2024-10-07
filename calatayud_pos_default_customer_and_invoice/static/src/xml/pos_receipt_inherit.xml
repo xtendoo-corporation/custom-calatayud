@@ -6,6 +6,8 @@
             <t t-if="env.pos.invoice">
                 <div style="font-weight:bold;">Invoice Number:
                     <t t-esc="this.env.pos.invoice"/>
+                    <br/>
+                    <t t-esc='receipt.date.localestring' />
                 </div>
             </t>
         </xpath>
