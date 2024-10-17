@@ -20,17 +20,6 @@ odoo.define('pos_receipt_extend.PaymentScreen', function (require) {
             const data = this.env.pos.session_orders;
             var length = data.length-1
             var order = data[length]
-            var mobile = order.customer_mobile;
-            var phone = order.customer_phone;
-            var email = order.customer_email;
-            var vat = order.customer_vat;
-            var address = order.customer_address;
-            var name = order.customer_name;
-            var number = order.invoice_number;
-            var qr_code = order.qr_code;
-            var customer_details = order.customer_details;
-            var self= this;
-            self.env.pos.number = order.invoice_number;
             var self= this;
         rpc.query({
                 model: 'pos.order',
