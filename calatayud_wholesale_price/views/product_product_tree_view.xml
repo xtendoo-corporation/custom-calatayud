@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='list_price']" position="after">
                     <field name="wholesale_price" string="Tarifa mayorista" optional="show" />
+                    <field name="wholesale_price_with_tax" string="Tarifa mayorista con IVA" optional="show" />
                     <field name="retail_price" string="PVP" optional="show" />
                 </xpath>
             </field>
@@ -20,6 +21,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='lst_price']" position="after">
                     <field name="wholesale_price" string="Tarifa mayorista" optional="show"/>
+                    <field name="wholesale_price_with_tax" string="Tarifa mayorista con IVA" optional="show" />
                     <field name="retail_price" string="PVP" optional="show"/>
                 </xpath>
             </field>
