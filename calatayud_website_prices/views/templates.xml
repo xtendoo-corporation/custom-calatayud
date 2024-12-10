@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_custom" name="Custom Product View" inherit_id="website_sale.product">
+        <xpath expr="//div[@id='oe_structure_website_sale_product_1']" position="inside">
+            <t t-set="is_logout_user" t-value="request.env.user == request.website.user_id"/>
+            <t t-set="is_log_user"
+               t-value="request.env.user.has_group('base.group_user') or request.env.user.has_group('base.group_portal')"/>
+        </xpath>
+
+        <!--Boton del carro-->
+        <xpath expr="//div[@id='add_to_cart_wrap']" position="replace">
+            <t t-if="is_log_user">
+                <div id="add_to_cart_wrap"
+                     t-attf-class="{{'d-none' if combination_info['prevent_zero_price_sale'] else 'd-inline-flex'}} align-items-center mb-2 me-auto">
+                    <a data-animation-selector=".o_wsale_product_images" role="button" id="add_to_cart"
+                       t-attf-class="btn btn-primary js_check_product a-submit flex-grow-1 #{'btn-lg' if ctaSizeBig else ''}"
+                       href="#">
+                        <i class="fa fa-shopping-cart me-2"/>
+                        <span style="font-weight: bold">Añadir al carro</span>
+                    </a>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="custom_product_price" name="Custom Product Price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[@itemprop='offers']" position="inside">
+            <t t-set="is_logout_user" t-value="request.env.user == request.website.user_id"/>
+            <t t-set="is_log_user"
+               t-value="request.env.user.has_group('base.group_user') or request.env.user.has_group('base.group_portal')"/>
+        </xpath>
+
+        <!--Precio del producto-->
+        <xpath expr="//h3[@class='css_editable_mode_hidden']" position="replace">
+            <t t-if="is_log_user">
+                <h3 class="css_editable_mode_hidden">
+                    <span class="oe_price" style="white-space: nowrap;" t-esc="combination_info['price']"
+                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                    <span itemprop="price" style="display:none;" t-esc="combination_info['price']"/>
+                    <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name"/>
+                    <span
+                        t-attf-class="text-danger oe_default_price ms-1 h5 {{'' if combination_info['has_discounted_price'] and not combination_info['compare_list_price'] else 'd-none'}}"
+                        style="text-decoration: line-through; white-space: nowrap;"
+                        t-esc="combination_info['list_price']"
+                        t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                        itemprop="listPrice"
+                    />
+                    <t t-if="is_view_active('website_sale.tax_indication')" t-call="website_sale.tax_indication"/>
+                    <del
+                        t-if="combination_info['compare_list_price'] and (combination_info['compare_list_price'] &gt; combination_info['price'])">
+                        <bdi dir="inherit">
+                            <span t-esc="combination_info['compare_list_price']"
+                                  groups="website_sale.group_product_price_comparison"
+                                  t-options='{
+                           "widget": "monetary",
+                           "display_currency": website.currency_id,
+                       }'/>
+                        </bdi>
+                    </del>
+                </h3>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="custom_products_item" name="Custom Products Item" inherit_id="website_sale.products_item">
+        <!--Lista de precios-->
+        <xpath expr="//form/div[2]/div[2]/div[2]" position="replace">
+            <t t-if="request.env.user.has_group('base.group_user') or request.env.user.has_group('base.group_portal')">
+                <div class="product_price" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
+                    <t t-if="'base_price' in template_price_vals and (template_price_vals['base_price'] &gt; template_price_vals['price_reduce']) and (template_price_vals['price_reduce'] or not website.prevent_zero_price_sale)">
+                        <del t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
+                            <em class="small" t-esc="template_price_vals['base_price']"
+                                t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                        </del>
+                    </t>
+                    <span class="h6 mb-0"
+                          t-if="template_price_vals['price_reduce'] or not website.prevent_zero_price_sale"
+                          t-esc="template_price_vals['price_reduce']"
+                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                    <span class="h6 mb-0" t-else="" t-field="website.prevent_zero_price_sale_text"/>
+                    <span itemprop="price" style="display:none;" t-esc="template_price_vals['price_reduce']"/>
+                    <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
+
+    <!--        <xpath expr="//form/div[2]/div[2]/div[2]/span[2]" position="replace">-->
+    <!--            <t t-if="request.env.user == request.website.user_id">-->
+    <!--                <h1>Usuario deslogueado</h1>-->
+    <!--            </t>-->
+    <!--            <t t-if="request.env.user.has_group('base.group_user') or request.env.user.has_group('base.group_portal')">-->
+    <!--                <h1>Usuario logueado</h1>-->
+    <!--            </t>-->
+    <!--            <t t-if="request.env.user.is_public">-->
+    <!--                <h1>Usuario público</h1>-->
+    <!--            </t>-->
+    <!--        </xpath>-->
+
+    <!--<attribute name="attrs">{'invisible': [('is_logout_user', '=', True)]}</attribute>-->
