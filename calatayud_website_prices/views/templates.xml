@@ -85,18 +85,12 @@
         </xpath>
     </template>
 
+<!--    <template id="variants" inherit_id="website_sale_product_image_sample.variants">-->
+<!--&lt;!&ndash;        <div class="form-check">&ndash;&gt;-->
+<!--        <xpath expr="//div[@class='form-check']" position="after">-->
+<!--            <span>pepe</span>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
 </odoo>
 
-    <!--        <xpath expr="//form/div[2]/div[2]/div[2]/span[2]" position="replace">-->
-    <!--            <t t-if="request.env.user == request.website.user_id">-->
-    <!--                <h1>Usuario deslogueado</h1>-->
-    <!--            </t>-->
-    <!--            <t t-if="request.env.user.has_group('base.group_user') or request.env.user.has_group('base.group_portal')">-->
-    <!--                <h1>Usuario logueado</h1>-->
-    <!--            </t>-->
-    <!--            <t t-if="request.env.user.is_public">-->
-    <!--                <h1>Usuario público</h1>-->
-    <!--            </t>-->
-    <!--        </xpath>-->
-
-    <!--<attribute name="attrs">{'invisible': [('is_logout_user', '=', True)]}</attribute>-->

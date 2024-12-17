@@ -8,11 +8,12 @@
     "category": "Website",
     "depends":
         [
-            "website_sale", "base", "website",
+            "website_sale", "base", "website", "sale", "website_sale_product_image_sample",
         ],
     "data":
         [
             "views/templates.xml",
+            "views/variant_description.xml",
         ],
     'installable': True,
     'active': False,
