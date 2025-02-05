@@ -22,6 +22,8 @@
         "views/sale_order_document.xml",
         "views/report_deliveryslip.xml",
         "views/purchase_order_document.xml",
+        "views/sale_order_document_no_taxes.xml",
+        "views/invoice_document_no_taxes.xml",
         "views/report_payment_receipt_templates.xml",
     ],
     "installable": True,
