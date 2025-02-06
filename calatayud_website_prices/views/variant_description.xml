@@ -13,7 +13,7 @@
                     >
                         <li
                             class="list-inline-item mb-3 js_attribute_value"
-                            style="margin: 0;"
+                            style="margin: 2px;"
                         >
                             <t
                                 t-set="combination_info_variant"
@@ -44,7 +44,7 @@
                                     />
                                 </div>
                             </label>
-                            <span t-esc="ptav.name" style="display: block; text-align: center;"/>
+                            <span t-esc="ptav.name" style="display: block; text-align: center; font-size: 11px;"/>
                         </li>
                     </t>
                 </ul>

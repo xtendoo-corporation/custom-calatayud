@@ -4,7 +4,7 @@
     "name": "Calatayud Website Prices",
     "version": "16.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Salvador Aramis González Jiménez, Xtendoo",
+    "author": "Salvador Aramis González Jiménez,Abraham Carrasco Molina, Xtendoo",
     "category": "Website",
     "depends":
         [
