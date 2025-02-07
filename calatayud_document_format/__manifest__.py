@@ -25,6 +25,7 @@
         "views/sale_order_document_no_taxes.xml",
         "views/invoice_document_no_taxes.xml",
         "views/report_payment_receipt_templates.xml",
+        "views/report_send_label.xml",
     ],
     "installable": True,
     "auto_install": False,

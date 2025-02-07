@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="send_label_paper_format" model="report.paperformat">
+        <field name="name">Etiqueta de envio</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">164</field>
+        <field name="page_width">103</field>
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="orientation">Portrait</field>
+    </record>
+
+    <template id="report_send_label_document">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <t t-call="web.basic_layout">
+                    <div class="page" style="border:4px solid #08214D; height:718px;width:102%;margin-left:-2%;">
+                        <div class="oe_structure"/>
+                            <div id="table_label" style="width:100%;display:block;margin:0; padding:0;">
+                                <div
+                                    style="width:100%;position:relative;left:-5%;">
+                                <div style="width:100%;-webkit-transform: rotate(90deg);z-index:3;position:absolute;">
+                                    <div style="margin-top:-56%;margin-left:50%;width:161%;">
+                                        <div style="margin-top:-56%;width:60%;height:150px;border-bottom:4px solid #08214D;position:absolute;">
+                                            <h2 style="color:#08214D;margin-top:5px;margin-left:2px;">Remite:</h2>
+<!--                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height: 50px;"/>-->
+                                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:45pt;max-width:90%;margin-left:20px;" alt="Company Logo"/>
+                                        </div>
+                                        <div style="margin-top:-56%;margin-left:60%;width:100%;height:150px;border-bottom:4px solid #08214D;position:absolute;">
+                                                <h2 style="color:#08214D;margin-top:5px;margin-bottom:0;text-align:right;margin-right:2px;">
+                                                    <span t-field="o.company_id.name"/>
+                                                </h2>
+                                                <h4 style="color:#08214D;margin:0;padding:0;text-align:right;">
+                                                    <span t-field="o.company_id.street"/>
+                                                    <span t-field="o.company_id.street2"/>
+                                                </h4>
+                                                <h4 style="color:#08214D;margin:0;padding:0;text-align:right;">
+                                                    <span>Telefono:</span>
+                                                    <span t-field="o.company_id.phone"/>
+                                                </h4>
+                                                <h4 style="color:#08214D;margin:0;padding:0;text-align:right;">
+                                                    <span>41940 -</span>
+                                                    <span t-field="o.company_id.city"/>
+                                                    <span>(</span>
+                                                    <span t-field="o.company_id.state_id.name"/>
+                                                    <span>)</span>
+                                                </h4>
+                                                <h4 style="color:#08214D;margin:0;padding:0;text-align:right;">
+                                                    <span t-field="o.company_id.email" />
+                                                </h4>
+                                        </div>
+                                         <div style="top:-110px;width:60%;height:70px;border-bottom:4px solid #08214D;position:absolute;">
+                                            <h1 style="color:#08214D;margin-left:2px;">Envío a:</h1>
+                                        </div>
+                                         <div style="top:-110px;margin-left:60%;width:100%;height:70px;border-bottom:4px solid #08214D;position:absolute;">
+                                            <h3 style="color:#08214D;margin-left:2px;margin-top:30px;">
+                                                <span t-field="o.partner_id.name"/>
+                                            </h3>
+                                        </div>
+                                        <div style="top:-40px;width:60%;height:70px;border-bottom:4px solid #08214D;position:absolute;">
+                                            <h3 style="color:#08214D;margin-left:2px;margin-top:30px;">Dirección:</h3>
+                                        </div>
+                                         <div style="top:-40px;margin-left:60%;width:100%;height:70px;border-bottom:4px solid #08214D;position:absolute;">
+                                            <h3 style="color:#08214D;margin-left:2px;margin-top:30px;">
+                                                <span t-field="o.partner_id.street"/>
+                                            </h3>
+                                        </div>
+                                        <div style="top:20px;width:100%;height:70px;border-bottom:4px solid #08214D;position:absolute;">
+                                            <h3 style="color:#08214D;margin-left:2px;margin-top:30px;">
+                                                <span>Población: </span><span t-field="o.partner_id.city"/>
+                                            </h3>
+                                        </div>
+                                         <div style="top:20px;margin-left:100%;width:60%;height:70px;border-bottom:4px solid #08214D;position:absolute;">
+                                            <h3 style="color:#08214D;margin-left:2px;margin-top:30px;">
+                                                <span>CP: </span><span t-field="o.partner_id.zip"/>
+                                            </h3>
+                                        </div>
+                                        <div style="top:90px;width:80%;height:50px;border-bottom:4px solid #08214D;position:absolute;">
+                                            <h3 style="color:#08214D;margin-left:2px;">
+                                                <span>Provincia: </span><span t-field="o.partner_id.state_id.name"/>
+                                            </h3>
+                                        </div>
+                                         <div style="top:90px;margin-left:80%;width:80%;height:50px;border-bottom:4px solid #08214D;position:absolute;">
+<!--                                            <h3 style="color:#08214D;margin-left:2px;">-->
+<!--                                                <span>CP: </span><span t-field="o.partner_id.zip"/>-->
+<!--                                            </h3>-->
+                                        </div>
+                                        <div style="top:150px;width:80%;height:50px;border-bottom:4px solid #08214D;position:absolute;">
+                                            <h3 style="color:#08214D;margin-left:2px;">
+                                                <span>TLF: </span><span t-if="o.partner_id.phone" t-field="o.partner_id.phone"/>
+                                            </h3>
+                                        </div>
+                                         <div style="top:150px;margin-left:80%;width:80%;height:50px;border-bottom:4px solid #08214D;position:absolute;">
+                                            <h3 style="color:#08214D;margin-left:2px;">
+                                                <span>Fecha: </span><span t-field="o.date_done" t-options="{'format': 'dd/mm/YYYY'}"/>
+                                            </h3>
+                                        </div>
+
+
+
+<!--                                        <div style="top:-140px;margin-left:80%;width:80%;height:100px;border-bottom:4px solid #08214D;position:absolute;">-->
+<!--                                                <h1>test 4</h1>-->
+<!--                                        </div>-->
+<!--                                        <div style="width:50%;float:left;height:200px;border-bottom:4px solid #08214D;position:absolute;">-->
+<!--                                            <h1>TEST 1</h1>-->
+<!--                                        </div>-->
+<!--                                        <div style="width:50%;float:left;height:200px;border-bottom:4px solid #08214D;position:absolute;">-->
+<!--                                                <h1>test 2</h1>-->
+<!--                                        </div>-->
+<!--                                        <div style="width:50%;float:left;height:200px;border-bottom:4px solid #08214D;position:absolute;">-->
+<!--                                            <h1>TEST 1</h1>-->
+<!--                                        </div>-->
+<!--                                        <div style="width:50%;float:left;height:200px;border-bottom:4px solid #08214D;position:absolute;">-->
+<!--                                                <h1>test 2</h1>-->
+<!--                                        </div>-->
+
+<!--                                         <div style="width:50%;float:left;height:50px;border-bottom:4px solid #08214D;">-->
+<!--                                            <h1>TEST 1</h1>-->
+<!--                                        </div>-->
+<!--                                        <div style="width:50%;float:left;height:50px;border-bottom:4px solid #08214D;">-->
+<!--                                                <h1>test 2</h1>-->
+<!--                                        </div>-->
+
+
+
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+<!--                            <div-->
+<!--                                style="text-align: center;width:20%;float:left;height:150px;position:relative;left:-5%;overflow:hidden">-->
+<!--                                <div style="width:100%;-webkit-transform: rotate(-90deg);z-index:3;position:absolute;">-->
+<!--                                    <h1>test</h1>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+                    </div>
+                </t>
+        </template>
+
+        <template id="report_send_label">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="calatayud_document_format.report_send_label_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <record id="action_report_send_label" model="ir.actions.report">
+            <field name="name">Etiqueta de envio</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">calatayud_document_format.report_send_label</field>
+            <field name="report_file">calatayud_document_format.report_send_label</field>
+            <field name="print_report_name">'Etiqueta de envio - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="calatayud_document_format.send_label_paper_format"/>
+        </record>
+
+</odoo>
