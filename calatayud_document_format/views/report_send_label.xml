@@ -51,21 +51,21 @@
                                                     <span t-field="o.company_id.email" />
                                                 </h6>
                                         </div>
-                                         <div style="top:-110px;width:161%;height:100px;border-bottom:4px solid #08214D;position:absolute;padding-top:10px;">
-                                             <h2 style="color:#08214D;margin-left:2px;padding-botton:0">Envío a:</h2>
-                                             <h4 style="color:#08214D;margin-left:2px;" t-field="o.partner_id.name"/>
+                                         <div style="top:-110px;width:161%;height:80px;border-bottom:4px solid #08214D;position:absolute;padding-top:10px;">
+                                             <h3 style="color:#08214D;margin-left:2px;padding-botton:0">Envío a:</h3>
+                                             <h5 style="color:#08214D;margin-left:2px;" t-field="o.partner_id.name"/>
                                         </div>
-                                        <div style="top:35px;width:161%;height:70px;position:absolute;padding-left:2px;">
+                                        <div style="top:15px;width:161%;height:70px;position:absolute;padding-left:2px;">
                                             <h3 style="color:#08214D;margin-top:-40px;">Dirección: </h3>
-                                            <h5 style="color:#08214D;margin-top:-10px;padding-bottom:0px;" t-field="o.partner_id.street"/>
-                                            <h5 style="color:#08214D;margin-top:-15px;">
+                                            <h4 style="color:#08214D;margin-top:-10px;padding-bottom:0px;" t-field="o.partner_id.street"/>
+                                            <h4 style="color:#08214D;margin-top:-15px;">
                                                 <span t-field="o.partner_id.zip"/>
                                                 <span>-</span>
                                                 <span t-field="o.partner_id.street"/>
                                                 <span> (</span>
                                                 <span t-field="o.partner_id.state_id.name"/>
                                                 <span>)</span>
-                                            </h5>
+                                            </h4>
                                         </div>
 <!--                                         <div style="top:-40px;margin-left:60%;width:100%;height:70px;border-bottom:4px solid #08214D;position:absolute;">-->
 <!--                                            <h3 style="color:#08214D;margin-left:2px;margin-top:30px;">-->
