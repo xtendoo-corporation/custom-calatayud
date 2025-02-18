@@ -8,7 +8,7 @@
             expr="//div[hasclass('page')]/h2[1]"
             position="replace">
             <strong>
-                <h2 style="text-align: center; color: black; border: 1pt solid black">Tarifa 2024
+                <h2 style="text-align: center; color: black; border: 1pt solid black">Tarifa <t t-esc="datetime.datetime.now().year"/>
                     <t t-if="o.show_pricelist_name">
                         <span t-field="pricelist.name"/>
                     </t>
