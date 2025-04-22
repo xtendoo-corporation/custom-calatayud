@@ -1,25 +1,12 @@
-from odoo import api, models
+from odoo import models, api
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    @api.onchange('product_id', 'partner_id', 'product_qty', 'date_planned')
-    def _onchange_product_price_fallback(self):
-        for line in self:
-            # Validar que hay producto seleccionado
-            if not line.product_id:
-                continue
+    @api.depends('product_id', 'order_id.partner_id')
+    def _compute_price_unit_and_date_planned_and_name(self):
+        super()._compute_price_unit_and_date_planned_and_name()
 
-            # Si ya tiene precio (> 0), respetamos ese valor
-            if line.price_unit and line.price_unit > 0:
-                continue
-
-            # Solo aquí llamamos a _select_seller si hay un único product_id
-            supplier = line.product_id._select_seller(
-                partner_id=line.partner_id,
-                quantity=line.product_qty,
-                date=line.date_planned and line.date_planned.date()
-            )
-
-            if not supplier or supplier.price == 0.0:
+        for line in self.filter(lambda l: l.product_id and not l.display_type, self):
+            if not line.price_unit or line.price_unit == 0:
                 line.price_unit = line.product_id.standard_price
