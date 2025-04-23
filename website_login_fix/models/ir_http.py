@@ -8,7 +8,8 @@ class IrHttp(models.AbstractModel):
 
     @classmethod
     def _auth_method_public(cls):
-        resultado = super()._auth_method_public()
-        if request.httprequest.path in ['/','/contacto', '/novedades', '/home', '/shop','/shop/cart','/contactus'] and not request.session.uid:
-            raise HTTPException(response=redirect('/web/login'))
-        return resultado
+        res = super()._auth_method_public()
+        website = request.env['website'].get_current_website()
+        if website.id == 1 and request.httprequest.path in ['/shop'] and not request.session.uid:
+            raise HTTPException(response=redirect('/mi-pagina-login'))
+        return res

@@ -1,0 +1,69 @@
+<odoo>
+    <template id="registro_mayoristas_template" name="Formulario Alta Distribuidores">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <h5 class="text-center text-muted mb-3">FORMULARIO DE REGISTRO</h5>
+                <h2 class="text-center mb-4">
+                    Si aún no tienes cuenta regístrate rellenando este formulario y en breve nos pondremos en contacto
+                    contigo.
+                    <br/>
+                    <strong>Venta exclusiva a profesionales del sector textil.</strong>
+                </h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <form
+                            action="/website/form/mail.mail" method="post"
+                            enctype="multipart/form-data"
+                            class="o_mark_required"
+                            data-mark="*" data-pre-fill="true"
+                            data-success-mode="redirect"
+                            data-success-page="/contactus-thank-you"
+                            data-model_name="mail.mail">
+
+
+                            <input type="hidden" class="form-control s_website_form_input" name="email_to"
+                                   value="barcenalopezguillermo@gmail.com"/>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                            <div class="form-group">
+                                <label>Nombre Fiscal *</label>
+                                <input type="text" name="nombre_fiscal" class="form-control" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label>CIF *</label>
+                                <input type="text" name="cif" class="form-control" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Correo Electrónico *</label>
+                                <input type="email" name="email_from" class="form-control" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Teléfono *</label>
+                                <input type="text" name="telefono" class="form-control" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Dirección *</label>
+                                <input type="text" name="direccion" class="form-control" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label>¿Eres cliente de Almacenes Calatayud? *</label>
+                                <input type="text" name="es_cliente" class="form-control" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Asunto *</label>
+                                <input type="text" name="asunto" class="form-control" required="required"/>
+                            </div>
+                            <div class="form-group form-check mt-3">
+                                <input type="checkbox" name="privacidad" class="form-check-input" required="required"/>
+                                <label class="form-check-label">Acepto la política de privacidad *</label>
+                            </div>
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-dark">ENVIAR</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
