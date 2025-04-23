@@ -20,7 +20,6 @@
                             data-success-page="/contactus-thank-you"
                             data-model_name="mail.mail">
 
-
                             <input type="hidden" class="form-control s_website_form_input" name="email_to"
                                    value="barcenalopezguillermo@gmail.com"/>
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
@@ -53,17 +52,51 @@
                                 <label>Asunto *</label>
                                 <input type="text" name="asunto" class="form-control" required="required"/>
                             </div>
-                            <div class="form-group form-check mt-3">
+                            <div class="form-group  form-check mt-3">
                                 <input type="checkbox" name="privacidad" class="form-check-input" required="required"/>
                                 <label class="form-check-label">Acepto la política de privacidad *</label>
                             </div>
-                            <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-dark">ENVIAR</button>
+
+                            <div class="mb-0 py-2 col-12 s_website_form_submit" data-name="Submit Button">
+                                <div style="width: 200px;" class="s_website_form_label"/>
+                                <button type="submit" class="s_website_form_send btn btn-primary flat btn-sm">
+                                    <span style="font-size: 14px;">
+                                        <font class="bg-600">ENVIAR</font>
+                                    </span>
+                                </button>
+                                <span id="s_website_form_result" class="text-danger ml8"/>
                             </div>
+
                         </form>
                     </div>
                 </div>
             </div>
+
+            <!-- Agregamos el JavaScript para redirigir a la página de agradecimiento -->
+            <script>
+                document.querySelector('form').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    var form = event.target;
+
+                    // Realiza el envío del formulario de forma normal
+                    var formData = new FormData(form);
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(function(response) {
+                        if (response.ok) {
+                            // Redirigir después de que el formulario se haya enviado con éxito
+                            window.location.href = '/contactus-thank-you';
+                        } else {
+                            alert('Hubo un error al enviar el formulario.');
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error('Error en la solicitud:', error);
+                    });
+                });
+            </script>
         </t>
     </template>
 </odoo>
