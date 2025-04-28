@@ -4,7 +4,7 @@
         <xpath expr="//div[@id='oe_structure_website_sale_product_1']" position="inside">
             <t t-set="is_logout_user" t-value="request.env.user == request.website.user_id"/>
             <t t-set="is_log_user"
-               t-value="request.env.user.has_group('base.group_user') or request.env.user.has_group('base.group_portal')"/>
+               t-value="True"/>
         </xpath>
 
         <!--Boton del carro-->
@@ -31,7 +31,7 @@
                 <t t-set="hasBuyNow" t-value="false"/>
                 <t t-set="ctaSizeBig" t-value="not hasQuantities or not hasBuyNow"/>
 
-                <t t-if="is_log_user">
+                <t>
                     <div
                         t-attf-class="css_quantity input-group {{'d-none' if combination_info['prevent_zero_price_sale'] else 'd-inline-flex'}} me-2 mb-2 align-middle #{'input-group-lg' if ctaSizeBig else ''}"
                         contenteditable="false">
@@ -71,7 +71,7 @@
 
         <!--Precio del producto-->
         <xpath expr="//h3[@class='css_editable_mode_hidden']" position="replace">
-            <t t-if="is_log_user">
+            <t>
                 <h3 class="css_editable_mode_hidden">
                     <span class="oe_price" style="white-space: nowrap;" t-esc="combination_info['price']"
                           t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
