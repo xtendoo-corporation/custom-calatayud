@@ -104,7 +104,7 @@
     <template id="custom_products_item" name="Custom Products Item" inherit_id="website_sale.products_item">
         <!--Lista de precios-->
         <xpath expr="//form/div[2]/div[2]/div[2]" position="replace">
-            <t t-if="request.env.user.has_group('base.group_user') or request.env.user.has_group('base.group_portal')">
+            <t>
                 <div class="product_price" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
                     <t t-if="'base_price' in template_price_vals and (template_price_vals['base_price'] &gt; template_price_vals['price_reduce']) and (template_price_vals['price_reduce'] or not website.prevent_zero_price_sale)">
                         <del t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
