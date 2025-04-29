@@ -13,4 +13,10 @@ class CustomWebsiteSaleVariantController(WebsiteSaleVariantController):
         website = request.env['website'].get_current_website()
         if website.id == 3:
             combination['allow_out_of_stock_order'] = False
+            combination['show_availability'] = True
+            combination['available_threshold'] = 100
+        else:
+            print(combination)
+            combination['allow_out_of_stock_order'] = True
+            combination['show_availability'] = False
         return combination
