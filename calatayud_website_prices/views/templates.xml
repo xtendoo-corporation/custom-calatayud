@@ -116,10 +116,10 @@
                     <span class="h6 mb-0"
                           t-if="template_price_vals['price_reduce'] or not website.prevent_zero_price_sale"
                           t-esc="template_price_vals['price_reduce']"
-                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" style="color: #000080"/>
-                    <span class="h6 mb-0" t-else="" t-field="website.prevent_zero_price_sale_text" style="color: #000080"/>
-                    <span itemprop="price" style="display:none; color: #000080" t-esc="template_price_vals['price_reduce']" />
-                    <span itemprop="priceCurrency" style="display:none;color: #09213A" t-esc="website.currency_id.name"/>
+                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" style="color: #09213A"/>
+                    <span class="h6 mb-0" t-else="" t-field="website.prevent_zero_price_sale_text" style="color: #09213A"/>
+                    <span itemprop="price" style="display:none; color: #09213A" t-esc="template_price_vals['price_reduce']" />
+                    <span itemprop="priceCurrency" style="display:none;color: #09213A; font-weight: bold;" t-esc="website.currency_id.name"/>
                 </div>
             </t>
         </xpath>
