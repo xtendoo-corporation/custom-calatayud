@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_payment_checkout" inherit_id="payment.checkout">
+        <xpath expr="//t[@t-foreach='providers']" position="replace">
+            <div name="o_payment_option_card" class="card-body o_payment_option_card">
+                <label>
+                    <input name="o_payment_radio"
+                           type="radio"
+                           checked="true"
+                           data-payment-option-type="custom"/>
+                    <span class="payment_option_name">
+                        <b>Hola</b>
+                    </span>
+                </label>
+            </div>
+            <div name="o_payment_option_card" class="card-body o_payment_option_card">
+                <label>
+                    <input name="o_payment_radio"
+                           type="radio"
+                           data-payment-option-type="custom"/>
+                    <span class="payment_option_name">
+                        <b t-field="user_id.partner_id.property_payment_term_id.name"/>
+                    </span>
+                </label>
+            </div>
+        </xpath>
+    </template>
+</odoo>
