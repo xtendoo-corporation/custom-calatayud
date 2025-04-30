@@ -8,7 +8,6 @@
     'installable': True,
     'auto_install': False,
     'data': [
-        'views/notice_login.xml',
         'views/singup_form.xml',
     ],
 }
