@@ -1,78 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="registro_mayoristas_template" name="Formulario Alta Distribuidores">
-        <t t-call="website.layout">
-            <div class="container py-5">
-                <h5 class="text-center text-muted mb-3">FORMULARIO DE REGISTRO</h5>
-                <h2 class="text-center mb-4">
-                    Si aún no tienes cuenta regístrate rellenando este formulario y en breve nos pondremos en contacto
-                    contigo.
-                    <br/>
-                    <strong>Venta exclusiva a profesionales del sector textil.</strong>
-                </h2>
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <form
-                            action="/website/form/mail.mail" method="post"
-                            enctype="multipart/form-data"
-                            class="o_mark_required"
-                            data-mark="*" data-pre-fill="true"
-                            data-success-mode="redirect"
-                            data-success-page="/contactus-thank-you"
-                            data-model_name="mail.mail">
+    <template id="extended_signup" inherit_id="auth_signup.signup">
 
-                            <input type="hidden" class="form-control s_website_form_input" name="email_to"
-                                   value="barcenalopezguillermo@gmail.com"/>
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-
-                            <div class="form-group">
-                                <label>Nombre Fiscal *</label>
-                                <input type="text" name="nombre_fiscal" class="form-control" required="required"/>
-                            </div>
-                            <div class="form-group">
-                                <label>CIF *</label>
-                                <input type="text" name="cif" class="form-control" required="required"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Correo Electrónico *</label>
-                                <input type="email" name="email_from" class="form-control" required="required"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Teléfono *</label>
-                                <input type="text" name="telefono" class="form-control" required="required"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Dirección *</label>
-                                <input type="text" name="direccion" class="form-control" required="required"/>
-                            </div>
-                            <div class="form-group">
-                                <label>¿Eres cliente de Almacenes Calatayud? *</label>
-                                <input type="text" name="es_cliente" class="form-control" required="required"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Asunto *</label>
-                                <input type="text" name="asunto" class="form-control" required="required"/>
-                            </div>
-                            <div class="form-group  form-check mt-3">
-                                <input type="checkbox" name="privacidad" class="form-check-input" required="required"/>
-                                <label class="form-check-label">Acepto la política de privacidad *</label>
-                            </div>
-
-                            <div class="mb-0 py-2 col-12 s_website_form_submit" data-name="Submit Button">
-                                <div style="width: 200px;" class="s_website_form_label"/>
-                                <button type="submit" class="s_website_form_send btn btn-primary flat btn-sm">
-                                    <span style="font-size: 14px;">
-                                        <font class="bg-600">ENVIAR</font>
-                                    </span>
-                                </button>
-                                <span id="s_website_form_result" class="text-danger ml8"/>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
+       <xpath expr="//form[@class='oe_signup_form']" position="attributes">
+            <attribute name="action">/website/form/mail.mail</attribute>
+            <attribute name="method">post</attribute>
+            <attribute name="enctype">multipart/form-data</attribute>
+            <attribute name="class">oe_signup_form o_mark_required</attribute>
+            <attribute name="data-mark">*</attribute>
+            <attribute name="data-pre-fill">true</attribute>
+            <attribute name="data-success-mode">redirect</attribute>
+            <attribute name="data-success-page">/contactus-thank-you</attribute>
+            <attribute name="data-model_name">mail.mail</attribute>
+        </xpath>
+        <xpath expr="//t[@t-call='auth_signup.fields']" position="replace">
+            <h5 class="text-center text-muted mb-3">FORMULARIO DE REGISTRO</h5>
+            <h2 class="text-center mb-4">
+                <strong>Venta exclusiva a profesionales del sector textil.</strong>
+            </h2>
+            <input type="hidden" class="form-control s_website_form_input" name="email_to"
+                   value="barcenalopezguillermo@gmail.com"/>
+            <input type="hidden" name="subject" value="Solicitud de alta como distribuidor"/>
+            <div class="mb-3 field-cif">
+                <label for="cif">CIF</label>
+                <input type="text" name="cif" t-att-value="cif" id="cif"
+                       class="form-control form-control-sm" placeholder="ej. B12345678"
+                       required="required"/>
             </div>
+            <div class="form-group">
+                <label>Correo Electrónico *</label>
+                <input type="email" name="email_from" class="form-control" required="required"/>
+            </div>
+            <div class="form-group">
+                <label>Nombre Fiscal *</label>
+                <input type="text" name="nombre_fiscal" class="form-control" required="required"/>
+            </div>
+            <div class="form-group">
+                <label>Teléfono *</label>
+                <input type="text" name="telefono" class="form-control" required="required"/>
+            </div>
+            <div class="form-group">
+                <label>Dirección *</label>
+                <input type="text" name="direccion" class="form-control" required="required"/>
+            </div>
+            <div class="form-group form-check mt-3 mb-3">
+                <input type="checkbox" name="es_cliente" class="form-check-input" required="required"/>
+                <label class="form-check-label">¿Eres cliente de Almacenes Calatayud? *</label>
+            </div>
+            <div class="form-group">
+                <label>Asunto *</label>
+                <input type="text" name="asunto" class="form-control" required="required"/>
+            </div>
+            <div class="form-group form-check mt-3">
+                <input type="checkbox" name="privacidad" class="form-check-input" required="required"/>
+                <label class="form-check-label">Acepto la política de privacidad *</label>
+            </div>
+        </xpath>
+        <xpath expr="//button[@type='submit']" position="replace">
 
-            <!-- Agregamos el JavaScript para redirigir a la página de agradecimiento -->
+            <button type="submit" class="btn btn-dark s_website_form_send">ENVIAR</button>
             <script>
                 document.querySelector('form').addEventListener('submit', function(event) {
                     event.preventDefault();
@@ -97,6 +83,7 @@
                     });
                 });
             </script>
-        </t>
+        </xpath>
     </template>
 </odoo>
+

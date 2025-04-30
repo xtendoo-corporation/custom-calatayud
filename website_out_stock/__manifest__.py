@@ -12,7 +12,7 @@
         'website',
         'website_sale',
     ],
-    'data': [],
+    'data': ['views/product_template_stock.xml',],
     'installable': True,
     'application': False,
     'auto_install': False,

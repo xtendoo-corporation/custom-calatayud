@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="website_sale_stock_product_color_availability" inherit_id="website_sale_stock.website_sale_stock_product" priority="5">
+      <xpath expr="//div[contains(@class, 'availability_messages')]" position="attributes">
+        <attribute name="style">margin-top: 50px;</attribute>
+      </xpath>
+  </template>
+</odoo>
