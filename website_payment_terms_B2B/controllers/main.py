@@ -4,8 +4,8 @@ from odoo.http import request
 
 class WebsiteSaleCustom(http.Controller):
 
-    @http.route(['/shop/payment/validate'], type='http', auth="public", website=True)
-    def payment_validate(self, **post):
+    @http.route(['/shop/payment/validate/custom'], type='http', auth="public", website=True)
+    def payment_validate_custom(self, **post):
         order = request.website.sale_get_order()
         if not order:
             return request.redirect('/shop')
