@@ -23,7 +23,12 @@
         <!--        </xpath>-->
 
     </template>
-
+    <template id="custom_product_share_buttons" inherit_id="website_sale.product_share_buttons" active="True"
+              name="Custom Share Buttons">
+        <xpath expr="//t[@t-set='_exclude_share_links']" position="replace">
+            <t t-set="_exclude_share_links" t-value="['whatsapp', 'linkedin', 'pinterest']"/>
+        </xpath>
+    </template>
     <template id="product_quantity_inherit" inherit_id="website_sale.product_quantity">
         <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="replace">
             <div id="o_wsale_cta_wrapper" class="d-flex flex-wrap align-items-center">
@@ -104,7 +109,7 @@
 
     <template id="custom_products_item" name="Custom Products Item" inherit_id="website_sale.products_item">
         <!--Lista de precios-->
-          <xpath expr="//h6[@class='o_wsale_products_item_title mb-2']/a" position="attributes">
+        <xpath expr="//h6[@class='o_wsale_products_item_title mb-2']/a" position="attributes">
             <attribute name="class">text-primary fw-bold text-decoration-none</attribute>
         </xpath>
         <xpath expr="//form/div[2]/div[2]/div[2]" position="replace">
@@ -119,10 +124,14 @@
                     <span class="h6 mb-0"
                           t-if="template_price_vals['price_reduce'] or not website.prevent_zero_price_sale"
                           t-esc="template_price_vals['price_reduce']"
-                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" style="color: #09213A"/>
-                    <span class="h6 mb-0" t-else="" t-field="website.prevent_zero_price_sale_text" style="color: #09213A"/>
-                    <span itemprop="price" style="display:none; color: #09213A" t-esc="template_price_vals['price_reduce']" />
-                    <span itemprop="priceCurrency" style="display:none;color: #09213A; font-weight: bold;" t-esc="website.currency_id.name"/>
+                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
+                          style="color: #09213A"/>
+                    <span class="h6 mb-0" t-else="" t-field="website.prevent_zero_price_sale_text"
+                          style="color: #09213A"/>
+                    <span itemprop="price" style="display:none; color: #09213A"
+                          t-esc="template_price_vals['price_reduce']"/>
+                    <span itemprop="priceCurrency" style="display:none;color: #09213A; font-weight: bold;"
+                          t-esc="website.currency_id.name"/>
                 </div>
             </t>
         </xpath>
