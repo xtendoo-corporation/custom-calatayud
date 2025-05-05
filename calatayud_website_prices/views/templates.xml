@@ -104,6 +104,9 @@
 
     <template id="custom_products_item" name="Custom Products Item" inherit_id="website_sale.products_item">
         <!--Lista de precios-->
+          <xpath expr="//h6[@class='o_wsale_products_item_title mb-2']/a" position="attributes">
+            <attribute name="class">text-primary fw-bold text-decoration-none</attribute>
+        </xpath>
         <xpath expr="//form/div[2]/div[2]/div[2]" position="replace">
             <t>
                 <div class="product_price" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
