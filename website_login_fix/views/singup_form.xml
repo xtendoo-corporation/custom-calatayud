@@ -2,85 +2,92 @@
 <odoo>
     <template id="extended_signup" inherit_id="auth_signup.signup">
 
-       <xpath expr="//form[@class='oe_signup_form']" position="attributes">
+        <xpath expr="//form[@class='oe_signup_form']" position="attributes">
             <attribute name="action">/website/form/mail.mail</attribute>
             <attribute name="method">post</attribute>
             <attribute name="enctype">multipart/form-data</attribute>
-            <attribute name="class">oe_signup_form o_mark_required</attribute>
+            <attribute name="class">oe_signup_form o_mark_required text-start</attribute>
             <attribute name="data-mark">*</attribute>
             <attribute name="data-pre-fill">true</attribute>
             <attribute name="data-success-mode">redirect</attribute>
             <attribute name="data-success-page">/contactus-thank-you</attribute>
             <attribute name="data-model_name">mail.mail</attribute>
+            <attribute name="class"> o_mark_required text-start w-100</attribute>
         </xpath>
         <xpath expr="//t[@t-call='auth_signup.fields']" position="replace">
-            <h5 class="text-center text-muted mb-3">FORMULARIO DE REGISTRO</h5>
-            <h2 class="text-center mb-4">
-                <strong>Venta exclusiva a profesionales del sector textil.</strong>
-            </h2>
-            <input type="hidden" class="form-control s_website_form_input" name="email_to"
-                   value="barcenalopezguillermo@gmail.com"/>
-            <input type="hidden" name="subject" value="Solicitud de alta como distribuidor"/>
-            <div class="mb-3 field-cif">
-                <label for="cif">CIF</label>
-                <input type="text" name="cif" t-att-value="cif" id="cif"
-                       class="form-control form-control-sm" placeholder="ej. B12345678"
-                       required="required"/>
-            </div>
-            <div class="form-group">
-                <label>Correo Electrónico *</label>
-                <input type="email" name="email_from" class="form-control" required="required"/>
-            </div>
-            <div class="form-group">
-                <label>Nombre Fiscal *</label>
-                <input type="text" name="nombre_fiscal" class="form-control" required="required"/>
-            </div>
-            <div class="form-group">
-                <label>Teléfono *</label>
-                <input type="text" name="telefono" class="form-control" required="required"/>
-            </div>
-            <div class="form-group">
-                <label>Dirección *</label>
-                <input type="text" name="direccion" class="form-control" required="required"/>
-            </div>
-            <div class="form-group form-check mt-3 mb-3">
-                <input type="checkbox" name="es_cliente" class="form-check-input" required="required"/>
-                <label class="form-check-label">¿Eres cliente de Almacenes Calatayud? *</label>
-            </div>
-            <div class="form-group">
-                <label>Asunto *</label>
-                <input type="text" name="asunto" class="form-control" required="required"/>
-            </div>
-            <div class="form-group form-check mt-3">
-                <input type="checkbox" name="privacidad" class="form-check-input" required="required"/>
-                <label class="form-check-label">Acepto la política de privacidad *</label>
+            <div class="container-fluid px-4" style="width:80vw">
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h5 class="text-center text-muted mb-3">FORMULARIO DE REGISTRO</h5>
+                        <h2 class="text-center mb-4">
+                            <strong>Venta exclusiva a profesionales del sector textil.</strong>
+                        </h2>
+                       <input type="hidden" class="form-control s_website_form_input" name="email_to"
+                               value="altas@almacenescalatayud.com"/>
+                        <input type="hidden" name="subject" value="Solicitud de alta como distribuidor"/>
+                        <div class="mb-3">
+                            <label class="form-label">Nombre Fiscal *</label>
+                            <input type="text" name="nombre_fiscal" class="form-control" required="required"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Correo Electrónico *</label>
+                            <input type="email" name="email_from" class="form-control" required="required"/>
+                        </div>
+                        <div class="mb-3 field-cif">
+                            <label for="cif" class="form-label">CIF</label>
+                            <input type="text" name="cif" t-att-value="cif" id="cif"
+                                   class="form-control" placeholder="ej. B12345678"
+                                   required="required"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Teléfono *</label>
+                            <input type="text" name="telefono" class="form-control" required="required"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Dirección *</label>
+                            <input type="text" name="direccion" class="form-control" required="required"/>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" name="es_cliente" class="form-check-input" required="required"/>
+                            <label class="form-check-label">¿Eres cliente de Almacenes Calatayud? *</label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Asunto *</label>
+                            <input type="text" name="asunto" class="form-control" required="required"/>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" name="privacidad" class="form-check-input" required="required"/>
+                            <label class="form-check-label">Acepto la política de privacidad *</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </xpath>
         <xpath expr="//button[@type='submit']" position="replace">
 
-            <button type="submit" class="btn btn-dark s_website_form_send">ENVIAR</button>
+           <button type="submit" class="w-25 btn btn-dark s_website_form_send mx-auto d-block mb-2">ENVIAR</button>
             <script>
                 document.querySelector('form').addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    var form = event.target;
+                event.preventDefault();
+                var form = event.target;
 
-                    // Realiza el envío del formulario de forma normal
-                    var formData = new FormData(form);
-                    fetch(form.action, {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(function(response) {
-                        if (response.ok) {
-                            // Redirigir después de que el formulario se haya enviado con éxito
-                            window.location.href = '/contactus-thank-you';
-                        } else {
-                            alert('Hubo un error al enviar el formulario.');
-                        }
-                    })
-                    .catch(function(error) {
-                        console.error('Error en la solicitud:', error);
-                    });
+                // Realiza el envío del formulario de forma normal
+                var formData = new FormData(form);
+                fetch(form.action, {
+                method: 'POST',
+                body: formData
+                })
+                .then(function(response) {
+                if (response.ok) {
+                // Redirigir después de que el formulario se haya enviado con éxito
+                window.location.href = '/contactus-thank-you';
+                } else {
+                alert('Hubo un error al enviar el formulario.');
+                }
+                })
+                .catch(function(error) {
+                console.error('Error en la solicitud:', error);
+                });
                 });
             </script>
         </xpath>

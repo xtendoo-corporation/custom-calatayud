@@ -51,6 +51,6 @@
                 <t t-call="website_sale.payment_confirmation_status"/>
             </t>
         </xpath>
-    </template> 
+    </template>
 
 </odoo>
