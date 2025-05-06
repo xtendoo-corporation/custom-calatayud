@@ -10,6 +10,13 @@ class WebsiteSaleCustom(http.Controller):
         if not order:
             return request.redirect('/shop')
 
+        # Confirmar pedido y enviar correo
         order.with_context(send_email=True).action_confirm()
+
+        # Limpiar el pedido de la sesión
         request.website.sale_reset()
+        # Eliminar las transacciones de post-procesamiento si existen
+        tx = order.get_portal_last_transaction()
+        if tx:
+            request.env['payment.post.processing.item']._remove_transactions(tx)
         return request.redirect('/shop/confirmation')
