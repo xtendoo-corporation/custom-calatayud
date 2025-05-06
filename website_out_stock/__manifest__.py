@@ -11,8 +11,15 @@
         'base',
         'website',
         'website_sale',
+        'website_sale_stock',
     ],
-    'data': ['views/product_template_stock.xml',],
+    'data': ['views/product_template_stock.xml', ],
+    'assets': {
+        'web.assets_frontend': [
+            # Ruta relativa desde la raíz del módulo
+            'website_out_stock/static/src/xml/stock_msg_template.xml',
+        ],
+    },
     'installable': True,
     'application': False,
     'auto_install': False,

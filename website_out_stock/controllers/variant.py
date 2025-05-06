@@ -1,6 +1,7 @@
 from odoo import http
 from odoo.http import request
 from odoo.addons.website_sale.controllers.variant import WebsiteSaleVariantController
+from markupsafe import Markup
 
 
 class CustomWebsiteSaleVariantController(WebsiteSaleVariantController):
@@ -12,6 +13,7 @@ class CustomWebsiteSaleVariantController(WebsiteSaleVariantController):
         )
         website = request.env['website'].get_current_website()
         if website.id == 3:
+            print(combination)
             combination['allow_out_of_stock_order'] = False
             combination['show_availability'] = True
             combination['available_threshold'] = 100
