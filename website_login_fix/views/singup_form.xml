@@ -12,17 +12,14 @@
             <attribute name="data-success-mode">redirect</attribute>
             <attribute name="data-success-page">/contactus-thank-you</attribute>
             <attribute name="data-model_name">mail.mail</attribute>
-            <attribute name="class"> o_mark_required text-start w-100</attribute>
+            <attribute name="class">o_mark_required text-start w-100</attribute>
         </xpath>
         <xpath expr="//t[@t-call='auth_signup.fields']" position="replace">
-            <div class="container-fluid px-4" style="width:80vw">
+            <div class="container-fluid px-4" style="width:60vw">
                 <div class="row mt-5">
                     <div class="col-12">
-                        <h5 class="text-center text-muted mb-3">FORMULARIO DE REGISTRO</h5>
-                        <h2 class="text-center mb-4">
-                            <strong>Venta exclusiva a profesionales del sector textil.</strong>
-                        </h2>
-                       <input type="hidden" class="form-control s_website_form_input" name="email_to"
+                        <h2 class="text-center mb-4">Formulario de registro para profesionales del sector textil</h2>
+                        <input type="hidden" class="form-control s_website_form_input" name="email_to"
                                value="altas@almacenescalatayud.com"/>
                         <input type="hidden" name="subject" value="Solicitud de alta como distribuidor"/>
                         <div class="mb-3">
@@ -30,30 +27,55 @@
                             <input type="text" name="nombre_fiscal" class="form-control" required="required"/>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Correo Electrónico *</label>
-                            <input type="email" name="email_from" class="form-control" required="required"/>
+                            <label class="form-label">Calle y número *</label>
+                            <input type="text" name="direccion" class="form-control" required="required"/>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label class="form-label">Codigo postal *</label>
+                                <input type="text" name="direccion" class="form-control" required="required"/>
+                            </div>
+                            <div class="col-9">
+                                <label class="form-label">Ciudad *</label>
+                                <input type="text" name="direccion" class="form-control" required="required"/>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Provincia *</label>
+                            <input type="text" name="direccion" class="form-control" required="required"/>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Correo Electrónico *</label>
+                                <input type="email" name="email_from" class="form-control" required="required"/>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Teléfono *</label>
+                                <input type="text" name="telefono" class="form-control" required="required"/>
+                            </div>
                         </div>
                         <div class="mb-3 field-cif">
-                            <label for="cif" class="form-label">CIF</label>
+                            <label for="cif" class="form-label">CIF *</label>
                             <input type="text" name="cif" t-att-value="cif" id="cif"
                                    class="form-control" placeholder="ej. B12345678"
                                    required="required"/>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Teléfono *</label>
-                            <input type="text" name="telefono" class="form-control" required="required"/>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Dirección *</label>
-                            <input type="text" name="direccion" class="form-control" required="required"/>
-                        </div>
+
                         <div class="mb-3 form-check">
                             <input type="checkbox" name="es_cliente" class="form-check-input" required="required"/>
                             <label class="form-check-label">¿Eres cliente de Almacenes Calatayud? *</label>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Asunto *</label>
-                            <input type="text" name="asunto" class="form-control" required="required"/>
+                            <label class="form-label">Asunto</label>
+                            <input type="text" name="asunto" class="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Documentos</label>
+                            <input type="file" name="attachments[]" class="form-control"
+                                   multiple="multiple" accept=".pdf,.doc,.docx"/>
+                            <small class="form-text text-muted">Puede adjuntar múltiples documentos (PDF, DOC, DOCX)
+                            </small>
                         </div>
                         <div class="mb-3 form-check">
                             <input type="checkbox" name="privacidad" class="form-check-input" required="required"/>
@@ -65,7 +87,7 @@
         </xpath>
         <xpath expr="//button[@type='submit']" position="replace">
 
-           <button type="submit" class="w-25 btn btn-dark s_website_form_send mx-auto d-block mb-2">ENVIAR</button>
+            <button type="submit" class="w-25 btn btn-dark s_website_form_send mx-auto d-block mb-2">ENVIAR</button>
             <script>
                 document.querySelector('form').addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -92,5 +114,18 @@
             </script>
         </xpath>
     </template>
+        <template id="login_clear" inherit_id="auth_signup.login">
+            <xpath expr="//div[contains(@class, 'justify-content-between') and contains(@class, 'mt-2')]"
+                   position="replace">
+            </xpath>
+        </template>
+      <template id="login_custom" inherit_id="web.login" name="Custom Login - Add Message Above Email">
+    <xpath expr="//div[contains(@class, 'field-login')]" position="before">
+        <div class="text-center text-muted mb-2">
+            <h5> <a t-if="signup_enabled" t-attf-href="/web/signup?{{ keep_query() }}">Si eres profesional del
+            sector textil, crea una cuenta</a></h5>
+        </div>
+    </xpath>
+</template>
 </odoo>
 

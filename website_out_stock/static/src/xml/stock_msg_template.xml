@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-  <!-- Indicamos el nombre del template QWeb que queremos extender -->
   <t t-inherit="website_sale_stock.product_availability"
      t-inherit-mode="extension">
-    <!-- Buscamos el div del mensaje de umbral por su id -->
     <xpath expr="//div[@id='threshold_message']" position="replace">
       <div id="threshold_message"
            t-if="show_availability and free_qty &lt;= available_threshold"
            t-attf-class="availability_message_#{product_template} text-warning fw-bold">
-        <!-- Tu texto personalizado: -->
         Unidades en stock:
         <strong><t t-esc="formatQuantity(free_qty)"/></strong>
       </div>
