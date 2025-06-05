@@ -63,8 +63,8 @@
                         </div>
 
                         <div class="mb-3 form-check">
-                            <input type="checkbox" name="es_cliente" class="form-check-input" required="required"/>
-                            <label class="form-check-label">¿Eres cliente de Almacenes Calatayud? *</label>
+                            <input type="checkbox" name="es_cliente" class="form-check-input"/>
+                            <label class="form-check-label">¿Eres cliente de Almacenes Calatayud?</label>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Asunto</label>
