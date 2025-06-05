@@ -114,18 +114,25 @@
             </script>
         </xpath>
     </template>
-        <template id="login_clear" inherit_id="auth_signup.login">
-            <xpath expr="//div[contains(@class, 'justify-content-between') and contains(@class, 'mt-2')]"
-                   position="replace">
-            </xpath>
-        </template>
-      <template id="login_custom" inherit_id="web.login" name="Custom Login - Add Message Above Email">
-    <xpath expr="//div[contains(@class, 'field-login')]" position="before">
-        <div class="text-center text-muted mb-2">
-            <h5> <a t-if="signup_enabled" t-attf-href="/web/signup?{{ keep_query() }}">Si eres profesional del
-            sector textil, crea una cuenta</a></h5>
-        </div>
-    </xpath>
-</template>
+    <template id="login_clear" inherit_id="auth_signup.login">
+        <xpath expr="//div[contains(@class, 'justify-content-between') and contains(@class, 'mt-2')]"
+               position="replace">
+        </xpath>
+    </template>
+    <template id="login_custom" inherit_id="web.login" name="Custom Login - Add Message Above Email">
+        <xpath expr="//div[contains(@class, 'field-login')]" position="before">
+
+        </xpath>
+    </template>
+
+    <template id="login_custom2" inherit_id="web.login" name="Custom Login - Add Message Below Email">
+        <xpath expr="//button[@type='submit' and @class='btn btn-primary']" position="after">
+            <div class="text-center oe_login_buttons mt-4">
+                <a t-if="signup_enabled" t-attf-href="/web/signup?{{ keep_query() }}" class="btn btn-primary">
+                    Si eres profesional del sector textil, crea una cuenta
+                </a>
+            </div>
+        </xpath>
+    </template>
 </odoo>
 
