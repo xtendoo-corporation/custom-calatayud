@@ -9,5 +9,6 @@
     'auto_install': False,
     'data': [
         'views/singup_form.xml',
+        'views/contact_us.xml',
     ],
 }
