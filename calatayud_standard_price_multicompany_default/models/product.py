@@ -23,5 +23,11 @@ class ProductProduct(models.Model):
         for company in self.env["res.company"].search([("id", "!=", user_company.id)]):
             self.sudo().with_company(company.id).standard_price = standard_price
 
-
-
+    # Añadimos método puente para evitar error cuando se llame desde vistas erróneas
+    def set_multicompany_cost_product_template(self):
+        """
+        Método puente que redirige a la función correcta para product.product.
+        Esto soluciona el error cuando alguna vista heredada llama incorrectamente
+        al método de product.template desde product.product.
+        """
+        return self.set_multicompany_cost_product_product_variant()

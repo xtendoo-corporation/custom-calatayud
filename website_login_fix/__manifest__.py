@@ -4,7 +4,9 @@
     'author': 'Guillermo Barcena Lopez',
     'category': 'Website',
     'summary': 'Redirige a los usuarios públicos a la página de login',
-    'depends': ['website'],
+    'depends': [
+        'website',
+    ],
     'installable': True,
     'auto_install': False,
     'data': [
