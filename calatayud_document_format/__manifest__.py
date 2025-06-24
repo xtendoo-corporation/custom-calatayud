@@ -15,6 +15,7 @@
         'base',
         'stock',
         'stock_picking_report_valued',
+        'calatayud_partner_type',
     ],
     "data": [
         "views/report_picking.xml",

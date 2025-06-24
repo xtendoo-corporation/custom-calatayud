@@ -78,7 +78,6 @@
     </template>
     <template id="login_custom" inherit_id="web.login" name="Custom Login - Add Message Above Email">
         <xpath expr="//div[hasclass('field-login')]" position="before">
-
         </xpath>
     </template>
 
@@ -89,8 +88,7 @@
                      style="min-height: 80vh; margin-top: 2rem;">
                     <!-- Columna izquierda: Login - Con imagen de fondo -->
                     <div class="col-md-5 col-lg-4 pe-md-1"
-                         style="background-image: url('/website_login_fix/static/src/img/background_login.jpg');
-                                background-size: cover;
+                         style="background-size: cover;
                                 background-position: center;
                                 background-repeat: no-repeat;
                                 padding: 20px;
@@ -149,8 +147,7 @@
 
                     <!-- Columna derecha: Formulario de registro - Con imagen de fondo -->
                     <div class="col-md-7 col-lg-6 ps-md-1"
-                         style="background-image: url('/website_login_fix/static/src/img/background.jpg');
-                                background-size: cover;
+                         style="background-size: cover;
                                 background-position: center;
                                 background-repeat: no-repeat;
                                 padding: 20px;

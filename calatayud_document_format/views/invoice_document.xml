@@ -41,7 +41,18 @@
 
             <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[4]" position="replace">
                 <td name="td_price_unit_product" style="text-align:right;">
-                    <span t-field="line.price_unit"/>
+                    <t t-if="o.partner_id.partner_type == 'particular'">
+                        <!-- Precio con impuestos incluidos para clientes particulares -->
+                        <span t-esc="'{:.2f}'.format(line.price_total / line.quantity)"/>
+                    </t>
+                    <t t-elif="o.partner_id.partner_type == 'profesional'">
+                        <!-- Precio con 4 decimales para clientes profesionales -->
+                        <span t-esc="'{:.4f}'.format(line.price_subtotal / line.quantity)"/>
+                    </t>
+                    <t t-else="">
+                        <!-- Precio estándar para otros tipos -->
+                        <span t-field="line.price_unit"/>
+                    </t>
                 </td>
             </xpath>
 
@@ -53,7 +64,18 @@
 
             <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[1]/td[7]" position="replace">
                 <td name="td_price_subtotal_product" style="text-align:right;">
-                    <span t-field="line.price_subtotal"/>
+                    <t t-if="o.partner_id.partner_type == 'particular'">
+                        <!-- Precio con impuestos incluidos para clientes particulares -->
+                        <span t-field="line.price_total"/>
+                    </t>
+                    <t t-elif="o.partner_id.partner_type == 'profesional'">
+                        <!-- Precio sin impuestos para clientes profesionales -->
+                        <span t-field="line.price_subtotal"/>
+                    </t>
+                    <t t-else="">
+                        <!-- Precio subtotal estándar para otros tipos -->
+                        <span t-field="line.price_subtotal"/>
+                    </t>
                 </td>
             </xpath>
 
