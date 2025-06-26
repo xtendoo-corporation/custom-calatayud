@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="login_options_template" name="Opciones de acceso">
+        <t t-call="website.layout">
+            <div class="container-fluid d-flex justify-content-center align-items-center"
+                 style="min-height: 90vh;
+                    background-image: url('/website_login_fix/static/src/img/img.png');
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+
+                <!-- Columna izquierda: Login - Con imagen de fondo -->
+                <div class="row justify-content-center align-items-center w-100">
+                    <div class="col-md-5 mx-4">
+                        <div style="background-color: rgba(255, 255, 255, 1);
+                                    padding: 30px;
+                                    border-radius: 8px;
+                                    text-align: left;
+                                    min-height: 800px;
+                                    min-width: 400px;">
+                            <h2 class="mb-4"
+                                style="text-align: center; font-weight: bold; font-size: 28px; color: #333;">
+                                Almacenes Calatayud
+                            </h2>
+                            <h5 class="mb-4" style="text-align: left; color: #555;">
+                                La plataforma líder para profesionales del sector textil.
+                                <br/>
+                                <br/>
+                                Desde Almacenes Calatayud podrá gestionar todos sus pedidos, consultar nuestro
+                                amplio
+                                catálogo de productos textiles, revisar precios especiales para profesionales y
+                                realizar
+                                sus compras de manera rápida y
+                                sencilla desde cualquier dispositivo.
+                                <br/>
+                                <br/>
+                                Si ya tiene una cuenta, inicie sesión con sus credenciales:
+                            </h5>
+                            <div class="text-left mt-4">
+                                <a href="/web/login" class="btn btn-dark" style="width: 20%;">Iniciar Sesión</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna derecha: Formulario de registro - Con imagen de fondo -->
+                    <div class="col-md-5 mx-4">
+                        <div style="background-color: rgba(255, 255, 255, 1);
+                                    padding: 30px;
+                                    border-radius: 8px;
+                                    text-align: left;
+                                    min-height: 800px;">
+                            <h2 style="text-align: center; font-weight: bold; font-size: 28px; color: #333;">
+                                ¿Todavía no tiene cuenta en Almacenes Calatayud?
+                            </h2>
+                            <h5 class="mb-4" style="color: #555;">
+                                <br/>Rellene el siguiente formulario y crearemos una cuenta para su negocio:
+                            </h5>
+
+                            <form action="/website/form/mail.mail" method="post" enctype="multipart/form-data"
+                                  class="o_mark_required w-100 m-0"
+                                  data-mark="*" data-pre-fill="true" data-success-mode="redirect"
+                                  data-success-page="/contactus-thank-you"
+                                  data-model_name="mail.mail"> <!-- oe_signup_form-->
+                                <input type="hidden" class="form-control s_website_form_input" name="email_to"
+                                       value="altas@almacenescalatayud.com"/>
+                                <input type="hidden" name="subject" value="Solicitud de alta como distribuidor"/>
+
+                                <div class="mb-3">
+                                    <label class="form-label" style="display: block; text-align: left;">Nombre
+                                        Fiscal
+                                        *
+                                    </label>
+                                    <input type="text" name="nombre_fiscal" placeholder="Nombre fiscal"
+                                           class="form-control"
+                                           required="required"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" style="display: block; text-align: left;">Email *
+                                    </label>
+                                    <input type="email" name="email_from" placeholder="Email" class="form-control"
+                                           required="required"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" style="display: block; text-align: left;">Teléfono
+                                    </label>
+                                    <input type="text" name="telefono" placeholder="Teléfono" class="form-control"/>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" name="privacidad" class="form-check-input"
+                                           required="required"/>
+                                    <label class="form-check-label">Acepto la política de privacidad *</label>
+                                </div>
+                                <button type="submit" class="btn btn-dark s_website_form_send mb-2"
+                                        style="width: 15%;">
+                                    Enviar
+                                </button>
+                                <script>
+                                    document.querySelector('form').addEventListener('submit', function(event) {
+                                    event.preventDefault();
+                                    var form = event.target;
+                                    var formData = new FormData(form);
+                                    fetch(form.action, {
+                                    method: 'POST',
+                                    body: formData
+                                    })
+                                    .then(function(response) {
+                                    if (response.ok) {
+                                    window.location.href = '/contactus-thank-you';
+                                    } else {
+                                    alert('Hubo un error al enviar el formulario.');
+                                    }
+                                    })
+                                    .catch(function(error) {
+                                    console.error('Error en la solicitud:', error);
+                                    });
+                                    });
+                                </script>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+<!--    <template id="custom_navbar_nav" inherit_id="website.navbar_nav">-->
+<!--        <xpath expr="//ul" position="attributes">-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>

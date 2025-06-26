@@ -10,7 +10,7 @@
     'installable': True,
     'auto_install': False,
     'data': [
-        'views/singup_form.xml',
         'views/contact_us.xml',
+        'views/templates.xml',
     ],
 }
