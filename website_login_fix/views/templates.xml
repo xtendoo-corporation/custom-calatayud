@@ -123,10 +123,4 @@
             </div>
         </t>
     </template>
-
-
-<!--    <template id="custom_navbar_nav" inherit_id="website.navbar_nav">-->
-<!--        <xpath expr="//ul" position="attributes">-->
-<!--        </xpath>-->
-<!--    </template>-->
 </odoo>
