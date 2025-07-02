@@ -3,8 +3,7 @@
     <template id="product_custom" name="Custom Product View" inherit_id="website_sale.product">
         <xpath expr="//div[@id='oe_structure_website_sale_product_1']" position="inside">
             <t t-set="is_logout_user" t-value="request.env.user == request.website.user_id"/>
-            <t t-set="is_log_user"
-               t-value="True"/>
+            <t t-set="is_log_user" t-value="True"/>
         </xpath>
 
         <!--Boton del carro-->

@@ -11,5 +11,5 @@ class IrHttp(models.AbstractModel):
         res = super()._auth_method_public()
         website = request.env['website'].get_current_website()
         if website.id == 1 and request.httprequest.path in ['/shop'] and not request.session.uid:
-            raise HTTPException(response=redirect('/web/signup'))
+            raise HTTPException(response=redirect('/web/access'))
         return res

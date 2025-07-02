@@ -4,6 +4,8 @@ from odoo import models, api
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
+
+
     @api.model
     def _price_with_tax_computed(
         self, price, product_taxes, taxes, company_id, pricelist, product, partner
