@@ -13,7 +13,6 @@ class WebsiteSaleCustom(http.Controller):
         # Confirmar pedido y enviar correo
         order.with_context(send_email=True).action_confirm()
 
-
         # Limpiar el pedido de la sesión
         request.website.sale_reset()
         # Eliminar las transacciones de post-procesamiento si existen

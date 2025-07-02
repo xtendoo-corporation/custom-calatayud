@@ -10,8 +10,18 @@
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <span class="payment_option_name">
-                                        <b t-field="user_id.partner_id.customer_payment_mode_id.sudo().name"/>,
-                                        <b t-field="user_id.partner_id.property_payment_term_id.sudo().name"/>
+                                        <t t-if="user_id.partner_id.customer_payment_mode_id">
+                                            <b t-field="user_id.partner_id.customer_payment_mode_id.sudo().name"/>,
+                                        </t>
+                                        <t t-else="">
+                                            <b>Establecer forma de pago en ficha del cliente</b> -
+                                        </t>
+                                        <t t-if="user_id.partner_id.property_payment_term_id">
+                                            <b t-field="user_id.partner_id.property_payment_term_id.sudo().name"/>
+                                        </t>
+                                        <t t-else="">
+                                            <b>Establecer plazo de pago en ficha del cliente</b>
+                                        </t>
                                     </span>
                                     <form action="/shop/payment/validate/custom" method="post">
                                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
@@ -55,15 +65,13 @@
 
     <template id="remove_payment_info_from_confirmation" inherit_id="website_sale.confirmation"
               name="Remove Payment Info From Confirmation">
-       <xpath expr="//h3" position="replace"></xpath>
+        <xpath expr="//h3" position="replace"/>
         <xpath expr="//table[@class='table']" position="replace"/>
-       <xpath expr="//div[@class='container oe_website_sale py-2']" position="attributes">
-    <attribute name="class">
-        container oe_website_sale py-2 mt-4
-    </attribute>
-</xpath>
-
-
+        <xpath expr="//div[@class='container oe_website_sale py-2']" position="attributes">
+            <attribute name="class">
+                container oe_website_sale py-2 mt-4
+            </attribute>
+        </xpath>
     </template>
 
 </odoo>
