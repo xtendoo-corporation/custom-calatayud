@@ -1,5 +1,7 @@
 from odoo import http
 from odoo.http import request
+from odoo.tools import logging
+_logger = logging.getLogger(__name__)
 
 
 class WebsiteSaleCustom(http.Controller):
@@ -11,7 +13,11 @@ class WebsiteSaleCustom(http.Controller):
             return request.redirect('/shop')
 
         # Confirmar pedido y enviar correo
-        order.with_context(send_email=True).action_confirm()
+        try:
+            order.with_context(send_email=True).action_confirm()
+        except Exception as e:
+            _logger.error("Error al confirmar el pedido %s: %s", order.id, str(e))
+            return request.redirect('/shop/payment/error')
 
         # Limpiar el pedido de la sesión
         request.website.sale_reset()
