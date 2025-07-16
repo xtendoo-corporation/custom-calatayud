@@ -16,10 +16,10 @@
               name="Cart Popover">
         <xpath expr="//a[hasclass('btn-primary')]" position="replace">
             <a role="button" class="btn btn-primary" href="/shop/cart">
-                View Cart (
+                Ver cesta:
                 <span class="o_wsale_cart_quantity"
                       t-esc="round(sum(website_sale_order.mapped('website_order_line.product_uom_qty')), 1)"/>
-                item(s))
+                ud/s
             </a>
         </xpath>
     </template>
