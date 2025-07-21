@@ -194,7 +194,7 @@ class ImportAccountMove(models.TransientModel):
                 # Obtener los valores de las columnas
                 try:
                     # Verificar que las columnas A, B y E (columnas 0, 1 y 4) estén rellenas
-                    if not row[0].value or not row[1].value or (len(row) <= 4 or not row[4].value):
+                    if not row[0].value or not row[1].value or not row[3].value or not row[4].value:
                         continue
 
                     # O = columna 14 (debe), R = columna 17 (haber), E = columna 4 (código cuenta/subcuenta), I = columna 8 (descripción)
