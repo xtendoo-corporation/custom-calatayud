@@ -123,4 +123,21 @@
             </div>
         </t>
     </template>
+
+    <template id="show_login_message" inherit_id="website.layout">
+        <xpath expr="//head" position="inside">
+            <style>
+                html[data-logged="false"][data-website-id="1"] .o_wsale_products_item_title::after,
+                html[data-logged="false"][data-website-id="1"] #product_details h1::after {
+                content: "🔒 Inicia sesión para ver precios";
+                display: block;
+                color: #6c757d;
+                font-size: 0.875rem;
+                font-style: italic;
+                margin-top: 0.5rem;
+                font-weight: normal;
+                }
+            </style>
+        </xpath>
+    </template>
 </odoo>
