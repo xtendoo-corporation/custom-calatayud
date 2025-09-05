@@ -101,6 +101,9 @@
             </xpath>
         </template>
 
+        <!-- COMMENTED OUT: These templates need updating for Odoo 17.0 compatibility
+             The xpath elements don't exist in the current report structure -->
+        <!--
         <template id="calatayud_document_format.valued_report_picking_inherit"
                   inherit_id="stock_picking_report_valued.valued_report_picking">
             <xpath expr="//th[@name='th_sml_taxes']" position="replace">
@@ -116,5 +119,6 @@
             <xpath expr="//td[@name='td_sml_taxes']" position="replace">
             </xpath>
         </template>
+        -->
     </data>
 </odoo>

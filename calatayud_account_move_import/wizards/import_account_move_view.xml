@@ -9,17 +9,17 @@
                 <field name="state" invisible="1"/>
 
                 <!-- Estado de importación -->
-                <div states="import">
+                <div invisible="state != 'import'">
                     <group>
                         <group>
                             <field name="journal_id" options="{'no_create': True, 'no_open': True}"/>
                             <field name="date"/>
                             <field name="use_default_file"/>
-                            <field name="file" filename="filename" attrs="{'invisible': [('use_default_file', '=', True)], 'required': [('use_default_file', '=', False)]}"/>
+                            <field name="file" filename="filename" invisible="use_default_file" required="not use_default_file"/>
                             <field name="filename" invisible="1"/>
                         </group>
                         <group>
-                            <div attrs="{'invisible': [('use_default_file', '=', False)]}">
+                            <div invisible="not use_default_file">
                                 <p>Se utilizará el archivo "ASIENTO CIERRE 2024.xlsx" incluido en el módulo.</p>
                             </div>
                         </group>
@@ -44,7 +44,7 @@
                 </div>
 
                 <!-- Estado de resultado -->
-                <div states="result">
+                <div invisible="state != 'result'">
                     <div class="alert alert-success" role="alert">
                         <p><strong>¡Importación completada con éxito!</strong></p>
                         <p>Se ha creado correctamente el asiento contable.</p>

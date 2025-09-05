@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <!-- COMMENTED OUT: This template needs updating for Odoo 17.0 compatibility
+         The website_sale_product_image_sample module doesn't exist in Odoo 17.0 -->
+    <!--
     <template id="custom_description" inherit_id="website_sale_product_image_sample.variants">
         <xpath expr="//t[contains(@t-if, 'image')]" position="replace">
             <t t-if="ptal.attribute_id.display_type == 'image'">
@@ -44,11 +47,15 @@
                                     />
                                 </div>
                             </label>
-                            <span t-esc="ptav.name" style="display: block; text-align: center; font-size: 11px;"/>
+                            <span
+                                t-esc="ptav.name"
+                                style="display: block; text-align: center; font-size: 11px;"
+                            />
                         </li>
                     </t>
                 </ul>
             </t>
         </xpath>
     </template>
+    -->
 </odoo>

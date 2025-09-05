@@ -1,6 +1,10 @@
 <odoo>
 <!-- Copyright 2024 Xtendoo - Abraham Carrasco, Manuel Calero
 License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+    <!-- COMMENTED OUT: This template needs updating for Odoo 17.0 compatibility
+         The xpath elements don't exist in the current purchase order report structure -->
+    <!--
     <template
         id="report_purchaseorder_document"
         inherit_id="purchase.report_purchaseorder_document"
@@ -34,5 +38,5 @@ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
             </td>
         </xpath>
     </template>
+    -->
 </odoo>
-

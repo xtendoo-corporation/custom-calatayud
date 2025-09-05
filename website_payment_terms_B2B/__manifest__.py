@@ -1,6 +1,6 @@
 {
     'name': 'Website Payment Terms B2B',
-    'version': '16.0.1.0.0',
+    'version': '17.0.1.0.0',
     'category': 'Website/Website',
     'summary': 'Términos de pago personalizados para B2B',
     'description': """

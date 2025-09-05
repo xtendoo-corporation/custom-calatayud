@@ -3,7 +3,7 @@
 
 {
     "name": "Importador de productos Calatayud",
-    "version": "16.0",
+    "version": "17.0",
     "author": "Camilo Prado (https://xtendoo.es)",
     "category": "Calatayud",
     "license": "AGPL-3",

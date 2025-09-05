@@ -22,8 +22,7 @@
 import json
 from odoo import http
 from odoo.http import request
-from odoo.addons.website_sale_product_configurator.controllers.main import \
-    WebsiteSale
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 
 
 class WebsiteSaleDecimal(WebsiteSale):

@@ -10,8 +10,9 @@
         </xpath>
     </template>
 
-    <!-- This template replaces the default cart popover button with a button that
-        displays the total number of items in the cart with one decimal point precision. -->
+    <!-- COMMENTED OUT: This template needs to be updated for Odoo 17.0 compatibility
+         The cart_popover view doesn't exist in Odoo 17.0 -->
+    <!--
     <template id="cart_popover_decimal" inherit_id="website_sale.cart_popover"
               name="Cart Popover">
         <xpath expr="//a[hasclass('btn-primary')]" position="replace">
@@ -23,4 +24,5 @@
             </a>
         </xpath>
     </template>
+    -->
 </odoo>
