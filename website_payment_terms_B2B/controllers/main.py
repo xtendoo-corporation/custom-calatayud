@@ -1,6 +1,6 @@
 from odoo import http
 from odoo.http import request
-from odoo.tools import logging
+import logging
 _logger = logging.getLogger(__name__)
 
 
