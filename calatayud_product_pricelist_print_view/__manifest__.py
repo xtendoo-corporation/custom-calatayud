@@ -3,7 +3,7 @@
 
 {
     "name": "Calatayud Pricelist Report",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "author": "Manuel Calero, Abraham Carrasco (https://xtendoo.es)",
     "category": "Sales",

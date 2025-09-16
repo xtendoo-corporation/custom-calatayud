@@ -3,7 +3,7 @@
 
 {
     "name": "Propagacion de costes Calatayud",
-    "version": "17.0",
+    "version": "18.0",
     "author": "Manuel Calero (https://xtendoo.es), Salvador González (https://xtendoo.es), Abraham Carrasco (https://xtendoo.es)",
     "category": "Calatayud",
     "license": "AGPL-3",

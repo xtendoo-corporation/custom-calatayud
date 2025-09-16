@@ -1,6 +1,6 @@
 {
     'name': "POS Default Customer and Invoice | Point of Sales Default Customer and Invoice ",
-    'version': '17.0.0.0',
+    'version': '18.0.0.0',
     'category': 'Point of Sale',
     'summary': '',
     'description': """  """,

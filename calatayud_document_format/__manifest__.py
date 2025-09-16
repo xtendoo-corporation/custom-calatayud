@@ -1,6 +1,6 @@
 {
     "name": "Document format Calatayud",
-    "version": "17.0",
+    "version": "18.0",
     "author": "Salvador Gonzalez (https://xtendoo.es)",
     "category": "Calatayud",
     "license": "AGPL-3",

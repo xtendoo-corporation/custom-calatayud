@@ -1,6 +1,6 @@
 {
     "name": "Importador de Asientos Contables",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "summary": "Importa apuntes contables desde Excel a la contabilidad de Odoo",
     "category": "Accounting",
     "author": "Xtendoo",
