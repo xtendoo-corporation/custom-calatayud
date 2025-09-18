@@ -24,9 +24,9 @@
     </template>
     <template id="custom_product_share_buttons" inherit_id="website_sale.product_share_buttons" active="True"
               name="Custom Share Buttons">
-        <xpath expr="//t[@t-set='_exclude_share_links']" position="replace">
+       <!-- <xpath expr="//t[@t-set='_exclude_share_links']" position="replace">
             <t t-set="_exclude_share_links" t-value="['whatsapp', 'linkedin', 'pinterest']"/>
-        </xpath>
+        </xpath> -->
     </template>
     <template id="product_quantity_inherit" inherit_id="website_sale.product_quantity">
         <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="replace">

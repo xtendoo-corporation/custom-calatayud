@@ -1,12 +1,10 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+.. image:: https://img.shields.io/badge/license-AGPL--3-blue.svg
+    :target: https://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
 Website Decimal Quantity
 ========================
-This Module allows customers to set website-shop
-product quantities in decimal.
-
+This Module Allows Customers to Set Website-Shop Product Quantities in Decimal.
 
 Configuration
 =============
@@ -16,9 +14,17 @@ Company
 -------
 * `Cybrosys Techno Solutions <https://cybrosys.com/>`__
 
+License
+-------
+Affero General Public License v3.0 (AGPL v3)
+(https://www.gnu.org/licenses/agpl-3.0-standalone.html )
+
 Credits
 -------
-* Developers: 	Vivek v16 @ cybrosys, Contact: odoo@cybrosys.com
+Developer: (v17) SANEEN K @ cybrosys,
+           (v18) Nivedhya T
+Contact: odoo@cybrosys.com
+
 Contacts
 --------
 * Mail Contact : odoo@cybrosys.com

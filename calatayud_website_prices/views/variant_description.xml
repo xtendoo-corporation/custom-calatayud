@@ -20,7 +20,7 @@
                         >
                             <t
                                 t-set="combination_info_variant"
-                                t-value="product._get_combination_info(ptav, pricelist=pricelist)"
+                                t-value="product._get_combination_info(ptav)"
                             />
                             <t
                                 t-set="combination_info_variant_image"
