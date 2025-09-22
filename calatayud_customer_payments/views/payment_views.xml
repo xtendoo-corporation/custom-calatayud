@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista del wizard para mostrar pagos combinados -->
+        <record id="view_customer_payment_wizard_form" model="ir.ui.view">
+            <field name="name">customer.payment.wizard.form</field>
+            <field name="model">customer.payment.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Pagos del Cliente">
+                    <sheet>
+                        <group>
+                            <field name="partner_id" readonly="1"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Pagos Realizados" invisible="payment_ids == []">
+                                <field name="payment_ids" widget="many2many_tags"/>
+                                <div class="oe_right">
+                                    <button name="action_view_payments"
+                                            string="Ver Todos los Pagos"
+                                            type="object"
+                                            class="btn-primary"/>
+                                </div>
+                            </page>
+
+                            <page string="Facturas Pendientes" invisible="invoice_ids == []">
+                                <field name="invoice_ids" widget="many2many_tags"/>
+                                <div class="oe_right">
+                                    <button name="action_view_pending_invoices"
+                                            string="Ver Todas las Facturas"
+                                            type="object"
+                                            class="btn-primary"/>
+                                </div>
+                            </page>
+                        </notebook>
+
+                        <!-- Resumen -->
+                        <group string="Resumen" col="4">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="total_paid" widget="monetary"/>
+                            <field name="total_pending" widget="monetary"/>
+                            <label for="payment_ids" string="Pagos Realizados"/>
+                            <div><field name="payment_ids" widget="statinfo" nolabel="1"/></div>
+                            <label for="invoice_ids" string="Facturas Pendientes"/>
+                            <div><field name="invoice_ids" widget="statinfo" nolabel="1"/></div>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_create_payment"
+                                string="Registrar Pago"
+                                type="object"
+                                class="btn-primary"
+                                invisible="invoice_ids == []"/>
+                        <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista de lista personalizada para pagos del cliente -->
+        <record id="view_account_payment_customer_tree" model="ir.ui.view">
+            <field name="name">account.payment.customer.tree</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <list string="Pagos del Cliente" create="false">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="partner_id"/>
+                    <field name="amount" sum="Total"/>
+                    <field name="currency_id"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista de lista personalizada para facturas pendientes -->
+        <record id="view_account_move_pending_tree" model="ir.ui.view">
+            <field name="name">account.move.pending.tree</field>
+            <field name="model">account.move</field>
+            <field name="arch" type="xml">
+                <list string="Facturas Pendientes" create="false">
+                    <field name="name"/>
+                    <field name="invoice_date"/>
+                    <field name="invoice_date_due"/>
+                    <field name="partner_id"/>
+                    <field name="amount_total" sum="Total Facturado"/>
+                    <field name="amount_residual" sum="Total Pendiente"/>
+                    <field name="currency_id"/>
+                    <field name="payment_state"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+    </data>
+</odoo>
