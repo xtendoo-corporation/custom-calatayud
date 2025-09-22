@@ -10,7 +10,6 @@
     'author': 'Guillermo Bárcena López',
     'depends': ['base', 'account'],
     'data': [
-        'security/ir.model.access.csv',
         'views/payment_views.xml',
         'views/res_partner_views.xml',
     ],

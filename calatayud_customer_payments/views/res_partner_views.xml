@@ -11,9 +11,9 @@
                     <button class="oe_stat_button"
                             type="object"
                             name="action_view_customer_payments"
-                            invisible="not is_company or customer_rank == 0"
-                            icon="fa-credit-card">
-                        <field name="payment_count" widget="statinfo" string="Pagos"/>
+                            invisible="not is_company or customer_rank == 0 or payment_count == 0"
+                            icon="fa-file-text-o">
+                        <field name="payment_count" widget="statinfo" string="Facturas"/>
                     </button>
                 </div>
             </field>
