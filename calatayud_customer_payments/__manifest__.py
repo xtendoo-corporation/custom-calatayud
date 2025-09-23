@@ -10,8 +10,7 @@
     'author': 'Guillermo Bárcena López',
     'depends': ['base', 'account'],
     'data': [
-        'views/payment_views.xml',
-        'views/res_partner_views.xml',
+        'views/customer_effects.xml',
     ],
     'installable': True,
     'auto_install': False,
