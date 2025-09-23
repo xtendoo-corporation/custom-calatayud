@@ -17,7 +17,8 @@
                                             <b t-field="user_id.partner_id.customer_payment_mode_id.sudo().name"/>,
                                         </t>
                                         <t t-else="">
-                                            <b>Establecer forma de pago en ficha del cliente</b> -
+                                            <b>Establecer forma de pago en ficha del cliente</b>
+                                            -
                                         </t>
                                         <t t-if="user_id.partner_id.property_payment_term_id">
                                             <b t-field="user_id.partner_id.property_payment_term_id.sudo().name"/>
@@ -40,15 +41,7 @@
                 </div>
             </t>
             <t t-else="">
-                <div t-if="providers or tokens" id="payment_method" class="mt-3">
-                    <h3 class="mb24">Pagar con</h3>
-                    <div class="o_not_editable">
-                        <t t-call="payment.checkout">
-                            <t t-set="footer_template_id" t-value="'website_sale.payment_footer'"/>
-                            <t t-set="submit_button_label">Pagar ahora</t>
-                        </t>
-                    </div>
-                </div>
+                <t t-call="payment.form"/>
             </t>
         </xpath>
     </template>
