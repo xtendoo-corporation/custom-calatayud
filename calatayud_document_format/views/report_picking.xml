@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="calatayud_document_format.report_picking_inherited" inherit_id="stock.report_picking">
-        <xpath expr="//div[@name='right_box']" position="replace"/>
         <xpath expr="//div[@name='div_incoming_address']" position="replace">
             <div class="col-5 offset-1" name="div_outgoing_address">
                 <div t-if="o.should_print_delivery_address()">
