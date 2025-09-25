@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Categoría para el grupo -->
+        <record id="module_category_administrador_tarifas" model="ir.module.category">
+            <field name="name">Administrador de Tarifas</field>
+            <field name="description">Control de acceso para tarifas de venta</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <!-- Grupo de seguridad -->
+        <record id="group_administrador_tarifas" model="res.groups">
+            <field name="name">Administrador de Tarifas</field>
+            <field name="category_id" ref="module_category_administrador_tarifas"/>
+            <field name="comment">Permite asignar tarifas de venta a contactos</field>
+        </record>
+    </data>
+</odoo>
