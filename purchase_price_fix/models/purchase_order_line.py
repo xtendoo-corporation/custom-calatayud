@@ -8,5 +8,6 @@ class PurchaseOrderLine(models.Model):
         super()._compute_price_unit_and_date_planned_and_name()
 
         for line in self.filtered(lambda l: l.product_id and not l.display_type):
-            if not line.price_unit or line.price_unit == 0:
-                line.price_unit = line.product_id.standard_price
+            # Siempre usar el precio estándar del producto,
+            # ignorando el precio del proveedor
+            line.price_unit = line.product_id.standard_price
