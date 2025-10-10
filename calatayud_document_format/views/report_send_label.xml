@@ -66,6 +66,8 @@
                                     <h4 style="color:#08214D;margin-top:-15px;">
                                         <span t-field="o.partner_id.zip"/>
                                         <span>-</span>
+                                        <span t-field="o.partner_id.city"/>
+                                        <span>,</span>
                                         <span t-field="o.partner_id.state_id.name"/>
                                     </h4>
                                 </div>
@@ -85,7 +87,7 @@
                                 </div>
 
                                 <!-- CAMPO CONTRAREEMBOLSO - Abajo a la derecha -->
-                              <div style="position:absolute; top:120px; margin-left: 75%; width:80%; height:50px;">
+                                <div style="position:absolute; top:120px; margin-left: 75%; width:80%; height:50px;">
                                     <h3 style="color:#08214D;margin:0;padding:0;text-align:right;">
                                         <span>Contrareembolso:</span>
                                         <span t-field="o.contrareembolso"

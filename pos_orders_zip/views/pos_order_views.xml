@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista formulario de pos.order -->
+    <record id="view_pos_order_form_zipcode" model="ir.ui.view">
+        <field name="name">pos.order.form.zipcode</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="walkin_zip_code" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda para filtrar por código postal -->
+    <record id="view_pos_order_search_zipcode" model="ir.ui.view">
+        <field name="name">pos.order.search.zipcode</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <field name="walkin_zip_code" string="Código Postal"/>
+                <filter name="with_zipcode" string="Con Código Postal"
+                        domain="[('walkin_zip_code', '!=', False)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_zipcode" string="Código Postal"
+                            context="{'group_by': 'walkin_zip_code'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vista tree/lista -->
+    <record id="view_pos_order_tree_zipcode" model="ir.ui.view">
+        <field name="name">pos.order.tree.zipcode</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="walkin_zip_code" optional="show"/>
+            </field>
+        </field>
+    </record>
+</odoo>

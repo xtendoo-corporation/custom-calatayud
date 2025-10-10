@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="ZipCodePopup" owl="1">
+        <div class="popup popup-zipcode">
+            <header class="title drag-handle">
+                <t t-esc="props.title" />
+            </header>
+            <main class="body">
+                <p t-if="props.body" class="popup-body-text">
+                    <t t-esc="props.body" />
+                </p>
+                <div class="zipcode-input-container">
+                    <input
+                        type="text"
+                        t-ref="zipcode-input"
+                        class="zipcode-input"
+                        placeholder="Ej: 29600, 28001, 41001..."
+                        maxlength="10"
+                        t-on-keypress="onKeyPress"
+                        autocomplete="off"
+                    />
+                </div>
+                <div class="info-message">
+                    <i class="fa fa-info-circle"></i>
+                    <span> Puede dejarlo vacío para omitir</span>
+                </div>
+            </main>
+            <footer class="footer">
+                <div class="button cancel" t-on-click="cancel">
+                    <i class="fa fa-times"></i>
+                    Omitir
+                </div>
+                <div class="button confirm highlight" t-on-click="confirm">
+                    <i class="fa fa-check"></i>
+                    Aceptar
+                </div>
+            </footer>
+        </div>
+    </t>
+</templates>
