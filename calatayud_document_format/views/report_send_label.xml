@@ -14,153 +14,121 @@
     </record>
 
     <template id="report_send_label_document">
-                <t t-set="o" t-value="o.with_context(lang=lang)"/>
-                <t t-call="web.basic_layout">
-                    <div class="page" style="border:4px solid #08214D; height:727.5px;width:107%;margin-left:-3.5%;margin-top:1px;">
-                        <div class="oe_structure"/>
-                            <div id="table_label" style="width:100%;display:block;margin:0; padding:0;">
+        <t t-set="o" t-value="o.with_context(lang=lang)"/>
+        <t t-call="web.basic_layout">
+            <div class="page"
+                 style="border:4px solid #08214D; height:727.5px;width:107%;margin-left:-3.5%;margin-top:1px;">
+                <div class="oe_structure"/>
+                <div id="table_label" style="width:100%;display:block;margin:0; padding:0;">
+                    <div
+                        style="width:100%;position:relative;left:-5%;">
+                        <div style="width:100%;-webkit-transform: rotate(90deg);z-index:3;position:absolute;">
+                            <div style="margin-top:-56%;margin-left:50%;width:161%;">
                                 <div
-                                    style="width:100%;position:relative;left:-5%;">
-                                <div style="width:100%;-webkit-transform: rotate(90deg);z-index:3;position:absolute;">
-                                    <div style="margin-top:-56%;margin-left:50%;width:161%;">
-                                        <div style="margin-top:-56%;width:60%;height:150px;border-bottom:4px solid #08214D;position:absolute;">
-                                            <h2 style="color:#08214D;margin-top:5px;margin-left:2px;">Remite:</h2>
-<!--                                            <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height: 50px;"/>-->
-                                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:45pt;max-width:90%;margin-left:20px;" alt="Company Logo"/>
-                                        </div>
-                                        <div style="margin-top:-56%;margin-left:60%;width:101%;height:150px;border-bottom:4px solid #08214D;position:absolute;">
-                                                <h4 style="color:#08214D;margin-top:5px;margin-bottom:0;text-align:right;margin-right:5px;">
-                                                    <span t-field="o.company_id.name"/>
-                                                </h4>
-                                                <h6 style="color:#08214D;margin:0;padding:0;text-align:right;margin-right:5px;">
-                                                    <span t-field="o.company_id.street"/>
-                                                    <span t-field="o.company_id.street2"/>
-                                                </h6>
-                                                <h6 style="color:#08214D;margin:0;padding:0;text-align:right;margin-right:5px;">
-                                                    <span>Telefono:</span>
-                                                    <span t-field="o.company_id.phone"/>
-                                                </h6>
-                                                <h6 style="color:#08214D;margin:0;padding:0;text-align:right;margin-right:5px;">
-                                                    <span>41940 -</span>
-                                                    <span t-field="o.company_id.city"/>
-                                                    <span>(</span>
-                                                    <span t-field="o.company_id.state_id.name"/>
-                                                    <span>)</span>
-                                                </h6>
-                                                <h6 style="color:#08214D;margin:0;padding:0;text-align:right;margin-right:5px;">
-                                                    <span t-field="o.company_id.email" />
-                                                </h6>
-                                        </div>
-                                         <div style="top:-110px;width:161%;height:80px;border-bottom:4px solid #08214D;position:absolute;padding-top:10px;">
-                                             <h3 style="color:#08214D;margin-left:2px;padding-botton:0">Envío a:</h3>
-                                             <h5 style="color:#08214D;margin-left:2px;" t-field="o.partner_id.name"/>
-                                        </div>
-                                       <div style="top:15px;width:161%;height:70px;position:absolute;padding-left:2px;">
-                                            <h3 style="color:#08214D;margin-top:-40px;">Dirección: </h3>
-                                            <h4 style="color:#08214D;margin-top:-10px;padding-bottom:0px;" t-field="o.partner_id.street"/>
-                                            <h4 style="color:#08214D;margin-top:-15px;">
-                                                <span t-field="o.partner_id.zip"/>
-                                                <span>-</span>
-                                                <span t-field="o.partner_id.state_id.name"/>
-
-                                            </h4>
-                                        </div>
-<!--                                         <div style="top:-40px;margin-left:60%;width:100%;height:70px;border-bottom:4px solid #08214D;position:absolute;">-->
-<!--                                            <h3 style="color:#08214D;margin-left:2px;margin-top:30px;">-->
-<!--                                                <span t-field="o.partner_id.street"/>-->
-<!--                                            </h3>-->
-<!--                                        </div>-->
-<!--                                        <div style="top:15px;width:101%;height:70px;border-bottom:4px solid #08214D;position:absolute;">-->
-<!--                                            <h3 style="color:#08214D;margin-left:2px;margin-top:30px;">-->
-<!--                                                <span>Población: </span><span t-field="o.partner_id.city"/>-->
-<!--                                            </h3>-->
-<!--                                        </div>-->
-<!--                                         <div style="top:15px;margin-left:101%;width:60%;height:70px;border-bottom:4px solid #08214D;position:absolute;">-->
-<!--                                            <h3 style="color:#08214D;margin-left:2px;margin-top:30px;">-->
-<!--                                                <span>CP: </span><span t-field="o.partner_id.zip"/>-->
-<!--                                            </h3>-->
-<!--                                        </div>-->
-<!--                                        <div style="top:90px;width:80%;height:50px;border-bottom:4px solid #08214D;position:absolute;">-->
-<!--                                            <h3 style="color:#08214D;margin-left:2px;">-->
-<!--                                                <span>Provincia: </span><span t-field="o.partner_id.state_id.name"/>-->
-<!--                                            </h3>-->
-<!--                                        </div>-->
-<!--                                         <div style="top:90px;margin-left:80%;width:80%;height:50px;border-bottom:4px solid #08214D;position:absolute;">-->
-<!--&lt;!&ndash;                                            <h3 style="color:#08214D;margin-left:2px;">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <span>CP: </span><span t-field="o.partner_id.zip"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            </h3>&ndash;&gt;-->
-<!--                                        </div>-->
-                                        <div style="top:160px;width:80%;height:50px;border-top:4px solid #08214D;position:absolute;">
-                                            <h3 style="color:#08214D;margin-left:2px;">
-                                                <span>TLF: </span><span t-if="o.partner_id.phone" t-field="o.partner_id.phone"/>
-                                            </h3>
-                                        </div>
-                                         <div style="top:160px;margin-left:80%;width:81%;height:50px;border-top:4px solid #08214D;position:absolute;">
-                                            <h3 style="color:#08214D;margin-left:2px;">
-                                                <span>Fecha: </span><span t-field="o.date_done" t-options="{'format': 'dd/MM/YYYY'}"/>
-                                            </h3>
-                                        </div>
-
-
-
-<!--                                        <div style="top:-140px;margin-left:80%;width:80%;height:100px;border-bottom:4px solid #08214D;position:absolute;">-->
-<!--                                                <h1>test 4</h1>-->
-<!--                                        </div>-->
-<!--                                        <div style="width:50%;float:left;height:200px;border-bottom:4px solid #08214D;position:absolute;">-->
-<!--                                            <h1>TEST 1</h1>-->
-<!--                                        </div>-->
-<!--                                        <div style="width:50%;float:left;height:200px;border-bottom:4px solid #08214D;position:absolute;">-->
-<!--                                                <h1>test 2</h1>-->
-<!--                                        </div>-->
-<!--                                        <div style="width:50%;float:left;height:200px;border-bottom:4px solid #08214D;position:absolute;">-->
-<!--                                            <h1>TEST 1</h1>-->
-<!--                                        </div>-->
-<!--                                        <div style="width:50%;float:left;height:200px;border-bottom:4px solid #08214D;position:absolute;">-->
-<!--                                                <h1>test 2</h1>-->
-<!--                                        </div>-->
-
-<!--                                         <div style="width:50%;float:left;height:50px;border-bottom:4px solid #08214D;">-->
-<!--                                            <h1>TEST 1</h1>-->
-<!--                                        </div>-->
-<!--                                        <div style="width:50%;float:left;height:50px;border-bottom:4px solid #08214D;">-->
-<!--                                                <h1>test 2</h1>-->
-<!--                                        </div>-->
-
-
-
-                                    </div>
+                                    style="margin-top:-56%;width:60%;height:150px;border-bottom:4px solid #08214D;position:absolute;">
+                                    <h2 style="color:#08214D;margin-top:5px;margin-left:2px;">Remite:</h2>
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                         style="max-height:45pt;max-width:90%;margin-left:20px;" alt="Company Logo"/>
                                 </div>
+                                <div
+                                    style="margin-top:-56%;margin-left:60%;width:101%;height:150px;border-bottom:4px solid #08214D;position:absolute;">
+                                    <h4 style="color:#08214D;margin-top:5px;margin-bottom:0;text-align:right;margin-right:5px;">
+                                        <span t-field="o.company_id.name"/>
+                                    </h4>
+                                    <h6 style="color:#08214D;margin:0;padding:0;text-align:right;margin-right:5px;">
+                                        <span t-field="o.company_id.street"/>
+                                        <span t-field="o.company_id.street2"/>
+                                    </h6>
+                                    <h6 style="color:#08214D;margin:0;padding:0;text-align:right;margin-right:5px;">
+                                        <span>Telefono:</span>
+                                        <span t-field="o.company_id.phone"/>
+                                    </h6>
+                                    <h6 style="color:#08214D;margin:0;padding:0;text-align:right;margin-right:5px;">
+                                        <span>41940 -</span>
+                                        <span t-field="o.company_id.city"/>
+                                        <span>(</span>
+                                        <span t-field="o.company_id.state_id.name"/>
+                                        <span>)</span>
+                                    </h6>
+                                    <h6 style="color:#08214D;margin:0;padding:0;text-align:right;margin-right:5px;">
+                                        <span t-field="o.company_id.email"/>
+                                    </h6>
+                                </div>
+                                <div
+                                    style="top:-110px;width:161%;height:80px;border-bottom:4px solid #08214D;position:absolute;padding-top:10px;">
+                                    <h3 style="color:#08214D;margin-left:2px;padding-botton:0">Envío a:</h3>
+                                    <h5 style="color:#08214D;margin-left:2px;" t-field="o.partner_id.name"/>
+                                </div>
+                                <div style="top:15px;width:161%;height:70px;position:absolute;padding-left:2px;">
+                                    <h3 style="color:#08214D;margin-top:-40px;">Dirección:</h3>
+                                    <h4 style="color:#08214D;margin-top:-10px;padding-bottom:0px;"
+                                        t-field="o.partner_id.street"/>
+                                    <h4 style="color:#08214D;margin-top:-15px;">
+                                        <span t-field="o.partner_id.zip"/>
+                                        <span>-</span>
+                                        <span t-field="o.partner_id.state_id.name"/>
+                                    </h4>
+                                </div>
+                                <div
+                                    style="top:160px;width:80%;height:50px;border-top:4px solid #08214D;position:absolute;">
+                                    <h3 style="color:#08214D;margin-left:2px;">
+                                        <span>TLF:</span>
+                                        <span t-if="o.partner_id.phone" t-field="o.partner_id.phone"/>
+                                    </h3>
+                                </div>
+                                <div
+                                    style="top:160px;margin-left:80%;width:81%;height:50px;border-top:4px solid #08214D;position:absolute;">
+                                    <h3 style="color:#08214D;margin-left:2px;">
+                                        <span>Fecha:</span>
+                                        <span t-field="o.date_done" t-options="{'format': 'dd/MM/YYYY'}"/>
+                                    </h3>
+                                </div>
+
+                                <!-- CAMPO CONTRAREEMBOLSO - Abajo a la derecha -->
+                              <div style="position:absolute; top:120px; margin-left: 75%; width:80%; height:50px;">
+                                    <h3 style="color:#08214D;margin:0;padding:0;text-align:right;">
+                                        <span>Contrareembolso:</span>
+                                        <span t-field="o.contrareembolso"
+                                              t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                                    </h3>
                                 </div>
                             </div>
-<!--                            <div-->
-<!--                                style="text-align: center;width:20%;float:left;height:150px;position:relative;left:-5%;overflow:hidden">-->
-<!--                                <div style="width:100%;-webkit-transform: rotate(-90deg);z-index:3;position:absolute;">-->
-<!--                                    <h1>test</h1>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
+                        </div>
                     </div>
-                </t>
-        </template>
+                </div>
+            </div>
+        </t>
+    </template>
 
-        <template id="report_send_label">
-            <t t-call="web.html_container">
-                <t t-foreach="docs" t-as="o">
-                    <t t-call="calatayud_document_format.report_send_label_document" t-lang="o.partner_id.lang"/>
-                </t>
+    <template id="report_send_label">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="calatayud_document_format.report_send_label_document" t-lang="o.partner_id.lang"/>
             </t>
-        </template>
+        </t>
+    </template>
 
-        <record id="action_report_send_label" model="ir.actions.report">
-            <field name="name">Etiqueta de envio</field>
-            <field name="model">stock.picking</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="report_name">calatayud_document_format.report_send_label</field>
-            <field name="report_file">calatayud_document_format.report_send_label</field>
-            <field name="print_report_name">'Etiqueta de envio - %s' % (object.name)</field>
-            <field name="binding_model_id" ref="stock.model_stock_picking"/>
-            <field name="binding_type">report</field>
-            <field name="paperformat_id" ref="calatayud_document_format.send_label_paper_format"/>
-        </record>
+    <record id="action_report_send_label" model="ir.actions.report">
+        <field name="name">Etiqueta de envio</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">calatayud_document_format.report_send_label</field>
+        <field name="report_file">calatayud_document_format.report_send_label</field>
+        <field name="print_report_name">'Etiqueta de envio - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="calatayud_document_format.send_label_paper_format"/>
+    </record>
 
+    <record id="view_picking_form_contrareembolso" model="ir.ui.view">
+        <field name="name">stock.picking.form.contrareembolso</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <!-- Añadir el campo en la sección de información adicional -->
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="contrareembolso" widget="monetary"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>
