@@ -16,6 +16,7 @@
             'calatayud_pos_default_customer_and_invoice/static/src/js/payment.js',
             'calatayud_pos_default_customer_and_invoice/static/src/js/pos_order_receipt.js',
             'calatayud_pos_default_customer_and_invoice/static/src/xml/pos_receipt_inherit.xml',
+            'calatayud_pos_default_customer_and_invoice/static/src/js/PartnerListScreen.js',
         ],
     },
     'installable': True,
