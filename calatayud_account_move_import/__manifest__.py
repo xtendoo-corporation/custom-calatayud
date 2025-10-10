@@ -14,6 +14,7 @@
         "security/ir.model.access.csv",
         "wizards/import_account_move_view.xml",
         "views/menu_views.xml",
+        "views/account_move_form.xml",
     ],
     "demo": [],
     "installable": True,
