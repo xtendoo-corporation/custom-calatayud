@@ -26,22 +26,23 @@ odoo.define('pos_orders_zip.ZipCodePopup', function(require) {
         async confirm() {
             const zipCode = this.getPayload();
 
+            // Validación: si no es válido, NO cerrar el popup
             if (zipCode && (zipCode.length < 4 || zipCode.length > 10)) {
                 await this.showPopup('ErrorPopup', {
                     title: this.env._t('Código Postal Inválido'),
                     body: this.env._t('El código postal debe tener entre 4 y 10 caracteres.'),
                 });
-                return;
+                return; // NO llamar super.confirm() - mantener popup abierto
             }
 
-            // Resolver y cerrar
-            await this.props.resolve({ confirmed: true, payload: zipCode });
-            this.trigger('close-temp-screen');
+            // Si pasa la validación, cerrar el popup
+            // super.confirm() cierra automáticamente y devuelve {confirmed: true, payload: getPayload()}
+            super.confirm();
         }
 
-        async cancel() {
-            await this.props.resolve({ confirmed: false, payload: null });
-            this.trigger('close-temp-screen');
+        cancel() {
+            // super.cancel() cierra automáticamente y devuelve {confirmed: false, payload: null}
+            super.cancel();
         }
 
         onKeyPress(event) {
