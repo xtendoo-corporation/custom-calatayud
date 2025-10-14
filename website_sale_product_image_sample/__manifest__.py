@@ -22,5 +22,9 @@
         "web.assets_frontend": [
             "website_sale_product_image_sample/static/src/css/product_configurator.scss",
         ],
+        'web.assets_backend': [
+            'website_sale_product_image_sample/static/src/xml/product_attribute_image.xml',
+            'website_sale_product_image_sample/static/src/js/product_attribute_image.js',
+        ],
     },
 }

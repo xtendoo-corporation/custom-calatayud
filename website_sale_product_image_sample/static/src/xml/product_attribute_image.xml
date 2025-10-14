@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template t-name="website_sale_product_image_sample.ProductTemplateAttributeLineImage">
+        <div class="css_attribute_product_image"
+             t-att-class="{
+                 'active': attribute_value.id in selected_attribute_value_ids,
+                 'custom_value': attribute_value.is_custom,
+                 'transparent': attribute_value.is_transparent
+             }">
+            <img t-if="attribute_value.image_1920"
+                 t-att-src="'data:image/png;base64,%s' % attribute_value.image_1920"
+                 t-att-alt="attribute_value.name"/>
+        </div>
+    </template>
+</odoo>
