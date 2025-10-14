@@ -78,6 +78,12 @@
                                         <span t-if="o.partner_id.phone" t-field="o.partner_id.phone"/>
                                     </h3>
                                 </div>
+                                     <div style="position:absolute; top:120px; padding-left:2px; height:50px;">
+                                    <h3 style="color:#08214D;margin:0;padding:0;text-align:right;">
+                                        <span>Bultos:</span>
+                                        <span t-field="o.numero_bultos"/>
+                                    </h3>
+                                </div>
                                 <div
                                     style="top:160px;margin-left:80%;width:81%;height:50px;border-top:4px solid #08214D;position:absolute;">
                                     <h3 style="color:#08214D;margin-left:2px;">
@@ -129,6 +135,7 @@
         <field name="arch" type="xml">
             <!-- Añadir el campo en la sección de información adicional -->
             <xpath expr="//field[@name='origin']" position="after">
+                <field name="numero_bultos"/>
                 <field name="contrareembolso" widget="monetary"/>
             </xpath>
         </field>

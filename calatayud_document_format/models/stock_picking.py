@@ -9,3 +9,8 @@ class StockPicking(models.Model):
         digits='Product Price',
         help='Importe del contrareembolso'
     )
+    numero_bultos = fields.Integer(
+        string='Nº Bultos',
+        default=1,
+        help='Número de bultos del envío'
+    )
