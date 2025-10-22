@@ -26,6 +26,7 @@
         "views/invoice_document_no_taxes.xml",
         "views/report_payment_receipt_templates.xml",
         "views/report_send_label.xml",
+        "views/report_picking_bluetooth.xml",
     ],
     "installable": True,
     "auto_install": False,
