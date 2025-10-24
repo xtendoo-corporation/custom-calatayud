@@ -1,40 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<templates xml:space="preserve">
-    <t t-name="pos_orders_zip.ZipCodePopup">
-        <div class="popup popup-zipcode">
-            <header class="title drag-handle">
-                <t t-esc="props.title" />
-            </header>
-            <main class="body">
-                <p t-if="props.body" class="popup-body-text">
-                    <t t-esc="props.body" />
-                </p>
-                <div class="zipcode-input-container">
-                    <input
-                        type="text"
-                        t-ref="zipcode-input"
-                        class="zipcode-input"
-                        placeholder="Ej: 29600, 28001, 41001..."
-                        maxlength="10"
-                        t-on-keypress="onKeyPress"
-                        autocomplete="off"
-                    />
-                </div>
-                <div class="info-message">
-                    <i class="fa fa-info-circle"></i>
-                    <span> Puede dejarlo vacío para omitir</span>
-                </div>
-            </main>
-            <footer class="footer">
-                <div class="button cancel" t-on-click="cancel">
-                    <i class="fa fa-times"></i>
-                    Omitir
-                </div>
-                <div class="button confirm highlight" t-on-click="confirm">
-                    <i class="fa fa-check"></i>
-                    Aceptar
-                </div>
-            </footer>
-        </div>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_orders_zip.ZipCodeConfirmationDialog" t-inherit="web.ConfirmationDialog">
+        <xpath expr="//div[@class='modal-body']" position="inside">
+            <div class="mt-3">
+                <label for="zipcode-input" class="form-label">Código Postal:</label>
+                <input
+                    id="zipcode-input"
+                    type="text"
+                    class="form-control"
+                    t-model="state.zipCode"
+                    placeholder="Introduzca el código postal (opcional)"
+                    maxlength="10"
+                    autofocus="autofocus"/>
+                <small class="text-muted">Entre 4 y 10 caracteres</small>
+            </div>
+        </xpath>
     </t>
 </templates>

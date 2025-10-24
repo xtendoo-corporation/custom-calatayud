@@ -17,10 +17,8 @@
     'assets': {
         'point_of_sale._assets_pos': [
             'pos_orders_zip/static/src/js/models.js',
-            'pos_orders_zip/static/src/js/ZipCodePopup.js',
             'pos_orders_zip/static/src/js/PaymentScreen.js',
-            # 'pos_orders_zip/static/src/js/popup_registry.js',  # Deshabilitado temporalmente
-           # 'pos_orders_zip/static/src/xml/**/*',
+            'pos_orders_zip/static/src/xml/**/*',
         ],
     },
     'installable': True,
