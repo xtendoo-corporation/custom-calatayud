@@ -1,40 +1,32 @@
-odoo.define('pos_receipt_extend.PaymentScreen', function (require) {
-    'use strict';
-    var rpc = require('web.rpc')
-    const PaymentScreen = require('point_of_sale.PaymentScreen');
-    const Registries = require('point_of_sale.Registries');
-    const { onMounted } = owl;
+import { patch } from "@web/core/utils/patch";
+        import { PaymentScreen } from "@point_of_sale/app/screens/payment_screen/payment_screen";
+        import { useService } from "@web/core/utils/hooks";
 
-    const PosPaymentReceiptExtend = PaymentScreen => class extends PaymentScreen {
-        setup() {
-        super.setup();
-        }
-        shouldDownloadInvoice() {
-            return false;
-        }
-         async validateOrder(isForceValidate) {
-            var receipt_number = this.env.pos.selectedOrder.name
-            var orders = this.env.pos.selectedOrder
-            const receipt_order = await super.validateOrder(...arguments);
-            const codeWriter = new window.ZXing.BrowserQRCodeSvgWriter();
-            const data = this.env.pos.session_orders;
-            var length = data.length-1
-            var order = data[length]
-            var self= this;
-        rpc.query({
-                model: 'pos.order',
-                method: 'get_invoice',
-                args: [receipt_number]
-                }).then(function(result){
-                    self.env.pos.invoice  = result.invoice_name
-                });
-                return receipt_order
-         }
-         }
+        patch(PaymentScreen.prototype, {
+            setup() {
+                super.setup();
+                this.orm = useService("orm");
+            },
 
+            shouldDownloadInvoice() {
+                return false;
+            },
 
-       Registries.Component.extend(PaymentScreen, PosPaymentReceiptExtend);
+            async validateOrder(isForceValidate) {
+                const receiptNumber = this.pos.selectedOrder.name;
+                const receiptOrder = await super.validateOrder(...arguments);
 
-    return PaymentScreen;
-       });
+                try {
+                    const result = await this.orm.call(
+                        'pos.order',
+                        'get_invoice',
+                        [receiptNumber]
+                    );
+                    this.pos.invoice = result.invoice_name;
+                } catch (error) {
+                    console.error('Error obteniendo factura:', error);
+                }
 
+                return receiptOrder;
+            }
+        });
