@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Extender el ConfirmationDialog -->
+    <t t-name="pos_orders_zip.ZipCodeConfirmationDialog"
+       t-inherit="web.ConfirmationDialog"
+       t-inherit-mode="extension">
+
+        <!-- Añadir campo después del texto del body -->
+        <xpath expr="//p[@class='text-prewrap']" position="after">
+            <t t-if="props.requireZipCode">
+                <div class="zipcode-input-container mt-3 p-3 border rounded bg-light">
+                    <div class="mb-2">
+                        <label for="zipcode-input-field" class="form-label fw-bold">
+                            <i class="fa fa-map-marker me-2"/>Código Postal:
+                        </label>
+                        <input
+                            id="zipcode-input-field"
+                            type="text"
+                            class="form-control form-control-lg"
+                            t-model="state.zipCode"
+                            t-on-input="onZipCodeChange"
+                            placeholder="Ej: 28001"
+                            maxlength="10"
+                            autocomplete="postal-code"
+                            autofocus="autofocus"
+                        />
+                        <small class="form-text text-muted d-block mt-1">
+                            <i class="fa fa-info-circle me-1"/>
+                            Entre 4 y 10 caracteres (opcional)
+                        </small>
+
+                        <!-- Mensaje de error -->
+                        <t t-if="state.zipError">
+                            <div class="alert alert-danger mt-2 mb-0 py-2" role="alert">
+                                <i class="fa fa-exclamation-triangle me-2"/>
+                                <t t-esc="state.zipError"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+
+    </t>
+
+</templates>

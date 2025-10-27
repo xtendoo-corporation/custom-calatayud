@@ -16,9 +16,9 @@
     ],
     'assets': {
         'point_of_sale._assets_pos': [
+            'pos_orders_zip/static/src/js/payment_screen_zip.js',
+            'pos_orders_zip/static/src/xml/zipcode_confirmation_dialog.xml',
             'pos_orders_zip/static/src/js/models.js',
-            'pos_orders_zip/static/src/js/PaymentScreen.js',
-            'pos_orders_zip/static/src/xml/**/*',
         ],
     },
     'installable': True,
