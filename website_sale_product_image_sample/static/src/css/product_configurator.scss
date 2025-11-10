@@ -36,3 +36,19 @@
         background-image: url(/web/static/img/transparent.png);
     }
 }
+
+.o_variant_image_container {
+    display: inline-flex !important;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.o_variant_name {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    max-width: 70px;
+    word-wrap: break-word;
+    text-align: center;
+}

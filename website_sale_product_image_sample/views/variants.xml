@@ -12,7 +12,7 @@
                     t-as="ptav"
                 >
                     <li
-                        class="list-inline-item mb-3 js_attribute_value"
+                        class="list-inline-item mb-3 js_attribute_value o_variant_image_container"
                         style="margin: 0;"
                     >
                         <t
@@ -44,6 +44,7 @@
                                 />
                             </div>
                         </label>
+                        <span class="o_variant_name" t-esc="ptav.name"/>
                     </li>
                 </t>
             </ul>
