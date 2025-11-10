@@ -27,6 +27,12 @@
         <!-- No poner nada aquí lo elimina completamente -->
     </xpath>
 </template>
+     <template id="hide_default_documents" inherit_id="website_sale.product" priority="90">
+        <!-- Oculta el bloque entero que genera la sección de Documentos -->
+        <xpath expr="//div[contains(@class, 'o_wsale_product_documents') or @id='product_documents']" position="replace">
+            <!-- removed -->
+        </xpath>
+    </template>
     <template id="product_quantity_inherit" inherit_id="website_sale.product_quantity">
         <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="replace">
             <div id="o_wsale_cta_wrapper" class="d-flex flex-wrap align-items-center">
@@ -105,42 +111,72 @@
 
     </template>
 
-    <template id="custom_products_item" name="Custom Products Item" inherit_id="website_sale.products_item">
-        <!--Lista de precios-->
-        <xpath expr="//h6[@class='o_wsale_products_item_title mb-2 text-break']/a" position="attributes">
-            <attribute name="class">text-primary fw-bold text-decoration-none</attribute>
-        </xpath>
-        <xpath expr="//form/div[2]/div[2]/div[2]" position="replace">
-            <t>
-                <div class="product_price" itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
-                    <t t-if="'base_price' in template_price_vals and (template_price_vals['base_price'] &gt; template_price_vals['price_reduce']) and (template_price_vals['price_reduce'] or not website.prevent_zero_price_sale)">
-                        <del t-attf-class="text-muted me-1 h6 mb-0" style="white-space: nowrap;">
-                            <em class="small" t-esc="template_price_vals['base_price']"
-                                t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
-                        </del>
-                    </t>
-                    <span class="h6 mb-0"
-                          t-if="template_price_vals['price_reduce'] or not website.prevent_zero_price_sale"
-                          t-esc="template_price_vals['price_reduce']"
-                          t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
-                          style="color: #09213A"/>
-                    <span class="h6 mb-0" t-else="" t-field="website.prevent_zero_price_sale_text"
-                          style="color: #09213A"/>
-                    <span itemprop="price" style="display:none; color: #09213A"
-                          t-esc="template_price_vals['price_reduce']"/>
-                    <span itemprop="priceCurrency" style="display:none;color: #09213A; font-weight: bold;"
-                          t-esc="website.currency_id.name"/>
+    <!-- Intercambiar breadcrumb y barra de búsqueda -->
+    <template id="swap_breadcrumb_search" name="Swap Breadcrumb and Search" inherit_id="website_sale.product" priority="20">
+        <!-- Reemplazar toda la fila que contiene breadcrumb y búsqueda -->
+        <xpath expr="//section[@id='product_detail']/div[@class='row align-items-center']" position="replace">
+            <div class="row align-items-center">
+                <!-- Columna izquierda: Barra de búsqueda -->
+                <div class="col-lg-4 d-flex align-items-center order-2 order-lg-0">
+                    <div class="d-flex justify-content-between w-100">
+                        <t t-if="is_view_active('website_sale.search')" t-call="website_sale.search">
+                            <t t-set="search" t-value="False"/>
+                            <t t-set="_form_classes" t-valuef="mb-4 mb-lg-0"/>
+                            <t t-set="_classes" t-value="'me-sm-2'"/>
+                        </t>
+                        <t t-call="website_sale.pricelist_list">
+                            <t t-set="_classes" t-valuef="d-lg-inline ms-2"/>
+                        </t>
+                    </div>
                 </div>
-            </t>
+                <!-- Columna derecha: Breadcrumb -->
+                <div class="col d-flex align-items-center justify-content-end order-1 order-lg-1">
+                    <ol class="o_wsale_breadcrumb breadcrumb p-0 mb-4 m-lg-0">
+                        <li class="o_not_editable breadcrumb-item d-none d-lg-inline-block">
+                            <a t-att-href="keep(category=0, attribute_value=0, tags=0)">
+                                <i class="oi oi-chevron-left d-lg-none me-1" role="presentation"/>Productos
+                            </a>
+                        </li>
+                        <li
+                            t-nocache="The category does not have to be cached, as the product can be accessed via different paths."
+                            t-if="category"
+                            class="breadcrumb-item"
+                        >
+                            <a
+                                class="py-2 py-lg-0"
+                                t-att-href="keep('/shop/category/%s' % slug(category), category=0, attribute_value=0, tags=0)"
+                            >
+                                <i class="oi oi-chevron-left d-lg-none me-1" role="presentation"/><t t-out="category.name"/>
+                            </a>
+                        </li>
+                        <li t-else="" class="o_not_editable breadcrumb-item d-lg-none">
+                            <a
+                                class="py-2 py-lg-0"
+                                t-att-href="keep(category=0, attribute_value=0, tags=0)"
+                            >
+                                <i class="oi oi-chevron-left me-1" role="presentation"/>Productos
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item d-none d-lg-inline-block active">
+                            <span t-field="product.name" />
+                        </li>
+                    </ol>
+                </div>
+            </div>
         </xpath>
     </template>
 
+    <!-- Reorganizar layout del producto: descripción debajo de imagen y categoría debajo del nombre -->
+    <template id="product_layout_custom" name="Custom Product Layout" inherit_id="website_sale.product" priority="25">
+        <!-- Mover la descripción del producto debajo del nombre -->
+        <xpath expr="//div[@id='product_details']/h1" position="after">
+            <!-- Agregar categoría o información adicional debajo del nombre -->
+            <p class="text-muted mb-3" t-if="product.categ_id">
+                <span t-field="product.categ_id.name"/>
+            </p>
+        </xpath>
+</template>
+
+
     <!--    <template id="variants" inherit_id="website_sale_product_image_sample.variants">-->
-    <!--&lt;!&ndash;        <div class="form-check">&ndash;&gt;-->
-    <!--        <xpath expr="//div[@class='form-check']" position="after">-->
-    <!--            <span>pepe</span>-->
-    <!--        </xpath>-->
-    <!--    </template>-->
-
 </odoo>
-
