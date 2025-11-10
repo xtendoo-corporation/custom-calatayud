@@ -22,14 +22,16 @@
         <!--        </xpath>-->
 
     </template>
-   <template id="product_share_buttons" inherit_id="website_sale.product" active="True" name="Share Buttons" priority="22">
-    <xpath expr="//div[@id='o_product_terms_and_share']" position="replace">
-        <!-- No poner nada aquí lo elimina completamente -->
-    </xpath>
-</template>
-     <template id="hide_default_documents" inherit_id="website_sale.product" priority="90">
+    <template id="product_share_buttons" inherit_id="website_sale.product" active="True" name="Share Buttons"
+              priority="22">
+        <xpath expr="//div[@id='o_product_terms_and_share']" position="replace">
+            <!-- No poner nada aquí lo elimina completamente -->
+        </xpath>
+    </template>
+    <template id="hide_default_documents" inherit_id="website_sale.product" priority="90">
         <!-- Oculta el bloque entero que genera la sección de Documentos -->
-        <xpath expr="//div[contains(@class, 'o_wsale_product_documents') or @id='product_documents']" position="replace">
+        <xpath expr="//div[contains(@class, 'o_wsale_product_documents') or @id='product_documents']"
+               position="replace">
             <!-- removed -->
         </xpath>
     </template>
@@ -112,7 +114,8 @@
     </template>
 
     <!-- Intercambiar breadcrumb y barra de búsqueda -->
-    <template id="swap_breadcrumb_search" name="Swap Breadcrumb and Search" inherit_id="website_sale.product" priority="20">
+    <template id="swap_breadcrumb_search" name="Swap Breadcrumb and Search" inherit_id="website_sale.product"
+              priority="20">
         <!-- Reemplazar toda la fila que contiene breadcrumb y búsqueda -->
         <xpath expr="//section[@id='product_detail']/div[@class='row align-items-center']" position="replace">
             <div class="row align-items-center">
@@ -146,7 +149,8 @@
                                 class="py-2 py-lg-0"
                                 t-att-href="keep('/shop/category/%s' % slug(category), category=0, attribute_value=0, tags=0)"
                             >
-                                <i class="oi oi-chevron-left d-lg-none me-1" role="presentation"/><t t-out="category.name"/>
+                                <i class="oi oi-chevron-left d-lg-none me-1" role="presentation"/>
+                                <t t-out="category.name"/>
                             </a>
                         </li>
                         <li t-else="" class="o_not_editable breadcrumb-item d-lg-none">
@@ -158,7 +162,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item d-none d-lg-inline-block active">
-                            <span t-field="product.name" />
+                            <span t-field="product.name"/>
                         </li>
                     </ol>
                 </div>
@@ -168,15 +172,22 @@
 
     <!-- Reorganizar layout del producto: descripción debajo de imagen y categoría debajo del nombre -->
     <template id="product_layout_custom" name="Custom Product Layout" inherit_id="website_sale.product" priority="25">
-        <!-- Mover la descripción del producto debajo del nombre -->
+        <!-- Agregar description_sale debajo del nombre del producto -->
         <xpath expr="//div[@id='product_details']/h1" position="after">
-            <!-- Agregar categoría o información adicional debajo del nombre -->
-            <p class="text-muted mb-3" t-if="product.categ_id">
-                <span t-field="product.categ_id.name"/>
-            </p>
+            <!-- Agregar description_sale debajo del nombre -->
+            <div t-field="product.description_sale" class="mb-3 text-muted"/>
         </xpath>
-</template>
 
+        <!-- Eliminar el description_ecommerce que aparece por defecto debajo del nombre -->
+        <xpath expr="//div[@id='product_details']//div[@t-field='product.description_ecommerce']" position="replace">
+            <!-- removed -->
+        </xpath>
 
-    <!--    <template id="variants" inherit_id="website_sale_product_image_sample.variants">-->
+        <!-- Agregar description_ecommerce en el div que contiene las imágenes del producto -->
+        <xpath expr="//div[@id='product_detail_main']//t[@t-call='website_sale.shop_product_images']" position="after">
+            <!-- Agregar description_ecommerce debajo de las imágenes -->
+            <div t-field="product.description_ecommerce" class="mb-3 text-muted mt-3"/>
+        </xpath>
+    </template>
+
 </odoo>
