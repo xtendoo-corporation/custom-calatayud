@@ -4,10 +4,11 @@
     <record id="view_partner_tree_with_partner_type" model="ir.ui.view">
         <field name="name">res.partner.tree.with.partner.type</field>
         <field name="model">res.partner</field>
+        <field name="type">list</field>
         <field name="inherit_id" ref="base.view_partner_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[1]" position="after">
-                <field name="partner_type" optional="show"/>
+                <field name="partner_type" string="Tipo de Contacto" optional="show"/>
             </xpath>
         </field>
     </record>
@@ -16,9 +17,11 @@
     <record id="view_partner_form_with_partner_type" model="ir.ui.view">
         <field name="name">res.partner.form.with.partner.type</field>
         <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="priority">99</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='vat']" position="after">
+            <xpath expr="//field[@name='function']" position="after">
                 <field name="partner_type"/>
             </xpath>
         </field>
@@ -28,6 +31,7 @@
     <record id="view_res_partner_filter_partner_type" model="ir.ui.view">
         <field name="name">res.partner.select.partner.type</field>
         <field name="model">res.partner</field>
+        <field name="type">search</field>
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='category_id']" position="after">
@@ -37,6 +41,19 @@
             </xpath>
             <xpath expr="//filter[@name='group_country']" position="after">
                 <filter string="Tipo de Contacto" name="group_partner_type" context="{'group_by': 'partner_type'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Añadir el campo partner_type a la vista simple (simplified) -->
+    <record id="view_partner_simple_form_with_partner_type" model="ir.ui.view">
+        <field name="name">res.partner.simple.form.with.partner.type</field>
+        <field name="model">res.partner</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_partner_simple_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="partner_type"/>
             </xpath>
         </field>
     </record>
