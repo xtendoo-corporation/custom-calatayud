@@ -6,6 +6,7 @@
     'summary': 'Redirige a los usuarios públicos a la página de login',
     'depends': [
         'website',
+        'website_form',
     ],
     'installable': True,
     'auto_install': False,

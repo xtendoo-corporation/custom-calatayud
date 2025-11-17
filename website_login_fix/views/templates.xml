@@ -57,14 +57,15 @@
                                 <br/>Rellene el siguiente formulario y crearemos una cuenta para su negocio:
                             </h5>
 
-                            <form action="/website/form/mail.mail" method="post" enctype="multipart/form-data"
-                                  class="o_mark_required w-100 m-0"
+                            <form action="/website/form/" method="post" enctype="multipart/form-data"
+                                  class="o_mark_required w-100 m-0 s_website_form"
                                   data-mark="*" data-pre-fill="true" data-success-mode="redirect"
                                   data-success-page="/contactus-thank-you"
-                                  data-model_name="mail.mail"> <!-- oe_signup_form-->
-                                <input type="hidden" class="form-control s_website_form_input" name="email_to"
+                                  data-model_name="mail.mail">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input type="hidden" class="s_website_form_input" name="email_to"
                                        value="altas@almacenescalatayud.com"/>
-                                <input type="hidden" name="subject" value="Solicitud de alta como distribuidor"/>
+                                <input type="hidden" class="s_website_form_input" name="subject" value="Solicitud de alta como distribuidor"/>
 
                                 <div class="mb-3">
                                     <label class="form-label" style="display: block; text-align: left;">Nombre
@@ -72,19 +73,24 @@
                                         *
                                     </label>
                                     <input type="text" name="nombre_fiscal" placeholder="Nombre fiscal"
-                                           class="form-control"
+                                           class="form-control s_website_form_input" data-fill-with="nombre_fiscal"
                                            required="required"/>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" style="display: block; text-align: left;">Email *
                                     </label>
-                                    <input type="email" name="email_from" placeholder="Email" class="form-control"
+                                    <input type="email" name="email_from" placeholder="Email" class="form-control s_website_form_input" data-fill-with="email_from"
                                            required="required"/>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" style="display: block; text-align: left;">Teléfono
                                     </label>
-                                    <input type="text" name="telefono" placeholder="Teléfono" class="form-control"/>
+                                    <input type="text" name="telefono" placeholder="Teléfono" class="form-control s_website_form_input" data-fill-with="telefono"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" style="display: block; text-align: left;">Mensaje (opcional)
+                                    </label>
+                                    <textarea name="mensaje" placeholder="Escriba su mensaje aquí..." class="form-control s_website_form_input" rows="4" data-fill-with="body_html"></textarea>
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" name="privacidad" class="form-check-input"
@@ -95,27 +101,6 @@
                                         style="width: 15%;">
                                     Enviar
                                 </button>
-                                <script>
-                                    document.querySelector('form').addEventListener('submit', function(event) {
-                                    event.preventDefault();
-                                    var form = event.target;
-                                    var formData = new FormData(form);
-                                    fetch(form.action, {
-                                    method: 'POST',
-                                    body: formData
-                                    })
-                                    .then(function(response) {
-                                    if (response.ok) {
-                                    window.location.href = '/contactus-thank-you';
-                                    } else {
-                                    alert('Hubo un error al enviar el formulario.');
-                                    }
-                                    })
-                                    .catch(function(error) {
-                                    console.error('Error en la solicitud:', error);
-                                    });
-                                    });
-                                </script>
                             </form>
                         </div>
                     </div>
