@@ -14,7 +14,6 @@
         "pos_sale",
         "purchase",
         "website_sale",
-        "website_sale_product_description",
     ],
     "data": [
         "wizard/import_product_wizard_view.xml",

@@ -125,4 +125,14 @@
             </style>
         </xpath>
     </template>
+
+    <!-- Eliminar el enlace "Don't have an account?" -->
+    <template id="remove_signup_link" inherit_id="auth_signup.login" name="Remove Signup Link">
+        <xpath expr="//p[@class='mt-2 text-center']" position="replace"/>
+    </template>
+
+    <!-- Eliminar el enlace de login como superusuario -->
+    <template id="remove_superuser_login" inherit_id="web.login" name="Remove Superuser Login">
+        <xpath expr="//div[@class='o_login_auth']" position="replace"/>
+    </template>
 </odoo>
