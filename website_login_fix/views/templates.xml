@@ -140,4 +140,10 @@
             </style>
         </xpath>
     </template>
+
+    <!-- Ocultar el botón "¿No tienes una cuenta?" -->
+    <template id="hide_signup_link" inherit_id="auth_signup.login" name="Hide Signup Link">
+        <xpath expr="//a[@t-if='signup_enabled']" position="replace">
+        </xpath>
+    </template>
 </odoo>
