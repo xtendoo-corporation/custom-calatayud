@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+  <t t-inherit="website_sale_stock.product_availability"
+     t-inherit-mode="extension">
+    <xpath expr="//div[@id='threshold_message']" position="replace">
+      <div id="threshold_message"
+           t-if="show_availability and free_qty &lt;= available_threshold"
+           t-attf-class="availability_message_#{product_template} text-warning fw-bold">
+        Unidades en stock:
+        <strong><t t-esc="formatQuantity(free_qty)"/></strong>
+      </div>
+    </xpath>
+  </t>
+</templates>

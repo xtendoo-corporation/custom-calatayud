@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+
+        <record id="product_list_price_custom_column" model="ir.ui.view">
+            <field name="name">product.template.list</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='list_price']" position="after">
+                    <field name="wholesale_price" string="Tarifa mayorista" optional="show" />
+                    <field name="wholesale_price_with_tax" string="Tarifa mayorista con IVA" optional="show" />
+                    <field name="retail_price" string="PVP" optional="show" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_product_tree_view_custom_column" model="ir.ui.view">
+            <field name="name">product.product.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lst_price']" position="after">
+                    <field name="wholesale_price" string="Tarifa mayorista" optional="show"/>
+                    <field name="wholesale_price_with_tax" string="Tarifa mayorista con IVA" optional="show" />
+                    <field name="retail_price" string="PVP" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

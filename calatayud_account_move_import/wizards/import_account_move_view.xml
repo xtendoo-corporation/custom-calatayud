@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Formulario del asistente de importación -->
+    <record id="view_import_account_move_form" model="ir.ui.view">
+        <field name="name">import.account.move.form</field>
+        <field name="model">import.account.move</field>
+        <field name="arch" type="xml">
+            <form string="Importar Asiento Contable">
+                <field name="state" invisible="1"/>
+
+                <!-- Estado de importación -->
+                <div invisible="state != 'import'">
+                    <group>
+                        <group>
+                            <field name="journal_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="date"/>
+                            <field name="use_default_file"/>
+                            <field name="file" filename="filename" invisible="use_default_file" required="not use_default_file"/>
+                            <field name="filename" invisible="1"/>
+                        </group>
+                        <group>
+                            <div invisible="not use_default_file">
+                                <p>Se utilizará el archivo "ASIENTO CIERRE 2024.xlsx" incluido en el módulo.</p>
+                            </div>
+                        </group>
+                    </group>
+
+                    <div class="alert alert-info" role="alert">
+                        <p><strong>Formato de Excel:</strong></p>
+                        <p>El archivo debe contener las siguientes columnas:</p>
+                        <ul>
+                            <li>Columna A: Código de cuenta contable</li>
+                            <li>Columna B: Descripción/Concepto</li>
+                            <li>Columna C: Importe Debe</li>
+                            <li>Columna D: Importe Haber</li>
+                            <li>Columna E (Opcional): Código de cuenta analítica</li>
+                        </ul>
+                    </div>
+
+                    <footer>
+                        <button string="Importar" name="action_import" type="object" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </div>
+
+                <!-- Estado de resultado -->
+                <div invisible="state != 'result'">
+                    <div class="alert alert-success" role="alert">
+                        <p><strong>¡Importación completada con éxito!</strong></p>
+                        <p>Se ha creado correctamente el asiento contable.</p>
+                    </div>
+
+                    <group>
+                        <field name="move_id" readonly="1"/>
+                    </group>
+
+                    <footer>
+                        <button string="Ver Asiento" name="action_view_move" type="object" class="btn-primary"/>
+                        <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción del asistente -->
+    <record id="action_import_account_move" model="ir.actions.act_window">
+        <field name="name">Importar Asiento Contable</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">import.account.move</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

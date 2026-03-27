@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Xtendoo - Abraham Carrasco, Manuel Calero
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html). -->
+<odoo>
+
+   <record id="calatayud_product_template_product_form" model="ir.ui.view">
+        <field name="name">calatayud.product.template.product.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+           <xpath
+                expr="//field[@name='taxes_id']"
+                position="before">
+                <field name="sale_only_piece"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="website.contactus_thanks" model="website.page">
+            <field name="name">Thanks (Contact us)</field>
+            <field name="type">qweb</field>
+            <field name="url">/contactus-thank-you</field>
+            <field name="website_indexed" eval="False"/>
+            <field name="is_published">True</field>
+            <field name="key">website.contactus_thanks</field>
+            <field name="arch" type="xml">
+                <t name="Thanks (Contact us)" t-name="website.contactus_thanks">
+                    <t t-call="website.layout">
+                        <div id="wrap" class="oe_structure oe_empty" style="min-height: 60vh;">
+                            <section class="d-flex justify-content-center align-items-center h-100"
+                                     style="min-height: 60vh;">
+                                <div class="container s_allow_columns">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-7 col-xl-6">
+                                            <div class="text-center">
+                                                <!-- Logo centrado -->
+                                                <img t-att-src="'/website_login_fix/static/logo.png'" alt="Logo"
+                                                     style="width:180px; height:180px;" class="mx-auto"/>
+                                                <h1>Thank You!</h1>
+                                                <div class="pb16 pt16 s_hr" data-snippet="s_hr" data-name="Separator">
+                                                    <hr class="mx-auto border-top w-50 border-dark text-center"/>
+                                                </div>
+                                                <h5>
+                                                    <span class="fa fa-check-circle"/>
+                                                    <span>Tu mensaje ha sido envíado
+                                                        <b>con éxito</b>
+                                                    </span>
+                                                </h5>
+                                                <p>Contactaremos contigo pronto</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <input t-if='website.plausible_shared_key' type='hidden' class='js_plausible_push'
+                               data-event-name='Lead Generation' data-event-params='{"CTA": "Contact Us"}'/>
+                    </t>
+                </t>
+            </field>
+        </record>
+
+    </data>
+</odoo>

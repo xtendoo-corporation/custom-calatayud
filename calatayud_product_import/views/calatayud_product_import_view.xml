@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <menuitem
+        id="calatayud_import_product_menuitem"
+        name="Calatayud Import Product"
+        action="calatayud_import_product_action"
+        parent="sale.menu_sale_config"
+        sequence="70"
+    />
+</odoo>
+
+
