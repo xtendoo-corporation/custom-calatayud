@@ -16,6 +16,17 @@
             <xpath expr="//field[@name='show_pricelist_name']" position="after">
                 <field name="show_pieces"/>
             </xpath>
+            <!-- La expresión original `categ_ids != []` se evalúa como True en
+                 el cliente web (py.js compara listas por referencia), lo que
+                 oculta siempre la pestaña Productos. Se reescribe sin `!= []`. -->
+            <xpath
+                expr="//field[@name='product_tmpl_ids']/parent::page"
+                position="attributes"
+            >
+                <attribute
+                    name="invisible"
+                >categ_ids or last_ordered_products != 0 or context_active_model in ['product.template','product.product']</attribute>
+            </xpath>
         </field>
     </record>
 

@@ -31,10 +31,10 @@ class PosOrder(models.Model):
 
     @api.model
     def get_invoice(self, id):
-        pos_id = self.search([('pos_reference', '=', id)])
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-        invoice_id = self.env['account.move'].search(
-            [('ref', '=', pos_id.name)])
+        pos_id = self.search(
+            ['|', ('pos_reference', '=', id), ('name', '=', id)], limit=1)
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        invoice_id = pos_id.account_move
         return {
             'invoice_id': invoice_id.id,
             'invoice_name': invoice_id.name,
