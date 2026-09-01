@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+
+    <!--
+        Corrección de website_sale_stock.product_availability.
+
+        Durante la migración a Odoo 18, dos overrides entran en conflicto:
+          - website_sale_collect: position="attributes" sobre 'threshold_message',
+            añadiendo '!in_store_stock' al atributo t-elif.
+          - website_out_stock: position="replace" sobre 'threshold_message',
+            convirtiendo t-elif en t-if.
+
+        Ambos dejan el nodo 'threshold_message' con dos directivas condicionales
+        (t-if y t-elif en el mismo elemento), lo que Owl2 rechaza con
+        "Only one conditional branching directive is allowed per node".
+
+        Este override se registra después (este módulo depende de los tres) y
+        reemplaza el nodo con una versión válida (un único t-elif encadenado al
+        t-if previo, como en Odoo 18 estándar), resolviendo el conflicto.
+    -->
+    <t t-inherit="website_sale_stock.product_availability"
+       t-inherit-mode="extension">
+        <xpath expr="//div[@id='threshold_message']" position="replace">
+            <div id="threshold_message"
+                 t-elif="show_availability and free_qty lte available_threshold"
+                 t-attf-class="availability_message_#{product_template} text-warning fw-bold">
+                Only <t t-esc="formatQuantity(free_qty)"/> <t t-esc="uom_name" /> left in stock.
+            </div>
+        </xpath>
+    </t>
+
+</templates>
