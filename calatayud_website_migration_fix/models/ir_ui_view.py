@@ -5,37 +5,46 @@ from odoo.tools import html_escape
 class IrUiView(models.Model):
     _inherit = 'ir.ui.view'
 
-    def _calatayud_fix_stale_website_product_views(self):
-        """Restablece las páginas de producto por-website que conservan el template
-        Odoo 17 (llamada a _get_combination_info con pricelist) al template genérico
-        actual de Odoo 18.
+    def _calatayud_fix_stale_website_views(self, keys=None):
+        """Restablece las vistas qweb por-website de website_sale que conservan el
+        template Odoo 17 (desactualizado tras la migración a Odoo 18) al template
+        genérico actual de Odoo 18.
 
-        Devuelve un listado de las vistas corregidas (o [] si no hay nada que hacer).
+        Criterio: para cada vista por-website activa de website_sale.* (o de las
+        `keys` indicadas) que tenga una vista genérica equivalente (misma key,
+        website_id NULL), si su arch difiere del genérico se guarda copia de
+        seguridad y se restablece.
+
+        Devuelve un dict {view_id: key} con las vistas corregidas.
         """
         View = self.env['ir.ui.view']
-
-        generic = View.with_context(lang=None).search([
-            ('key', '=', 'website_sale.product'),
-            ('type', '=', 'qweb'),
-            ('website_id', '=', False),
-        ], order='id', limit=1)
-
-        if not generic:
-            return []
-
-        generic_arch = generic.arch_db
-
-        stale = View.with_context(lang=None).search([
-            ('key', '=', 'website_sale.product'),
-            ('type', '=', 'qweb'),
-            ('website_id', '!=', False),
-        ])
-
         fixed = []
+
+        domain = [
+            ('type', '=', 'qweb'),
+            ('key', 'like', 'website_sale.%'),
+            ('website_id', '!=', False),
+            ('active', '=', True),
+        ]
+        if keys:
+            domain[1] = ('key', 'in', keys)
+
+        stale = View.with_context(lang=None).search(domain)
+
         for view in stale:
+            generic = View.with_context(lang=None).search([
+                ('key', '=', view.key),
+                ('website_id', '=', False),
+            ], order='id', limit=1)
+
+            if not generic:
+                # Sin vista genérica de referencia: no podemos determinar el estado,
+                # la dejamos tal cual.
+                continue
+
             arch = view.arch_db or ''
-            # Solo corregimos las que aún conservan la llamada de la era Odoo 17
-            if 'pricelist=pricelist' not in arch:
+            generic_arch = generic.arch_db or ''
+            if arch == generic_arch:
                 continue
 
             self._calatayud_backup_view_arch(view, arch)
@@ -68,7 +77,7 @@ class IrUiView(models.Model):
     def action_calatayud_fix_stale_website_product_views(self):
         """Método accionable (automatización/action) para lanzar la corrección y
         notificar el resultado."""
-        fixed = self._calatayud_fix_stale_website_product_views()
+        fixed = self._calatayud_fix_stale_website_views()
         if fixed:
             message = _('Se corrigieron %s vista(s) de producto de la web: %s') % (
                 len(fixed), ', '.join(str(v) for v in fixed))
