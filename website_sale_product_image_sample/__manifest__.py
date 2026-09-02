@@ -14,6 +14,9 @@
     "depends": [
         "sale",
         "website_sale",
+        # Ensure POS is loaded before our point_of_sale assets and that
+        # imports like @point_of_sale/... resolve correctly in the client.
+        "point_of_sale",
     ],
     "data": [
         "views/variants.xml",
@@ -25,6 +28,11 @@
         'web.assets_backend': [
             'website_sale_product_image_sample/static/src/xml/product_attribute_image.xml',
             'website_sale_product_image_sample/static/src/js/product_attribute_image.js',
+        ],
+        'point_of_sale._assets_pos': [
+            'website_sale_product_image_sample/static/src/css/pos_product_attribute_image.scss',
+            'website_sale_product_image_sample/static/src/js/pos_product_attribute_image.js',
+            'website_sale_product_image_sample/static/src/xml/pos_product_attribute_image.xml',
         ],
     },
 }

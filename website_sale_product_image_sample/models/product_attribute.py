@@ -8,3 +8,4 @@ class ProductAttribute(models.Model):
         selection_add=[("image", "Product image")],
         ondelete={"image": lambda recs: recs.write({"display_type": "radio"})},
     )
+
