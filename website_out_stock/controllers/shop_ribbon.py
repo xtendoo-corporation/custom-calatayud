@@ -16,11 +16,13 @@ def _process_with_out_of_stock_ribbon(self, products, ppg=20, ppr=4):
     """
     rows = _original_process(self, products, ppg=ppg, ppr=ppr)
 
-    website = request.env['website'].get_current_website()
+    website = request.env['website'].sudo().get_current_website()
     if is_html_empty(website.default_out_of_stock_message):
         return rows
 
     ribbon = request.env.ref('website_sale.out_of_stock_ribbon', raise_if_not_found=False)
+    if ribbon:
+        ribbon = ribbon.sudo()
     if not ribbon:
         return rows
 
