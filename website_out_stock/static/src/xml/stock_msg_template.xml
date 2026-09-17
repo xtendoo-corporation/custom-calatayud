@@ -10,5 +10,21 @@
         <strong><t t-esc="formatQuantity(free_qty)"/></strong>
       </div>
     </xpath>
+    <xpath expr="//div[@id='out_of_stock_message']" position="replace">
+      <div id="out_of_stock_message">
+        <div t-if="has_out_of_stock_message"
+             class="alert alert-warning d-flex align-items-center gap-2 mb-2 py-2"
+             role="alert">
+          <i class="fa fa-exclamation-triangle"/>
+          <t t-out="out_of_stock_message"/>
+        </div>
+        <div t-elif="!allow_out_of_stock_order"
+             class="alert alert-danger d-flex align-items-center gap-2 mb-2 py-2"
+             role="alert">
+          <i class="fa fa-times"/>
+          <span>Out of Stock</span>
+        </div>
+      </div>
+    </xpath>
   </t>
 </templates>

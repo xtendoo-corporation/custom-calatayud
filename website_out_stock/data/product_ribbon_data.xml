@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Style the built-in "Out of stock" / "Sin existencias" ribbon so it is
+         actually visible, and move it to the right corner as requested. -->
+    <record id="website_sale.out_of_stock_ribbon" model="product.ribbon">
+        <field name="bg_color">#ffc107</field>
+        <field name="text_color">#212529</field>
+        <field name="position">right</field>
+    </record>
+</odoo>

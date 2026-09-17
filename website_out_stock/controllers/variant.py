@@ -1,6 +1,7 @@
 from odoo import http
 from odoo.http import request
 from odoo.addons.website_sale.controllers.variant import WebsiteSaleVariantController
+from odoo.tools import is_html_empty
 from markupsafe import Markup
 
 
@@ -12,13 +13,11 @@ class CustomWebsiteSaleVariantController(WebsiteSaleVariantController):
             product_template_id, product_id, combination, add_qty, **kw
         )
         website = request.env['website'].get_current_website()
-        if website.id == 3:
-            print(combination)
-            combination['allow_out_of_stock_order'] = False
+        if not is_html_empty(website.default_out_of_stock_message):
+            combination['allow_out_of_stock_order'] = True
             combination['show_availability'] = True
             combination['available_threshold'] = 100
-        else:
-            print(combination)
-            combination['allow_out_of_stock_order'] = True
-            combination['show_availability'] = False
+            if is_html_empty(combination.get('out_of_stock_message')):
+                combination['out_of_stock_message'] = website.default_out_of_stock_message
+
         return combination

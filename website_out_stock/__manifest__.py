@@ -13,7 +13,11 @@
         'website_sale',
         'website_sale_stock',
     ],
-    'data': ['views/product_template_stock.xml', ],
+    'data': [
+        'data/product_ribbon_data.xml',
+        'views/product_template_stock.xml',
+        'views/res_config_settings_views.xml',
+    ],
     'assets': {
         'web.assets_frontend': [
             # Ruta relativa desde la raíz del módulo
