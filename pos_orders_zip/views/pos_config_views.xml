@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_config_view_form_zip" model="ir.ui.view">
+        <field name="name">pos.config.form.zip</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <setting id="other_devices" position="before">
+                <setting id="ask_walkin_zip_code_setting"
+                         string="Solicitar código postal"
+                         help="Al cobrar al cliente CONTADO, se pedirá el código postal antes de confirmar la venta (se puede omitir)">
+                    <field name="ask_walkin_zip_code"/>
+                </setting>
+            </setting>
+        </field>
+    </record>
+</odoo>

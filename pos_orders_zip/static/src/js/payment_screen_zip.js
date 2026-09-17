@@ -94,16 +94,20 @@ patch(PaymentScreen.prototype, {
         const order = this.currentOrder;
         const partner = order.get_partner();
 
+        // Ajuste de la caja: si no está marcado, no se pide el código postal
+        const askZipCode = Boolean(this.pos.config.ask_walkin_zip_code);
+
         // Verificar si es cliente contado
         const partnerName = partner ? (partner.name || '').toUpperCase() : '';
         const isWalkInCustomer = partnerName.includes('CONTADO');
 
         console.log('📋 Cliente:', partnerName);
         console.log('🔍 Es cliente contado:', isWalkInCustomer);
+        console.log('⚙️ Ajuste "Solicitar código postal" activo:', askZipCode);
         console.log('📮 Código postal actual:', order.walkin_zip_code);
 
-        // Si es cliente contado y no tiene código postal, solicitar
-        if (isWalkInCustomer && !order.walkin_zip_code) {
+        // Si el ajuste está activo, es cliente contado y no tiene código postal, solicitar
+        if (askZipCode && isWalkInCustomer && !order.walkin_zip_code) {
             console.log('✅ Mostrando diálogo de código postal');
 
             try {
